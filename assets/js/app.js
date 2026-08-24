@@ -357,6 +357,9 @@ function renderHomePage() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
     <!-- OPPORTUNITIES & ENGAGEMENT: LAND PARTNERSHIP & VOLUNTEERS -->
     <section class="section section-bg-light" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
       <div class="container">
