@@ -89,20 +89,34 @@
         <ul class="nav-list">
           <li><a href="#home" class="nav-link active" data-page="home"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
           <li><a href="#about" class="nav-link" data-page="about"><i class="fa-solid fa-circle-info"></i> عن المشروع</a></li>
-          <li><a href="#science" class="nav-link" data-page="science"><i class="fa-solid fa-flask"></i> الأزولا</a></li>
-          <li><a href="#services" class="nav-link" data-page="services"><i class="fa-solid fa-calculator"></i> الخدمات والحاسبات</a></li>
+          <li><a href="#science" class="nav-link" data-page="science"><i class="fa-solid fa-flask"></i> سرخس الأزولا</a></li>
+          <li><a href="#services" class="nav-link nav-link-calc" data-page="services"><i class="fa-solid fa-calculator"></i> الخدمات والحاسبات</a></li>
           <li><a href="#news" class="nav-link" data-page="news"><i class="fa-solid fa-newspaper"></i> أخبارنا والمدونة</a></li>
           <li><a href="#academy" class="nav-link" data-page="academy"><i class="fa-solid fa-graduation-cap"></i> الأكاديمية</a></li>
-          <li><a href="#impact" class="nav-link" data-page="impact"><i class="fa-solid fa-earth-africa"></i> الأثر والتمكين</a></li>
-          <li><a href="#partners" class="nav-link" data-page="partners"><i class="fa-solid fa-handshake"></i> الشركاء</a></li>
-          <li><a href="#media" class="nav-link" data-page="media"><i class="fa-solid fa-images"></i> المعرض الميداني</a></li>
-          <li><a href="#contact" class="nav-link" data-page="contact"><i class="fa-solid fa-phone"></i> تواصل</a></li>
-          <li><a href="#privacy" class="nav-link" data-page="privacy"><i class="fa-solid fa-shield-halved"></i> الخصوصية والحوكمة</a></li>
+          
+          <!-- Dropdown for institutional and secondary pages -->
+          <li class="nav-dropdown">
+            <button type="button" class="nav-dropdown-btn" id="nav-more-btn" aria-haspopup="true" aria-expanded="false">
+              <span>المزيد</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.72rem;"></i>
+            </button>
+            <div class="nav-dropdown-menu" role="menu">
+              <a href="#impact" class="nav-dropdown-item" data-page="impact" role="menuitem"><i class="fa-solid fa-earth-africa text-emerald"></i> الأثر والتمكين</a>
+              <a href="#partners" class="nav-dropdown-item" data-page="partners" role="menuitem"><i class="fa-solid fa-handshake text-gold"></i> الشركاء المؤسسيون</a>
+              <a href="#media" class="nav-dropdown-item" data-page="media" role="menuitem"><i class="fa-solid fa-images text-primary"></i> المعرض الميداني</a>
+              <a href="#contact" class="nav-dropdown-item" data-page="contact" role="menuitem"><i class="fa-solid fa-phone text-azure"></i> تواصل معنا</a>
+              <a href="#privacy" class="nav-dropdown-item" data-page="privacy" role="menuitem"><i class="fa-solid fa-shield-halved text-emerald"></i> الخصوصية والحوكمة</a>
+            </div>
+          </li>
         </ul>
       </nav>
 
-      <!-- Header Actions: Theme Switcher & Direct WhatsApp -->
+      <!-- Header Actions: WhatsApp CTA, Theme Switcher & Mobile Toggle -->
       <div class="header-actions">
+        <!-- Quick WhatsApp Button -->
+        <a href="https://wa.me/201026847508" target="_blank" rel="noopener" class="btn btn-emerald btn-sm header-cta-btn" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.42rem 0.85rem; font-size: 0.82rem; font-weight: 800; border-radius: var(--radius-full);" title="تواصل واتساب المباشر">
+          <i class="fa-brands fa-whatsapp" style="font-size: 0.95rem;"></i> تواصل
+        </a>
+
         <!-- Theme Toggle Button -->
         <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()" aria-label="تبديل المظهر" title="تبديل الوضع الليلي / النهاري">
           <i class="fa-solid fa-moon" id="theme-icon"></i>
@@ -1170,6 +1184,9 @@
                 <button type="button" class="wt-pill-btn active" id="wt-btn-month" onclick="setAnalyticsTimeframe('month')">Month (شهر)</button>
                 <button type="button" class="wt-pill-btn" id="wt-btn-year" onclick="setAnalyticsTimeframe('year')">Year (سنة)</button>
                 <button type="button" class="wt-pill-btn" id="wt-btn-total" onclick="setAnalyticsTimeframe('total')">Total (الإجمالي)</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="resetAnalyticsToZero()" style="padding: 0.3rem 0.75rem; font-size: 0.78rem; border-radius: var(--radius-full); font-weight: 800; margin-right: 0.4rem;" title="تصفير كافة الإحصائيات وبدء الحساب الفعلي من الصفر">
+                  <i class="fa-solid fa-rotate-left"></i> تصفير الإحصائيات (0)
+                </button>
               </div>
             </div>
 
@@ -1179,17 +1196,17 @@
               <!-- Card 1: Unique Pageviews -->
               <div class="wt-metric-card">
                 <div class="wt-metric-header">
-                  <span class="wt-metric-label">إجمالي المشاهدات الفريدة (Total Pageviews)</span>
+                  <span class="wt-metric-label">إجمالي المشاهدات الحقيقية (Total Pageviews)</span>
                   <i class="fa-solid fa-eye text-primary"></i>
                 </div>
-                <div class="wt-metric-val" id="wt-stat-views">622,480</div>
+                <div class="wt-metric-val" id="wt-stat-views">0</div>
                 <div class="wt-sparkline-box">
                   <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
-                    <path d="M0,32 Q25,28 45,20 T90,26 T130,12 T160,8" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0,32 L160,32" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div class="wt-metric-footer">
-                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-up"></i> +14.8%</span> مقارنة بالشهر السابق
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-shield-check"></i> حساب فعلي 100%</span> يبدأ من الصفر
                 </div>
               </div>
 
@@ -1199,14 +1216,14 @@
                   <span class="wt-metric-label">متوسط وقت التصفح (Avg Time on Page)</span>
                   <i class="fa-solid fa-clock text-primary"></i>
                 </div>
-                <div class="wt-metric-val" id="wt-stat-time">29.8s</div>
+                <div class="wt-metric-val" id="wt-stat-time">0s</div>
                 <div class="wt-sparkline-box">
                   <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
-                    <path d="M0,20 Q30,10 65,24 T110,14 T140,22 T160,16" fill="none" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0,32 L160,32" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div class="wt-metric-footer">
-                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-up"></i> +6.2%</span> زيادة التفاعل القرائي
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-stopwatch"></i> قياس زمني دقيق</span> مدة بقاء الزوار
                 </div>
               </div>
 
@@ -1216,14 +1233,14 @@
                   <span class="wt-metric-label">معدل الخروج (Page Exit %)</span>
                   <i class="fa-solid fa-arrow-right-from-bracket text-primary"></i>
                 </div>
-                <div class="wt-metric-val" id="wt-stat-exit">16.4%</div>
+                <div class="wt-metric-val" id="wt-stat-exit">0%</div>
                 <div class="wt-sparkline-box">
                   <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
-                    <path d="M0,15 Q35,28 75,18 T120,28 T160,32" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0,32 L160,32" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div class="wt-metric-footer">
-                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-down"></i> -3.1%</span> انخفاض معدل الارتداد
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-chart-pie"></i> نسبة الارتداد الحقيقية</span>
                 </div>
               </div>
 
@@ -1233,14 +1250,14 @@
                   <span class="wt-metric-label">مرات تشغيل الحاسبات الذكية (Calculator Runs)</span>
                   <i class="fa-solid fa-calculator text-primary"></i>
                 </div>
-                <div class="wt-metric-val" id="wt-stat-calc">1,420</div>
+                <div class="wt-metric-val" id="wt-stat-calc">0</div>
                 <div class="wt-sparkline-box">
                   <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
-                    <path d="M0,30 Q30,22 60,34 T110,10 T140,18 T160,6" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M0,32 L160,32" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div class="wt-metric-footer">
-                  <span class="text-emerald font-bold"><i class="fa-solid fa-bolt text-gold"></i> 78.4%</span> معدل إتمام حساب الجدوى
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-bolt text-gold"></i> تشغيل تفاعلي مباشر</span> لحاسبات الأعلاف والمياه
                 </div>
               </div>
 
@@ -1256,28 +1273,28 @@
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Desktop (كمبيوتر مكتبي)</span>
-                      <strong id="wt-device-desktop-val">58%</strong>
+                      <strong id="wt-device-desktop-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" id="wt-device-desktop-fill" style="width: 58%; background: #0F4C81;"></div>
+                      <div class="wt-progress-fill" id="wt-device-desktop-fill" style="width: 0%; background: #0F4C81;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Mobile (الهواتف الذكية)</span>
-                      <strong id="wt-device-mobile-val">36%</strong>
+                      <strong id="wt-device-mobile-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" id="wt-device-mobile-fill" style="width: 36%; background: #059669;"></div>
+                      <div class="wt-progress-fill" id="wt-device-mobile-fill" style="width: 0%; background: #059669;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Tablet (الأجهزة اللوحية)</span>
-                      <strong id="wt-device-tablet-val">6%</strong>
+                      <strong id="wt-device-tablet-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" id="wt-device-tablet-fill" style="width: 6%; background: #38BDF8;"></div>
+                      <div class="wt-progress-fill" id="wt-device-tablet-fill" style="width: 0%; background: #38BDF8;"></div>
                     </div>
                   </div>
                 </div>
@@ -1290,46 +1307,46 @@
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Organic Search (محركات البحث)</span>
-                      <strong>42%</strong>
+                      <strong id="wt-chan-organic-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" style="width: 42%; background: #059669;"></div>
+                      <div class="wt-progress-fill" id="wt-chan-organic-fill" style="width: 0%; background: #059669;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Direct (الزيارات المباشرة)</span>
-                      <strong>28%</strong>
+                      <strong id="wt-chan-direct-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" style="width: 28%; background: #0F4C81;"></div>
+                      <div class="wt-progress-fill" id="wt-chan-direct-fill" style="width: 0%; background: #0F4C81;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Social Media (وسائل التواصل والواتساب)</span>
-                      <strong>18%</strong>
+                      <strong id="wt-chan-social-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" style="width: 18%; background: #25D366;"></div>
+                      <div class="wt-progress-fill" id="wt-chan-social-fill" style="width: 0%; background: #25D366;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Referral (مواقع الجمعيات الشريكة)</span>
-                      <strong>8%</strong>
+                      <strong id="wt-chan-referral-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" style="width: 8%; background: #D97706;"></div>
+                      <div class="wt-progress-fill" id="wt-chan-referral-fill" style="width: 0%; background: #D97706;"></div>
                     </div>
                   </div>
                   <div class="wt-bar-item">
                     <div class="wt-bar-label-row">
                       <span>Paid / Campaigns (حملات التوعية)</span>
-                      <strong>4%</strong>
+                      <strong id="wt-chan-paid-val">0% (0)</strong>
                     </div>
                     <div class="wt-progress-track">
-                      <div class="wt-progress-fill" style="width: 4%; background: #6366F1;"></div>
+                      <div class="wt-progress-fill" id="wt-chan-paid-fill" style="width: 0%; background: #6366F1;"></div>
                     </div>
                   </div>
                 </div>

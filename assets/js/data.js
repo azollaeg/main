@@ -607,31 +607,35 @@ const DEFAULT_AZOLLA_DATA = {
     }
   },
 
-  /* Web Traffic & User Interactions Analytics Engine Data */
+  /* Web Traffic & User Interactions Analytics Engine Data (100% Real Tracking Starting at 0) */
   analytics: {
-    totalViews: 622480,
-    uniqueVisitors: 485120,
-    avgTimeOnPage: 29.8,
-    pageExitPct: 16.4,
-    bouncePct: 21.6,
-    calculatorRuns: 1420,
-    waterCalculatorRuns: 890,
+    totalViews: 0,
+    uniqueVisitors: 0,
+    totalSecondsOnSite: 0,
+    avgTimeOnPage: 0,
+    pageExitPct: 0,
+    bouncePct: 0,
+    calculatorRuns: 0,
+    feedCalculatorRuns: 0,
+    waterCalculatorRuns: 0,
+    basinCalculatorRuns: 0,
+    carbonCalculatorRuns: 0,
     deviceSessions: {
-      desktop: 58,
-      mobile: 36,
-      tablet: 6
+      desktop: 0,
+      mobile: 0,
+      tablet: 0
     },
     trafficChannels: {
-      organic: 42,
-      direct: 28,
-      social: 18,
-      referral: 8,
-      paid: 4
+      organic: 0,
+      direct: 0,
+      social: 0,
+      referral: 0,
+      paid: 0
     },
     timeline: {
       months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-      sessionsMonth: [12400, 15800, 22100, 29400, 38200, 44100, 52300, 61800, 68900, 74200, 81500, 89200],
-      sessionsYear: [145000, 280000, 410000, 622480],
+      sessionsMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      sessionsYear: [0, 0, 0, 0],
       years: ['2023', '2024', '2025', '2026']
     },
     recentEvents: []
@@ -787,8 +791,9 @@ function getAzollaState() {
       if (!parsed.newsArticles || !Array.isArray(parsed.newsArticles)) {
         parsed.newsArticles = DEFAULT_AZOLLA_DATA.newsArticles;
       }
-      if (!parsed.analytics) {
-        parsed.analytics = DEFAULT_AZOLLA_DATA.analytics;
+      if (!parsed.analytics || parsed.analytics.totalViews > 1000 || !('feedCalculatorRuns' in parsed.analytics)) {
+        parsed.analytics = JSON.parse(JSON.stringify(DEFAULT_AZOLLA_DATA.analytics));
+        localStorage.setItem('AZOLLA_STORAGE_V8', JSON.stringify(parsed));
       }
       if (!parsed.sitePages) {
         parsed.sitePages = DEFAULT_AZOLLA_DATA.sitePages;
