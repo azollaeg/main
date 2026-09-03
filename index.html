@@ -1172,7 +1172,7 @@
           <!-- TAB 1: WEB TRAFFIC & ADVANCED ANALYTICS (Matches Reference Dashboard) -->
           <div id="cms-panel-overview">
             
-            <!-- Dashboard Top Header with Period Filters -->
+            <!-- Dashboard Top Header with Period Filters & PDF Report Download -->
             <div class="wt-header-row">
               <div>
                 <h3 class="wt-dashboard-title">
@@ -1180,13 +1180,18 @@
                 </h3>
                 <p class="wt-dashboard-subtitle">لوحة مؤشرات الأداء الحية، تتبع المشاهدات، واستخدام الحاسبات الذكية لمنظومة أزولا مصر</p>
               </div>
-              <div class="wt-period-pills">
-                <button type="button" class="wt-pill-btn active" id="wt-btn-month" onclick="setAnalyticsTimeframe('month')">Month (شهر)</button>
-                <button type="button" class="wt-pill-btn" id="wt-btn-year" onclick="setAnalyticsTimeframe('year')">Year (سنة)</button>
-                <button type="button" class="wt-pill-btn" id="wt-btn-total" onclick="setAnalyticsTimeframe('total')">Total (الإجمالي)</button>
-                <button type="button" class="btn btn-sm btn-outline-danger" onclick="resetAnalyticsToZero()" style="padding: 0.3rem 0.75rem; font-size: 0.78rem; border-radius: var(--radius-full); font-weight: 800; margin-right: 0.4rem;" title="تصفير كافة الإحصائيات وبدء الحساب الفعلي من الصفر">
-                  <i class="fa-solid fa-rotate-left"></i> تصفير الإحصائيات (0)
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-sm btn-emerald" onclick="downloadMonthlyReportPdf()" style="padding: 0.35rem 0.85rem; font-size: 0.78rem; border-radius: var(--radius-full); font-weight: 800; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);" title="تحميل التقرير الشهري الشامل بصيغة PDF">
+                  <i class="fa-solid fa-file-pdf"></i> تحميل تقرير شهري PDF
                 </button>
+                <div class="wt-period-pills">
+                  <button type="button" class="wt-pill-btn active" id="wt-btn-month" onclick="setAnalyticsTimeframe('month')">Month (شهر)</button>
+                  <button type="button" class="wt-pill-btn" id="wt-btn-year" onclick="setAnalyticsTimeframe('year')">Year (سنة)</button>
+                  <button type="button" class="wt-pill-btn" id="wt-btn-total" onclick="setAnalyticsTimeframe('total')">Total (الإجمالي)</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger" onclick="resetAnalyticsToZero()" style="padding: 0.3rem 0.75rem; font-size: 0.78rem; border-radius: var(--radius-full); font-weight: 800; margin-right: 0.4rem;" title="تصفير كافة الإحصائيات وبدء الحساب الفعلي من الصفر">
+                    <i class="fa-solid fa-rotate-left"></i> تصفير الإحصائيات (0)
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1802,6 +1807,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="./assets/js/html2pdf.bundle.min.js"></script>
   <script src="./assets/js/data.js"></script>
   <script src="./assets/js/app.js"></script>
 </body>

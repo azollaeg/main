@@ -1994,6 +1994,13 @@ button {
     padding-bottom: 0.75rem !important;
   }
 
+  .wt-header-row .btn-emerald {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem !important;
+  }
+
   .wt-dashboard-title {
     font-size: 1.15rem !important;
   }

@@ -2363,14 +2363,280 @@ function trackCalculatorUsage(calcType) {
   window.saveAzollaState(window.AZOLLA_DATA);
 }
 
-function resetAnalyticsToZero() {
-  if (!confirm('هل أنت متأكد من رغبتك في تصفير كافة إحصائيات حركة المرور والبدء من 0؟')) return;
-  window.AZOLLA_DATA.analytics = JSON.parse(JSON.stringify(window.DEFAULT_AZOLLA_DATA.analytics));
-  window.saveAzollaState(window.AZOLLA_DATA);
-  sessionStorage.removeItem('AZOLLA_SESSION_ACTIVE');
-  sessionStorage.removeItem('AZOLLA_SESSION_PAGES');
-  renderAnalyticsDashboard();
-  showToast('✅ تم تصفير كافة الإحصائيات وبدء الحساب الفعلي من الصفر!');
+function downloadMonthlyReportPdf() {
+  const a = window.AZOLLA_DATA?.analytics || {};
+  const now = new Date();
+  const monthNames = [
+    'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+  ];
+  const currentMonthIdx = now.getMonth();
+  const currentMonthName = monthNames[currentMonthIdx];
+  const currentYear = now.getFullYear();
+  const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+  const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+  const reportFileName = `تقرير_أداء_مشروع_أزولا_مصر_${currentMonthName}_${currentYear}.pdf`;
+
+  // Gather Monthly & Cumulative Analytics Stats
+  const monthViews = (a.timeline?.sessionsMonth && a.timeline.sessionsMonth[currentMonthIdx] !== undefined)
+    ? a.timeline.sessionsMonth[currentMonthIdx]
+    : (a.totalViews || 0);
+  const totalViews = a.totalViews || 0;
+  const uniqueVisitors = a.uniqueVisitors || 0;
+  const avgTime = a.avgTimeOnPage ? `${a.avgTimeOnPage}s` : '0s';
+  const pageExitPct = a.pageExitPct ? `${a.pageExitPct}%` : '0%';
+  const calcRuns = a.calculatorRuns || 0;
+  const feedRuns = a.feedCalculatorRuns || 0;
+  const waterRuns = a.waterCalculatorRuns || 0;
+  const basinRuns = a.basinCalculatorRuns || 0;
+  const carbonRuns = a.carbonCalculatorRuns || 0;
+
+  // Real Device breakdown
+  const ds = a.deviceSessions || { desktop: 0, mobile: 0, tablet: 0 };
+  const totalDev = (ds.desktop || 0) + (ds.mobile || 0) + (ds.tablet || 0);
+  const deskPct = totalDev > 0 ? Math.round((ds.desktop / totalDev) * 100) : 0;
+  const mobPct = totalDev > 0 ? Math.round((ds.mobile / totalDev) * 100) : 0;
+  const tabPct = totalDev > 0 ? Math.max(0, 100 - deskPct - mobPct) : 0;
+
+  // Real Traffic channels breakdown
+  const tc = a.trafficChannels || { organic: 0, direct: 0, social: 0, referral: 0, paid: 0 };
+  const totalChan = (tc.organic || 0) + (tc.direct || 0) + (tc.social || 0) + (tc.referral || 0) + (tc.paid || 0);
+  const orgPct = totalChan > 0 ? Math.round((tc.organic / totalChan) * 100) : 0;
+  const dirPct = totalChan > 0 ? Math.round((tc.direct / totalChan) * 100) : 0;
+  const socPct = totalChan > 0 ? Math.round((tc.social / totalChan) * 100) : 0;
+  const refPct = totalChan > 0 ? Math.round((tc.referral / totalChan) * 100) : 0;
+  const padPct = totalChan > 0 ? Math.max(0, 100 - orgPct - dirPct - socPct - refPct) : 0;
+
+  showToast('📄 جاري إعداد وتوليد التقرير الشهري PDF...');
+
+  // Create temporary container for PDF rendering
+  const reportContainer = document.createElement('div');
+  reportContainer.id = 'temp-pdf-report-container';
+  reportContainer.setAttribute('dir', 'rtl');
+  reportContainer.style.position = 'absolute';
+  reportContainer.style.left = '-9999px';
+  reportContainer.style.top = '0';
+  reportContainer.style.width = '790px'; // A4 width at 96 DPI
+  reportContainer.style.background = '#FFFFFF';
+  reportContainer.style.color = '#0F172A';
+  reportContainer.style.fontFamily = "'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif";
+  reportContainer.style.padding = '24px 28px';
+  reportContainer.style.boxSizing = 'border-box';
+
+  reportContainer.innerHTML = `
+    <div style="border: 2px solid #064E3B; border-radius: 8px; padding: 20px; background: #FFFFFF;">
+      
+      <!-- Top Institutional Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #059669; padding-bottom: 14px; margin-bottom: 16px;">
+        <div style="text-align: right;">
+          <h2 style="font-size: 16px; font-weight: 900; color: #064E3B; margin: 0 0 4px 0;">مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر</h2>
+          <p style="font-size: 11px; color: #475569; margin: 0; line-height: 1.4;">
+            بدعم تنموي من: <strong>برنامج المنح الصغيرة (SGP/GEF/UNDP)</strong><br>
+            تنفيذ: <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> ومزارع فرع أسوان التكاملية
+          </p>
+        </div>
+        <div style="text-align: left;">
+          <span style="display: inline-block; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800;">
+            تقرير إداري شهري معتمد
+          </span>
+          <div style="font-size: 10px; color: #64748B; margin-top: 4px;">
+            تاريخ الإصدار: ${dateStr} (${timeStr})
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Banner Title -->
+      <div style="background: linear-gradient(135deg, #064E3B 0%, #047857 100%); color: #FFFFFF; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h3 style="font-size: 14px; font-weight: 900; margin: 0; color: #FFFFFF;">
+            تقرير مؤشرات الأداء والتحليلات الرقمية – شهر ${currentMonthName} ${currentYear}
+          </h3>
+          <p style="font-size: 10px; color: #D1FAE5; margin: 2px 0 0 0;">
+            ملخص تفاعلي يرصد حركة المرور، الزوار، واستخدام الحاسبات الميدانية لخفض تكلفة الأعلاف وصون الموارد المائية
+          </p>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; color: #FDE68A;">
+          ${currentMonthName} ${currentYear}
+        </div>
+      </div>
+
+      <!-- 4 KPI Cards Grid -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px;">
+        <div style="border: 1px solid #E2E8F0; border-top: 3px solid #059669; border-radius: 6px; padding: 10px; background: #F8FAFC; text-align: center;">
+          <div style="font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 4px;">مشاهدات هذا الشهر</div>
+          <div style="font-size: 20px; font-weight: 900; color: #064E3B;">${monthViews.toLocaleString()}</div>
+          <div style="font-size: 9px; color: #059669; font-weight: 700; margin-top: 2px;">إجمالي المنصة: ${totalViews.toLocaleString()}</div>
+        </div>
+
+        <div style="border: 1px solid #E2E8F0; border-top: 3px solid #0284C7; border-radius: 6px; padding: 10px; background: #F8FAFC; text-align: center;">
+          <div style="font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 4px;">الزوار الفريدون</div>
+          <div style="font-size: 20px; font-weight: 900; color: #0369A1;">${uniqueVisitors.toLocaleString()}</div>
+          <div style="font-size: 9px; color: #0284C7; font-weight: 700; margin-top: 2px;">أجهزة محددة مستقلة</div>
+        </div>
+
+        <div style="border: 1px solid #E2E8F0; border-top: 3px solid #D97706; border-radius: 6px; padding: 10px; background: #F8FAFC; text-align: center;">
+          <div style="font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 4px;">متوسط وقت التصفح</div>
+          <div style="font-size: 20px; font-weight: 900; color: #B45309;">${avgTime}</div>
+          <div style="font-size: 9px; color: #D97706; font-weight: 700; margin-top: 2px;">معدل الخروج: ${pageExitPct}</div>
+        </div>
+
+        <div style="border: 1px solid #E2E8F0; border-top: 3px solid #10B981; border-radius: 6px; padding: 10px; background: #F8FAFC; text-align: center;">
+          <div style="font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 4px;">تشغيل الحاسبات الذكية</div>
+          <div style="font-size: 20px; font-weight: 900; color: #047857;">${calcRuns.toLocaleString()}</div>
+          <div style="font-size: 9px; color: #10B981; font-weight: 700; margin-top: 2px;">تفاعل حسابي مباشر</div>
+        </div>
+      </div>
+
+      <!-- Two Tables Row: Calculators & Traffic -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        
+        <!-- Table 1: Calculators Breakdown -->
+        <div style="border: 1px solid #CBD5E1; border-radius: 6px; overflow: hidden;">
+          <div style="background: #064E3B; color: #FFFFFF; padding: 6px 10px; font-size: 11px; font-weight: 800;">
+            📊 تفصيل استخدام الحاسبات الميدانية الذكية
+          </div>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">حاسبة توفير وتكاليف الأعلاف</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #064E3B; text-align: left;">${feedRuns} عملية</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E2E8F0;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">حاسبة صون الموارد المائية</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #0284C7; text-align: left;">${waterRuns} عملية</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">حاسبة مساحة وإنتاجية الحوض</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #D97706; text-align: left;">${basinRuns} عملية</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">حاسبة خفض البصمة الكربونية</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #059669; text-align: left;">${carbonRuns} عملية</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table 2: Device & Channel Breakdown -->
+        <div style="border: 1px solid #CBD5E1; border-radius: 6px; overflow: hidden;">
+          <div style="background: #0F4C81; color: #FFFFFF; padding: 6px 10px; font-size: 11px; font-weight: 800;">
+            📱 توزيع الأجهزة وقنوات الوصول الرئيسية
+          </div>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+            <tbody>
+              <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">الهواتف الذكية (Mobile)</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #0F4C81; text-align: left;">${mobPct}% (${ds.mobile || 0})</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E2E8F0;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">الكمبيوتر المكتبي (Desktop)</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #0F4C81; text-align: left;">${deskPct}% (${ds.desktop || 0})</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #E2E8F0; background: #F8FAFC;">
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">الوصول المباشر ومحركات البحث</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #059669; text-align: left;">${orgPct + dirPct}%</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 10px; font-weight: 700; color: #334155;">التواصل الاجتماعي والواتساب والمشاركات</td>
+                <td style="padding: 6px 10px; font-weight: 900; color: #25D366; text-align: left;">${socPct + refPct}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Environmental & Economic Impact Box -->
+      <div style="border: 1px solid #BBF7D0; background: #F0FDF4; border-radius: 6px; padding: 12px 14px; margin-bottom: 16px;">
+        <h4 style="font-size: 12px; font-weight: 900; color: #065F46; margin: 0 0 6px 0;">
+          🌱 ملخص الأثر الاقتصادي والبيئي التقديري لمنظومة أزولا مصر:
+        </h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 10px; color: #166534; line-height: 1.4;">
+          <div style="background: #FFFFFF; border: 1px solid #86EFAC; border-radius: 4px; padding: 6px 8px;">
+            <strong>تخفيض تكلفة الأعلاف:</strong> حتى 60% عند استخدام الأزولا كبديل جزئي للأعلاف المركزة لمربي المواشي والدواجن.
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #86EFAC; border-radius: 4px; padding: 6px 8px;">
+            <strong>صون الموارد المائية:</strong> وفر يصل إلى 88% مقارنة بالزراعات التقليدية كالبرسيم الحجازي بفضل نظام التدوير والإنتاج المغلق.
+          </div>
+          <div style="background: #FFFFFF; border: 1px solid #86EFAC; border-radius: 4px; padding: 6px 8px;">
+            <strong>نقل وتوطين المعرفة:</strong> توفير 12 برنامجاً تدريبياً عبر الأكاديمية ونماذج إرشادية للمزارعين وصغار المربين.
+          </div>
+        </div>
+      </div>
+
+      <!-- Official Authentication Footer & Stamp -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #CBD5E1; padding-top: 12px;">
+        <div style="font-size: 10px; color: #64748B; line-height: 1.5;">
+          <strong>اعتماد:</strong> المنظومة الرقمية المركزية لمشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر.<br>
+          جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752) | مزارع أسوان التكاملية.<br>
+          <span style="color: #059669; font-weight: 700;">الموقع الإلكتروني الرسمي: azollaegypt.org | الشريك الرقمي: NGO HUB</span>
+        </div>
+        <div style="text-align: center; border: 2px dashed #059669; border-radius: 50%; width: 76px; height: 76px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #065F46; transform: rotate(-8deg);">
+          <span style="font-size: 8px; font-weight: 900;">معتمد رسمياً</span>
+          <span style="font-size: 9px; font-weight: 900;">أزولا مصر</span>
+          <span style="font-size: 7px; color: #047857;">${currentYear}</span>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(reportContainer);
+
+  if (window.html2pdf) {
+    const opt = {
+      margin: [6, 6, 6, 6],
+      filename: reportFileName,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    window.html2pdf().set(opt).from(reportContainer).save().then(() => {
+      if (reportContainer.parentNode) reportContainer.parentNode.removeChild(reportContainer);
+      showToast('✅ تم تحميل تقرير PDF الشهري بنجاح!');
+    }).catch(err => {
+      console.warn('html2pdf generation error, using print fallback:', err);
+      triggerPrintFallback(reportContainer, reportFileName);
+    });
+  } else {
+    triggerPrintFallback(reportContainer, reportFileName);
+  }
+}
+
+function triggerPrintFallback(container, filename) {
+  const printWindow = window.open('', '_blank', 'width=840,height=900');
+  if (!printWindow) {
+    alert('يرجى السماح بالنوافذ المنبثقة (Popups) لحفظ التقرير كـ PDF');
+    if (container.parentNode) container.parentNode.removeChild(container);
+    return;
+  }
+  printWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl">
+    <head>
+      <meta charset="UTF-8">
+      <title>${filename}</title>
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+      <style>
+        body { font-family: 'Cairo', sans-serif; margin: 0; padding: 20px; background: #FFF; color: #0F172A; }
+        @media print {
+          @page { size: A4 portrait; margin: 8mm; }
+          body { padding: 0; }
+        }
+      </style>
+    </head>
+    <body>
+      ${container.innerHTML}
+      <script>
+        window.onload = function() {
+          window.print();
+        };
+      <\/script>
+    </body>
+    </html>
+  `);
+  printWindow.document.close();
+  if (container.parentNode) container.parentNode.removeChild(container);
 }
 
 function setAnalyticsTimeframe(tf) {
