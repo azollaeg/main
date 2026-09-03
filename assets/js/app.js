@@ -73,6 +73,7 @@ function navigateTo(pageKey) {
 
   if (pageKey === 'home') {
     animateCounters();
+    initCalculators();
   } else if (pageKey === 'services') {
     initCalculators();
   }
@@ -230,33 +231,8 @@ function renderHomePage() {
       </div>
     </section>
 
-    <section class="section section-bg-white">
-      <div class="container">
-        <div class="smart-hub-header-card">
-          <div>
-            <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;">
-              حاسبات الأعلاف والإنتاج والـ ROI التفاعلية
-            </h2>
-            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 620px;">
-              طُوّرت هذه الحاسبات بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، خلطات الأعلاف للمواشي والطيور، وحساب الوفر المالي لحظياً.
-            </p>
-          </div>
-
-          <div style="text-align: center;">
-            <div class="smart-hub-logo-tag">
-              <img src="./assets/images/logo_ngohub.png" alt="NGO HUB Logo" style="height: 38px;">
-              <div style="text-align: right;">
-                <div style="font-weight: 800; font-size: 0.9rem; color: #FFFFFF;">NGO HUB</div>
-                <div style="font-size: 0.72rem; color: #A7F3D0;">Digital Tech Partner</div>
-              </div>
-            </div>
-            <a href="#services" class="btn btn-gold" style="margin-top: 1rem; width: 100%;">
-              <i class="fa-solid fa-calculator"></i> افتح الحاسبات التفاعلية
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- INTERACTIVE CALCULATORS SUITE (Directly Visible on Home / Landing) -->
+    ${renderCalculatorsSection(true)}
 
     <section class="section section-bg-light">
       <div class="container">
@@ -548,26 +524,20 @@ function renderSciencePage() {
   `;
 }
 
-function renderServicesPage() {
+function renderCalculatorsSection(isHome = false) {
   return `
-    <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
-      <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">الخدمات الفنية والحاسبات الزراعية الذكية</h1>
-        <p class="hero-lead-text">
-          خدمات إنشاء المزارع، توفير التقاوي، الإشراف الفني، والحاسبات التفاعلية المبرمجة بالتعاون مع <strong>NGO HUB</strong>.
-        </p>
-      </div>
-    </header>
-
-    <section class="section section-bg-white">
+    <section class="section section-bg-white" id="interactive-calculators">
       <div class="container">
         <div class="smart-hub-header-card">
           <div>
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); color: #FDE68A; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 0.75rem;">
+              <i class="fa-solid fa-microchip"></i> بوابة الحاسبات الزراعية الذكية 2026
+            </div>
             <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;">
-              بوابة الحاسبات التفاعلية لاتخاذ القرار الزراعي
+              حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)
             </h2>
             <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 650px;">
-              تتيح لك هذه الحاسبات الذكية حساب التقاوي، الإنتاجية المتوقعة، خلطات الأعلاف للمواشي والطيور، والوفر المالي المباشر في ثوانٍ معدودة.
+              طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.
             </p>
           </div>
 
@@ -575,30 +545,30 @@ function renderServicesPage() {
             <img src="./assets/images/logo_ngohub.png" alt="NGO HUB Logo" style="height: 38px;">
             <div style="text-align: right;">
               <div style="font-weight: 800; font-size: 0.9rem; color: #FFFFFF;">NGO HUB</div>
-              <div style="font-size: 0.72rem; color: #A7F3D0;">Technology Builder</div>
+              <div style="font-size: 0.72rem; color: #A7F3D0;">Digital Tech Partner</div>
             </div>
           </div>
         </div>
 
         <div class="calc-nav-tabs">
           <button class="calc-tab-btn active" onclick="switchCalcTab('tab-basin', this)">
-            <i class="fa-solid fa-compass-drafting"></i> 1. حاسبة تصميم الأحواض والإنتاج
+            <i class="fa-solid fa-compass-drafting"></i> 1. تصميم الأحواض والإنتاج
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-feed', this)">
-            <i class="fa-solid fa-cow"></i> 2. حاسبة خلط عليقة الأعلاف
+            <i class="fa-solid fa-cow"></i> 2. خلط عليقة الأعلاف
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-water', this)">
-            <i class="fa-solid fa-droplet text-azure"></i> 3. حاسبة صون وتوفير المياه
+            <i class="fa-solid fa-droplet text-azure"></i> 3. صون وتوفير المياه
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-carbon', this)">
-            <i class="fa-solid fa-leaf"></i> 4. حاسبة خفض الانبعاثات
+            <i class="fa-solid fa-leaf"></i> 4. خفض الانبعاثات
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-roi', this)">
-            <i class="fa-solid fa-chart-pie"></i> 5. حاسبة العائد الاستثماري
+            <i class="fa-solid fa-chart-pie"></i> 5. العائد الاستثماري (ROI)
           </button>
         </div>
 
-        <!-- BASIN CALC -->
+        <!-- 1. BASIN CALC -->
         <div id="tab-basin" class="calculator-box">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
             <i class="fa-solid fa-water text-azure"></i> حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي
@@ -644,7 +614,7 @@ function renderServicesPage() {
           </div>
         </div>
 
-        <!-- FEED CALC -->
+        <!-- 2. FEED CALC -->
         <div id="tab-feed" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
             <i class="fa-solid fa-wheat-awn text-gold"></i> حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك
@@ -690,7 +660,9 @@ function renderServicesPage() {
               </div>
             </div>
           </div>
-        <!-- WATER SAVINGS & CONSERVATION CALC -->
+        </div>
+
+        <!-- 3. WATER SAVINGS & CONSERVATION CALC -->
         <div id="tab-water" class="calculator-box" style="display: none;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin: 0;">
@@ -784,7 +756,7 @@ function renderServicesPage() {
           </div>
         </div>
 
-        <!-- CARBON CALC -->
+        <!-- 4. CARBON CALC -->
         <div id="tab-carbon" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
             <i class="fa-solid fa-leaf text-emerald"></i> حاسبة البصمة البيئية وخفض الانبعاثات
@@ -814,7 +786,7 @@ function renderServicesPage() {
           </div>
         </div>
 
-        <!-- ROI CALC -->
+        <!-- 5. ROI CALC -->
         <div id="tab-roi" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
             <i class="fa-solid fa-chart-line text-azure"></i> حاسبة العائد الاستثماري ونماذج المزارع (ROI)
@@ -850,6 +822,21 @@ function renderServicesPage() {
 
       </div>
     </section>
+  `;
+}
+
+function renderServicesPage() {
+  return `
+    <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
+      <div class="container">
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">الخدمات الفنية والحاسبات الزراعية الذكية</h1>
+        <p class="hero-lead-text">
+          خدمات إنشاء المزارع، توفير التقاوي، الإشراف الفني، والحاسبات التفاعلية المبرمجة بالتعاون مع <strong>NGO HUB</strong>.
+        </p>
+      </div>
+    </header>
+
+    ${renderCalculatorsSection(false)}
   `;
 }
 

@@ -278,31 +278,301 @@
       </div>
     </section>
 
-    <section class="section section-bg-white">
+    <!-- INTERACTIVE CALCULATORS SUITE (Directly Visible on Landing / Home) -->
+    <section class="section section-bg-white" id="interactive-calculators">
       <div class="container">
         <div class="smart-hub-header-card">
           <div>
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); color: #FDE68A; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 0.75rem;">
+              <i class="fa-solid fa-microchip"></i> بوابة الحاسبات الزراعية الذكية 2026
+            </div>
             <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;">
-              حاسبات الأعلاف والإنتاج والـ ROI التفاعلية
+              حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)
             </h2>
-            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 620px;">
-              طُوّرت هذه الحاسبات بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، خلطات الأعلاف للمواشي والطيور، وحساب الوفر المالي لحظياً.
+            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 650px;">
+              طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.
             </p>
           </div>
 
-          <div style="text-align: center;">
-            <div class="smart-hub-logo-tag">
-              <img src="./assets/images/logo_ngohub.png" alt="NGO HUB Logo" style="height: 38px;">
-              <div style="text-align: right;">
-                <div style="font-weight: 800; font-size: 0.9rem; color: #FFFFFF;">NGO HUB</div>
-                <div style="font-size: 0.72rem; color: #A7F3D0;">Digital Tech Partner</div>
-              </div>
+          <div class="smart-hub-logo-tag">
+            <img src="./assets/images/logo_ngohub.png" alt="NGO HUB Logo" style="height: 38px;">
+            <div style="text-align: right;">
+              <div style="font-weight: 800; font-size: 0.9rem; color: #FFFFFF;">NGO HUB</div>
+              <div style="font-size: 0.72rem; color: #A7F3D0;">Digital Tech Partner</div>
             </div>
-            <a href="#services" class="btn btn-gold" style="margin-top: 1rem; width: 100%;">
-              <i class="fa-solid fa-calculator"></i> افتح الحاسبات التفاعلية
-            </a>
           </div>
         </div>
+
+        <div class="calc-nav-tabs">
+          <button class="calc-tab-btn active" onclick="switchCalcTab('tab-basin', this)">
+            <i class="fa-solid fa-compass-drafting"></i> 1. تصميم الأحواض والإنتاج
+          </button>
+          <button class="calc-tab-btn" onclick="switchCalcTab('tab-feed', this)">
+            <i class="fa-solid fa-cow"></i> 2. خلط عليقة الأعلاف
+          </button>
+          <button class="calc-tab-btn" onclick="switchCalcTab('tab-water', this)">
+            <i class="fa-solid fa-droplet text-azure"></i> 3. صون وتوفير المياه
+          </button>
+          <button class="calc-tab-btn" onclick="switchCalcTab('tab-carbon', this)">
+            <i class="fa-solid fa-leaf"></i> 4. خفض الانبعاثات
+          </button>
+          <button class="calc-tab-btn" onclick="switchCalcTab('tab-roi', this)">
+            <i class="fa-solid fa-chart-pie"></i> 5. العائد الاستثماري (ROI)
+          </button>
+        </div>
+
+        <!-- 1. BASIN CALC -->
+        <div id="tab-basin" class="calculator-box">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-water text-azure"></i> حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي
+          </h3>
+          <div class="calc-grid-layout">
+            <div>
+              <div class="form-group">
+                <label class="form-label">طول الحوض المتاح (متر) *</label>
+                <input type="number" id="calc-basin-length" class="form-control" value="10" min="1" oninput="runBasinCalc()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">عرض الحوض المتاح (متر) *</label>
+                <input type="number" id="calc-basin-width" class="form-control" value="5" min="1" oninput="runBasinCalc()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">عمق المياه المستهدف (سم)</label>
+                <input type="number" class="form-control" value="15" readonly style="background: var(--color-surface-hover);">
+              </div>
+            </div>
+
+            <div class="calc-result-panel">
+              <div class="result-row">
+                <span class="result-label">إجمالي المساحة المائية:</span>
+                <span class="result-value" id="res-basin-area">50 م²</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">احتياج التقاوي الأولية:</span>
+                <span class="result-value" id="res-basin-seed">25 كجم</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">الإنتاج اليومي صيفاً:</span>
+                <span class="result-value" id="res-basin-yield-summer">22.5 كجم / يوم</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">الإنتاج اليومي شتاءً:</span>
+                <span class="result-value" id="res-basin-yield-winter">15.0 كجم / يوم</span>
+              </div>
+              <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
+                <span class="result-label">الوفر المالي الشهري:</span>
+                <span class="result-value text-gold" id="res-basin-savings">3,375 ج.م / شهر</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. FEED CALC -->
+        <div id="tab-feed" class="calculator-box" style="display: none;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-wheat-awn text-gold"></i> حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك
+          </h3>
+          <div class="calc-grid-layout">
+            <div>
+              <div class="form-group">
+                <label class="form-label">نوع القطيع أو الحيوانات *</label>
+                <select id="calc-feed-type" class="form-control" onchange="runFeedCalc()">
+                  <option value="cattle_dairy">أبقار وجاموس حلاب</option>
+                  <option value="cattle_beef" selected>أبقار وجاموس تسمين</option>
+                  <option value="sheep_goat">أغنام وماعز</option>
+                  <option value="poultry_ducks">دواجن وبط ورومي</option>
+                  <option value="fish_farm">أسماك مزارع</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">عدد الرؤوس بالقطيع *</label>
+                <input type="number" id="calc-feed-heads" class="form-control" value="10" min="1" oninput="runFeedCalc()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">سعر كيلو العلف الجاف (جنيه) *</label>
+                <input type="number" id="calc-feed-price" class="form-control" value="22" min="5" oninput="runFeedCalc()">
+              </div>
+            </div>
+
+            <div class="calc-result-panel">
+              <div class="result-row">
+                <span class="result-label">إجمالي العلف الجاف:</span>
+                <span class="result-value" id="res-feed-total-dry">120 كجم / يوم</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">العلف الجاف الموفر يومياً:</span>
+                <span class="result-value text-emerald" id="res-feed-saved-dry">24 كجم / يوم</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label">الأزولا الطازجة الواجب خلطها:</span>
+                <span class="result-value" id="res-feed-azolla-needed">96 كجم / يوم</span>
+              </div>
+              <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
+                <span class="result-label">الوفر المالي الشهري:</span>
+                <span class="result-value text-gold" id="res-feed-monthly-saved">15,840 ج.م / شهر</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. WATER SAVINGS & CONSERVATION CALC -->
+        <div id="tab-water" class="calculator-box" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin: 0;">
+              <i class="fa-solid fa-droplet text-azure"></i> حاسبة صون وكفاءة استهلاك وتوفير المياه (Water Conservation)
+            </h3>
+            <span style="background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-weight: 800; font-size: 0.85rem; border: 1px solid var(--color-azure-100);">
+              <i class="fa-solid fa-gauge-high text-azure"></i> وفر مائي يصل إلى 90%
+            </span>
+          </div>
+
+          <div class="calc-grid-layout">
+            <div>
+              <div class="form-group">
+                <label class="form-label"><i class="fa-solid fa-ruler-combined text-azure"></i> مساحة الأحواض المائية (م²) *</label>
+                <input type="number" id="calc-water-area" class="form-control" value="100" min="10" step="10" oninput="runWaterCalc()">
+                <small style="color: var(--color-text-muted); font-size: 0.78rem;">(مثال: 100 م² = حوض متوسط، 4200 م² = فدان كامل)</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><i class="fa-solid fa-seedling text-emerald"></i> المحصول العلفي المقارن *</label>
+                <select id="calc-water-crop" class="form-control" onchange="runWaterCalc()">
+                  <option value="alfalfa" selected>البرسيم الحجازي (Alfalfa - 1,850 م³/طن جاف)</option>
+                  <option value="berseem">البرسيم المصري (Berseem - 1,450 م³/طن جاف)</option>
+                  <option value="corn_silage">سيلاج الذرة (Corn Silage - 1,200 م³/طن جاف)</option>
+                  <option value="soybean">كسب فول الصويا (Soybean - 2,400 م³/طن جاف)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><i class="fa-solid fa-solar-panel text-gold"></i> تقنية الري وتدوير المياه *</label>
+                <select id="calc-water-tech" class="form-control" onchange="runWaterCalc()">
+                  <option value="closed_solar_shade" selected>أحواض مغلقة + ضخ شمسي + تظليل سيرام 50% (أعلى كفاءة وفر 90%)</option>
+                  <option value="closed_solar_open">أحواض مغلقة مع تدوير بالطاقة الشمسية بدون تظليل (وفر 82%)</option>
+                  <option value="rooftop_basin">وحدة أسطح منزلية معزولة (وفر 88%)</option>
+                  <option value="earth_basin_recycle">أحواض ترابية مبطنة مشمع مع إعادة تدوير (وفر 78%)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label"><i class="fa-solid fa-calendar-days text-primary"></i> فترة الحساب والتشغيل *</label>
+                <select id="calc-water-period" class="form-control" onchange="runWaterCalc()">
+                  <option value="year" selected>سنة كاملة (365 يوماً إنتاجي)</option>
+                  <option value="month">شهر واحد (30 يوماً)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="calc-result-panel" style="background: linear-gradient(135deg, rgba(240, 249, 255, 0.8) 0%, rgba(209, 250, 229, 0.8) 100%); border: 2px solid var(--color-azure-100);">
+              <div class="result-row">
+                <span class="result-label"><i class="fa-solid fa-faucet-drip text-azure"></i> استهلاك منظومة الأزولا:</span>
+                <span class="result-value text-azure" id="res-water-azolla-consumed">128 م³</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fa-solid fa-shower text-gold"></i> استهلاك الزراعة التقليدية:</span>
+                <span class="result-value" id="res-water-conventional-consumed">1,120 م³</span>
+              </div>
+              <div class="result-row" style="background: var(--color-surface); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-emerald-200);">
+                <span class="result-label" style="font-weight: 900; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-heart text-emerald"></i> صافي الوفر المائي المحقق:</span>
+                <span class="result-value text-emerald" id="res-water-saved-m3" style="font-size: 1.35rem; font-weight: 900;">992 م³ موفرة</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fa-solid fa-percent text-emerald"></i> نسبة صون وتوفير المياه:</span>
+                <span class="result-value text-emerald" id="res-water-saved-pct">88.6%</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fa-solid fa-users text-azure"></i> مكافئ مياه شرب منزلية:</span>
+                <span class="result-value text-azure" id="res-water-household-equiv">18 فرد / سنة</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label"><i class="fa-solid fa-dna text-gold"></i> كفاءة إنتاج البروتين المائي:</span>
+                <span class="result-value text-gold" id="res-water-protein-efficiency">0.82 كجم بروتين / م³</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Progress Bar -->
+          <div style="margin-top: 1.5rem; background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; margin-bottom: 0.5rem;">
+              <span><i class="fa-solid fa-chart-simple text-azure"></i> مقارنة الاستهلاك المائي المباشر (متر مكعب):</span>
+              <span id="res-water-bar-label" style="color: var(--color-primary); font-weight: 900;">وفر مائي حاسم 88.6%</span>
+            </div>
+            <div style="height: 24px; border-radius: var(--radius-full); background: #EF4444; overflow: hidden; display: flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+              <div id="res-water-bar-azolla" style="width: 11.4%; background: #059669; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="استهلاك أزولا مصر">أزولا (11.4%)</div>
+              <div id="res-water-bar-saved" style="width: 88.6%; background: #0284C7; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="المياه الموفرة المصانة">مياه مصانة وموفرة (88.6%)</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.4rem;">
+              <span><i class="fa-solid fa-circle" style="color: #059669;"></i> استهلاك الأزولا الفعلي</span>
+              <span><i class="fa-solid fa-circle" style="color: #0284C7;"></i> حجم المياه الموفرة (Water Conservation)</span>
+              <span><i class="fa-solid fa-circle" style="color: #EF4444;"></i> هدر المحاصيل التقليدية</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. CARBON CALC -->
+        <div id="tab-carbon" class="calculator-box" style="display: none;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-leaf text-emerald"></i> حاسبة البصمة البيئية وخفض الانبعاثات
+          </h3>
+          <div class="calc-grid-layout">
+            <div>
+              <div class="form-group">
+                <label class="form-label">إنتاج الأزولا السنوي التقديري (طن) *</label>
+                <input type="number" id="calc-carbon-tons" class="form-control" value="20" min="1" oninput="runCarbonCalc()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">السولار الموفر بفضل الطاقة الشمسية (لتر/سنة) *</label>
+                <input type="number" id="calc-carbon-diesel" class="form-control" value="10000" min="0" oninput="runCarbonCalc()">
+              </div>
+            </div>
+
+            <div class="calc-result-panel">
+              <div class="result-row">
+                <span class="result-label">إجمالي الكربون المتجنب سنوياً:</span>
+                <span class="result-value text-emerald" id="res-carbon-total">37.3 طن CO₂e</span>
+              </div>
+              <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
+                <span class="result-label">ما يعادل زراعة أشجار:</span>
+                <span class="result-value text-gold" id="res-carbon-trees">1,678 شجرة</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. ROI CALC -->
+        <div id="tab-roi" class="calculator-box" style="display: none;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
+            <i class="fa-solid fa-chart-line text-azure"></i> حاسبة العائد الاستثماري ونماذج المزارع (ROI)
+          </h3>
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn btn-gold btn-lg" onclick="openModal('modal-land-partner')" style="background: var(--color-primary); color: #FFF; border-color: var(--color-primary); font-weight: 800;">
+              <i class="fa-solid fa-map-location-dot"></i> هل تمتلك أرضاً زراعية؟ قدّمها للشراكة الاستثمارية مع المشروع
+            </button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+            <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+              <h4 style="font-weight: 800; color: var(--color-primary);">وحدة منزلية (30 م²)</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">25,000 ج.م</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 3.5 طن/سنة</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 8 – 10 أشهر</div>
+            </div>
+
+            <div style="background: var(--color-emerald-50); border: 2px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+              <h4 style="font-weight: 800; color: var(--color-primary);">مزرعة تجارية (0.5 فدان)</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">120,000 ج.م</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 18 طن/سنة</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 12 – 16 شهراً</div>
+            </div>
+
+            <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+              <h4 style="font-weight: 800; color: var(--color-primary);">مشروع تجاري كبير (2 فدان)</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">480,000 ج.م</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 75 طن/سنة</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 14 – 18 شهراً</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
