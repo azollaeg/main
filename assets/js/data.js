@@ -476,7 +476,80 @@ const DEFAULT_AZOLLA_DATA = {
       location: "كفر الدوار",
       status: "تم الرد"
     }
-  ]
+  ],
+
+  /* Water Savings & Conservation Engine Data */
+  waterConservationData: {
+    crops: {
+      alfalfa: {
+        id: "alfalfa",
+        name: "البرسيم الحجازي (Alfalfa)",
+        waterM3PerTonDry: 1850,
+        waterPerFeddanYearM3: 7500,
+        crudeProteinPct: 18.5,
+        growthCycleDays: 30,
+        icon: "fa-seedling",
+        notes: "محصول عالي الشراهة للمياه يتطلب رياً غزيراً مستمراً"
+      },
+      berseem: {
+        id: "berseem",
+        name: "البرسيم المصري (Berseem)",
+        waterM3PerTonDry: 1450,
+        waterPerFeddanYearM3: 6200,
+        crudeProteinPct: 15.0,
+        growthCycleDays: 25,
+        icon: "fa-leaf",
+        notes: "محصول شتوي رئيسي يستهلك كميات مياه ضخمة لكل حشة"
+      },
+      corn_silage: {
+        id: "corn_silage",
+        name: "سيلاج الذرة (Corn Silage)",
+        waterM3PerTonDry: 1200,
+        waterPerFeddanYearM3: 5200,
+        crudeProteinPct: 8.8,
+        growthCycleDays: 90,
+        icon: "fa-wheat-awn",
+        notes: "يستهلك كميات مياه كبرى بنسبة بروتين منخفضة نسبياً"
+      },
+      soybean: {
+        id: "soybean",
+        name: "كسب فول الصويا (Soybean Meal)",
+        waterM3PerTonDry: 2400,
+        waterPerFeddanYearM3: 4800,
+        crudeProteinPct: 38.0,
+        growthCycleDays: 110,
+        icon: "fa-cubes",
+        notes: "بصمة مائية مرتفعة جداً وتكلفة استيرادية باهظة"
+      }
+    },
+    azollaMetrics: {
+      dailyEvapLitersPerM2Summer: 4.5,
+      dailyEvapLitersPerM2Winter: 2.2,
+      saranShadeEvapReductionPct: 35,
+      solarClosedLoopRecyclePct: 90,
+      avgCrudeProteinPct: 28.4,
+      waterPerTonDryClosedLoopM3: 280,
+      litersWaterPerCapitaDay: 150
+    }
+  },
+
+  /* Institutional Privacy, Protection & Governance Policy Data */
+  privacyPolicyData: {
+    title: "سياسة الخصوصية والحماية وعدم التمييز وتلقي الشكاوى",
+    subtitle: "وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «أزولا مصر – ذهب مصر الأخضر»",
+    version: "الإصدار 1.0 — عام 2026",
+    metadata: {
+      issuingEntity: "جمعية الخدمات المتكاملة لتنمية المجتمع بكفر الدوار (مشهرة برقم 1997/752) ومزارع فرع أسوان التكاملية",
+      intellectualProperty: "مشروع أزولا مصر – ذهب مصر الأخضر بالشراكة مع منصة NGOHUB للتحول الرقمي والأخضر",
+      applicationScope: "جميع الجمعيات الشريكة، المستفيدين، المزارعين والمربين، المتدربين، المتطوعين (GCT)، وفرق العمل الميدانية",
+      documentStatus: "وثيقة حوكمة وسياسة خصوصية وحماية معتمدة ونافذة إلكترونياً وميدانياً – 2026"
+    },
+    contact: {
+      grievanceEmail: "youssefkhedr92@gmail.com",
+      officialEmail: "info@azollaegypt.org",
+      hotline: "01026847508"
+    }
+  }
 };
 
 // Initialize State with LocalStorage Sync (static-website-cms-dashboard standard)

@@ -1341,3 +1341,48 @@ button {
     padding: 0.75rem 1.25rem !important;
   }
 }
+
+/* 11. PRINTABLE INSTITUTIONAL POLICY STYLES (@media print) */
+@media print {
+  .top-sponsor-banner,
+  .main-header,
+  .mobile-drawer,
+  .mobile-drawer-overlay,
+  .floating-whatsapp-widget,
+  .main-footer,
+  .modal-overlay,
+  .toast-box,
+  button,
+  .btn,
+  .header-actions {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    font-size: 12pt !important;
+  }
+
+  .home-hero-section {
+    background: none !important;
+    color: #000000 !important;
+    padding: 1rem 0 !important;
+  }
+
+  .hero-main-title {
+    color: #064E3B !important;
+    font-size: 1.75rem !important;
+  }
+
+  .hero-lead-text {
+    color: #333333 !important;
+  }
+
+  article {
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #CCCCCC !important;
+    margin-bottom: 1rem !important;
+  }
+}

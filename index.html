@@ -96,6 +96,7 @@
           <li><a href="#partners" class="nav-link" data-page="partners"><i class="fa-solid fa-handshake"></i> الشركاء</a></li>
           <li><a href="#media" class="nav-link" data-page="media"><i class="fa-solid fa-images"></i> المعرض الميداني</a></li>
           <li><a href="#contact" class="nav-link" data-page="contact"><i class="fa-solid fa-phone"></i> تواصل</a></li>
+          <li><a href="#privacy" class="nav-link" data-page="privacy"><i class="fa-solid fa-shield-halved"></i> الخصوصية والحوكمة</a></li>
         </ul>
       </nav>
 
@@ -140,6 +141,7 @@
       <li><a href="#partners" class="mobile-nav-link" data-page="partners"><i class="fa-solid fa-handshake text-emerald"></i> الشركاء والجهات</a></li>
       <li><a href="#media" class="mobile-nav-link" data-page="media"><i class="fa-solid fa-images text-emerald"></i> المعرض الميداني</a></li>
       <li><a href="#contact" class="mobile-nav-link" data-page="contact"><i class="fa-solid fa-phone text-emerald"></i> تواصل معنا</a></li>
+      <li><a href="#privacy" class="mobile-nav-link" data-page="privacy"><i class="fa-solid fa-shield-halved text-emerald"></i> سياسة الخصوصية والحوكمة</a></li>
     </ul>
 
     <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
@@ -733,6 +735,59 @@
     </div>
   </div>
 
+  <!-- Grievance & Confidential Reporting Modal (Policy Compliant) -->
+  <div class="modal-overlay" id="modal-grievance">
+    <div class="modal-box" style="max-width: 600px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #064E3B 0%, #1E293B 100%);">
+        <h3><i class="fa-solid fa-shield-halved text-gold"></i> تقديم بلاغ أو شكوى سرية ومحمية</h3>
+        <button class="modal-close-btn" onclick="closeModal('modal-grievance')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+          تضمن لجنة الحماية والامتثال المستقلة السرية التامة وحظر أي إجراء انتقامي (Non-Retaliation Policy). يتم فحص البلاغ خلال 48 ساعة واتخاذ الإجراءات خلال 7 أيام عمل.
+        </p>
+        <form id="form-grievance" onsubmit="handleGrievanceSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">تصنيف البلاغ / الشكوى *</label>
+            <select name="grievance_type" class="form-control" required>
+              <option value="حماية وسرية بيانات">حماية وخصوصية وسرية البيانات</option>
+              <option value="بيئة عمل ومعاملة ميدانية">بيئة العمل والمعاملة الميدانية بالمزارع</option>
+              <option value="تكافؤ فرص ومنح تدريبية">تكافؤ الفرص والمنح التدريبية (الأكاديمية)</option>
+              <option value="نزاهة ومساعدات عينية">نزاهة توزيع التقاوي والدعم العيني</option>
+              <option value="استفسار أو شكوى أخرى">استفسار أو شكوى أخرى</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الاسم (اختياري - يمكنك تركه فارغاً للبلاغات المجهولة) </label>
+            <input type="text" name="name" class="form-control" placeholder="اسمك الكريم أو اتركه فارغاً للسرية التامة">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">رقم الهاتف أو البريد الإلكتروني للتواصل السري والمتابعة *</label>
+            <input type="text" name="contact" class="form-control" required placeholder="010XXXXXXXX أو بريدك الإلكتروني">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">تفاصيل البلاغ أو الواقعة بدقة *</label>
+            <textarea name="description" class="form-control" rows="4" required placeholder="اكتب تفاصيل الشكوى أو الواقعة وتاريخها وموقعها الميداني..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 0.65rem; font-size: 0.85rem; color: var(--color-text-muted); cursor: pointer;">
+              <input type="checkbox" checked style="accent-color: var(--color-primary);">
+              <span>أطلب المعالجة السرية التامة وعدم الإفصاح عن بياناتي لأي طرف مشكو في حقه.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="background: #064E3B; border-color: #064E3B;">
+            <i class="fa-solid fa-lock"></i> إرسال البلاغ المشفر للجنة الحماية
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Lightbox Modal -->
   <div class="modal-overlay" id="modal-lightbox">
     <div class="modal-box" style="max-width: 900px; padding: 0; background: #0F172A; color: #FFFFFF;">
@@ -977,6 +1032,7 @@
             <li><a href="#impact" class="footer-link"><i class="fa-solid fa-angle-left"></i> تقرير الأثر والتمكين</a></li>
             <li><a href="#media" class="footer-link"><i class="fa-solid fa-angle-left"></i> معرض التوثيق الميداني</a></li>
             <li><a href="#contact" class="footer-link"><i class="fa-solid fa-angle-left"></i> قنوات التواصل الرسمية</a></li>
+            <li><a href="#privacy" class="footer-link"><i class="fa-solid fa-angle-left"></i> سياسة الخصوصية والحوكمة</a></li>
           </ul>
         </div>
 
