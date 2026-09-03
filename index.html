@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>أزولا مصر – ذهب مصر الأخضر | Azolla Egypt</title>
-  <meta name="description" content="مشروع أزولا مصر – ذهب مصر الأخضر. الممول من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع فرع أسوان التكاملية. الشريك الرقمي: NGO HUB.">
-  <meta name="keywords" content="أزولا مصر, ذهب مصر الأخضر, Azolla Egypt, SGP Egypt, GEF, UNDP, جمعية الخدمات المتكاملة بكفر الدوار, NGO HUB, زراعة الأزولا في مصر, علف الأزولا, أعلاف مواشي, طاقة شمسية">
-  <meta name="author" content="مشروع أزولا مصر - Azolla Egypt & NGO HUB">
+  <title>تكنولوجيا الأعلاف البديلة .. أزولا مصر | Azolla Egypt</title>
+  <meta name="description" content="مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر. الممول من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع فرع أسوان التكاملية. الشريك الرقمي: NGO HUB.">
+  <meta name="keywords" content="تكنولوجيا الأعلاف البديلة, أزولا مصر, Azolla Egypt, SGP Egypt, GEF, UNDP, جمعية الخدمات المتكاملة بكفر الدوار, NGO HUB, زراعة الأزولا في مصر, علف الأزولا, أعلاف مواشي, طاقة شمسية">
+  <meta name="author" content="مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر - Azolla Egypt & NGO HUB">
   
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="أزولا مصر – ذهب مصر الأخضر | SGP / GEF / UNDP">
+  <meta property="og:title" content="تكنولوجيا الأعلاف البديلة .. أزولا مصر | SGP / GEF / UNDP">
   <meta property="og:description" content="من نبات صغير فوق الماء… نصنع مستقبلاً أخضر لمصر. جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.">
   <meta property="og:url" content="https://azollaegypt.org">
   
@@ -43,7 +43,7 @@
       <!-- Center: Official Project Title -->
       <div class="sponsor-center-content">
         <div class="sponsor-title-text" style="font-size: 1.15rem; font-weight: 900; color: #FFFFFF;">
-          مشروع أزولا مصر – ذهب مصر الأخضر
+          مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر
         </div>
         <div class="sponsor-entity-text">
           تمويل: <strong>برنامج المنح الصغيرة (SGP/GEF/UNDP)</strong> | تنفيذ: <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> ومزارع <strong>أسوان</strong>
@@ -80,7 +80,7 @@
         <img src="./assets/images/logo_azolla.png" alt="شعار أزولا مصر" class="brand-logo-img">
         <div class="brand-text">
           <span class="brand-title">أزولا مصر</span>
-          <span class="brand-subtitle">ذهب مصر الأخضر</span>
+          <span class="brand-subtitle">تكنولوجيا الأعلاف البديلة</span>
         </div>
       </a>
 
@@ -91,6 +91,7 @@
           <li><a href="#about" class="nav-link" data-page="about"><i class="fa-solid fa-circle-info"></i> عن المشروع</a></li>
           <li><a href="#science" class="nav-link" data-page="science"><i class="fa-solid fa-flask"></i> الأزولا</a></li>
           <li><a href="#services" class="nav-link" data-page="services"><i class="fa-solid fa-calculator"></i> الخدمات والحاسبات</a></li>
+          <li><a href="#news" class="nav-link" data-page="news"><i class="fa-solid fa-newspaper"></i> أخبارنا والمدونة</a></li>
           <li><a href="#academy" class="nav-link" data-page="academy"><i class="fa-solid fa-graduation-cap"></i> الأكاديمية</a></li>
           <li><a href="#impact" class="nav-link" data-page="impact"><i class="fa-solid fa-earth-africa"></i> الأثر والتمكين</a></li>
           <li><a href="#partners" class="nav-link" data-page="partners"><i class="fa-solid fa-handshake"></i> الشركاء</a></li>
@@ -107,10 +108,13 @@
           <i class="fa-solid fa-moon" id="theme-icon"></i>
         </button>
 
+        <!-- CMS Admin Quick Access Button -->
+        <button class="btn btn-outline-primary btn-sm" onclick="openAdminModal()" title="لوحة تحكم المنظومة">
+          <i class="fa-solid fa-sliders"></i> لوحة التحكم
+        </button>
 
-
-        <!-- Mobile Menu Hamburger -->
-        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="فتح القائمة">
+        <!-- Mobile Drawer Toggle -->
+        <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="فتح القائمة">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
@@ -118,17 +122,15 @@
     </div>
   </header>
 
-  <!-- 3. MOBILE NAVIGATION DRAWER -->
+  <!-- 3. MOBILE NAVIGATION DRAWER & OVERLAY -->
   <div class="mobile-drawer-overlay" id="mobile-overlay"></div>
   <aside class="mobile-drawer" id="mobile-drawer" aria-label="قائمة الجوال">
-    <div class="mobile-drawer-header">
-      <div class="logo-group">
-        <img src="./assets/images/logo_azolla.png" alt="لوجو أزولا مصر" style="height: 40px;">
-        <span class="brand-title" style="font-size: 1.15rem;">أزولا مصر</span>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="./assets/images/logo_azolla.png" alt="أزولا مصر" style="height: 38px;">
+        <span style="font-weight: 800; font-size: 1.1rem; color: var(--color-primary-dark);">أزولا مصر</span>
       </div>
-      <button class="btn" id="mobile-close-btn" aria-label="إغلاق القائمة" style="font-size: 1.4rem; padding: 0.25rem;">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <button class="modal-close-btn" id="mobile-close-btn" aria-label="إغلاق">&times;</button>
     </div>
 
     <ul class="mobile-nav-list">
@@ -136,6 +138,7 @@
       <li><a href="#about" class="mobile-nav-link" data-page="about"><i class="fa-solid fa-circle-info text-emerald"></i> عن المشروع</a></li>
       <li><a href="#science" class="mobile-nav-link" data-page="science"><i class="fa-solid fa-flask text-emerald"></i> الأزولا واستخداماته</a></li>
       <li><a href="#services" class="mobile-nav-link" data-page="services"><i class="fa-solid fa-calculator text-emerald"></i> الخدمات والحاسبات الذكية</a></li>
+      <li><a href="#news" class="mobile-nav-link" data-page="news"><i class="fa-solid fa-newspaper text-emerald"></i> أخبارنا والمدونة</a></li>
       <li><a href="#academy" class="mobile-nav-link" data-page="academy"><i class="fa-solid fa-graduation-cap text-emerald"></i> الأكاديمية (12 برنامجاً)</a></li>
       <li><a href="#impact" class="mobile-nav-link" data-page="impact"><i class="fa-solid fa-earth-africa text-emerald"></i> الأثر والتمكين</a></li>
       <li><a href="#partners" class="mobile-nav-link" data-page="partners"><i class="fa-solid fa-handshake text-emerald"></i> الشركاء والجهات</a></li>
@@ -145,7 +148,7 @@
     </ul>
 
     <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
-      <a href="https://wa.me/201026847508?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D8%A3%D8%B2%D9%88%D9%84%D8%A7%20%D9%85%D8%B5%D8%B1" target="_blank" rel="noopener" class="btn btn-emerald btn-block" style="background: #25D366; margin-bottom: 0.75rem;">
+      <a href="https://wa.me/201026847508?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7%20%D8%A7%D9%84%D8%A3%D8%B9%D9%84%D8%A7%D9%81%20%D8%A7%D9%84%D8%A8%D8%AF%D9%8A%D9%84%D8%A9%20%D8%A3%D8%B2%D9%88%D9%84%D8%A7%20%D9%85%D8%B5%D8%B1" target="_blank" rel="noopener" class="btn btn-emerald btn-block" style="background: #25D366; margin-bottom: 0.75rem;">
         <i class="fa-brands fa-whatsapp"></i> واتساب: 01026847508
       </a>
       <div style="font-size: 0.78rem; text-align: center; color: var(--color-text-muted);">
@@ -161,7 +164,7 @@
         <div class="hero-grid">
           <div>
             <h1 class="hero-main-title">
-              أزولا مصر… <br><span class="hero-highlight">ذهب مصر الأخضر</span>
+              أزولا مصر… <br><span class="hero-highlight">تكنولوجيا الأعلاف البديلة</span>
             </h1>
             <p class="hero-lead-text">
               المنظومة الوطنية الرائدة لإنتاج سرخس الأزولا الطافي وتخفيض تكاليف الأعلاف بنسبة تصل إلى <strong>60%</strong>، بدعم تنموي من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.
@@ -762,7 +765,7 @@
                 <i class="fa-solid fa-map-location-dot"></i>
               </div>
               <h3 style="font-size: 1.45rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem;">
-                لديك أرض زراعية؟ شاركنا ذهب مصر الأخضر
+                لديك أرض زراعية؟ شاركنا في تكنولوجيا الأعلاف البديلة
               </h3>
               <p style="font-size: 0.95rem; color: #E2ECE9; line-height: 1.7; margin-bottom: 1.5rem;">
                 نفتح باب الشراكة مع أصحاب وملاك الأراضي الزراعية في كافة المحافظات لإنشاء أحواض إنتاجية ومزارع أزولا كبرى بإشراف ودعم فني وتشغيلي متكامل من <strong>جمعية الخدمات المتكاملة</strong>.
@@ -1072,25 +1075,51 @@
     </div>
   </div>
 
-  <!-- 8. FULL ADMIN CMS DASHBOARD MODAL (Skill: static-website-cms-dashboard) -->
+  <!-- Article Detail Viewer Modal -->
+  <div class="modal-overlay" id="modal-article-view">
+    <div class="modal-box" style="max-width: 860px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span id="art-view-cat" style="background: var(--color-gold); color: #0F172A; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);"></span>
+          <h3 id="art-view-title" style="font-size: 1.15rem; margin: 0;"></h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modal-article-view')">&times;</button>
+      </div>
+      <div class="modal-body" style="overflow-y: auto; padding: 1.75rem;">
+        <div style="border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1.5rem; max-height: 380px; box-shadow: var(--shadow-sm);">
+          <img id="art-view-img" src="" alt="صورة المقال" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--color-text-muted); padding-bottom: 1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--color-border);">
+          <span><i class="fa-regular fa-calendar text-emerald"></i> <strong id="art-view-date"></strong></span>
+          <span><i class="fa-regular fa-user text-emerald"></i> <strong id="art-view-author"></strong></span>
+          <span><i class="fa-regular fa-clock text-emerald"></i> <strong id="art-view-readtime"></strong></span>
+        </div>
+        <div id="art-view-body" style="font-size: 1.02rem; line-height: 1.85; color: var(--color-text-main);">
+          <!-- Article HTML rendered dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FULL WEBSITE ADMIN CONTROL CENTER MODAL (CMS v8.0 Cloud Sync Edition) -->
   <div class="modal-overlay" id="modal-admin-cms">
-    <div class="modal-box" style="max-width: 950px;">
+    <div class="modal-box" style="max-width: 1080px; width: 96%; max-height: 94vh;">
       
-      <!-- LOGIN VIEW (SECURE & WITH CLOSE X BUTTON) -->
+      <!-- LOGIN VIEW (SECURE & WITH MASTER PASSWORD) -->
       <div id="cms-login-view" style="position: relative; padding: 2.5rem; text-align: center;">
         <button class="modal-close-btn" onclick="closeModal('modal-admin-cms')" style="position: absolute; top: 1rem; left: 1rem; color: var(--color-text-muted); font-size: 1.6rem; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--color-surface-hover);" title="إغلاق">&times;</button>
         
-        <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--color-emerald-50); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin: 0 auto 1rem auto;">
+        <div style="width: 68px; height: 68px; border-radius: 50%; background: var(--color-emerald-50); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 1.85rem; margin: 0 auto 1rem auto; box-shadow: 0 4px 12px rgba(6, 78, 59, 0.15);">
           <i class="fa-solid fa-shield-halved"></i>
         </div>
         
-        <h3 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; color: var(--color-text-main);">لوحة تحكم وإدارة المنظومة (CMS)</h3>
-        <p style="color: var(--color-text-muted); margin-bottom: 1.75rem; font-size: 0.92rem;">منطقة محمية خاصة بمسؤولي جمعية الخدمات المتكاملة ومشروع أزولا مصر</p>
+        <h3 style="font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; color: var(--color-text-main);">لوحة التحكم وإدارة الموقع الشاملة</h3>
+        <p style="color: var(--color-text-muted); margin-bottom: 1.75rem; font-size: 0.95rem;">منطقة الإدارة المركزية لمشروع <strong>تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong></p>
 
         <form id="cms-login-form" onsubmit="handleCmsLogin(event)" style="max-width: 380px; margin: 0 auto; text-align: right;">
           <div class="form-group">
             <label class="form-label"><i class="fa-solid fa-user text-primary"></i> اسم المستخدم</label>
-            <input type="text" id="cms-user" class="form-control" required placeholder="اسم المستخدم الخاص بك" autocomplete="username">
+            <input type="text" id="cms-user" class="form-control" required placeholder="admin" autocomplete="username">
           </div>
           <div class="form-group">
             <label class="form-label"><i class="fa-solid fa-key text-primary"></i> كلمة المرور</label>
@@ -1103,11 +1132,12 @@
       </div>
 
       <!-- DASHBOARD VIEW (WHEN LOGGED IN) -->
-      <div id="cms-dashboard-view" style="display: none;">
-        <div class="modal-header">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <i class="fa-solid fa-sliders text-gold" style="font-size: 1.4rem;"></i>
-            <h3>لوحة إدارة وتحكم أزولا مصر (AZOLLA CMS v7.0)</h3>
+      <div id="cms-dashboard-view" style="display: none; display: flex; flex-direction: column; height: 100%;">
+        <div class="modal-header" style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--color-border); background: var(--color-primary-dark); color: #FFF; display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <i class="fa-solid fa-sliders text-gold" style="font-size: 1.3rem;"></i>
+            <h3 style="font-size: 1.15rem; font-weight: 900; margin: 0;">لوحة تحكم وإدارة الموقع الشاملة | تكنولوجيا الأعلاف البديلة .. أزولا مصر</h3>
+            <span id="cms-cloud-status-badge" class="cloud-status-badge" style="margin-right: 0.5rem;"><i class="fa-solid fa-shield-halved"></i> الخزنة المشفرة</span>
           </div>
           <div style="display: flex; align-items: center; gap: 0.5rem;">
             <button class="btn btn-outline-white btn-sm" onclick="handleCmsLogout()" style="padding: 0.3rem 0.75rem; font-size: 0.8rem;"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
@@ -1115,148 +1145,363 @@
           </div>
         </div>
 
-        <div class="modal-body" style="padding: 1.5rem;">
+        <div class="modal-body" style="padding: 1.5rem; overflow-y: auto; max-height: calc(94vh - 80px);">
+          
           <!-- CMS Navigation Tabs -->
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 2px solid var(--color-border); padding-bottom: 0.75rem;">
-            <button class="btn btn-sm btn-primary" id="cms-tab-btn-stats" onclick="switchCmsTab('stats')"><i class="fa-solid fa-chart-simple"></i> الإحصائيات</button>
-            <button class="btn btn-sm btn-outline-primary" id="cms-tab-btn-partners" onclick="switchCmsTab('partners')"><i class="fa-solid fa-handshake"></i> الشركاء واللوجوهات</button>
-            <button class="btn btn-sm btn-outline-primary" id="cms-tab-btn-articles" onclick="switchCmsTab('articles')"><i class="fa-solid fa-newspaper"></i> المقالات والأخبار</button>
-            <button class="btn btn-sm btn-outline-primary" id="cms-tab-btn-inbox" onclick="switchCmsTab('inbox')"><i class="fa-solid fa-inbox"></i> صندوق الرسائل</button>
-            <button class="btn btn-sm btn-outline-primary" id="cms-tab-btn-backup" onclick="switchCmsTab('backup')"><i class="fa-solid fa-database"></i> النسخ الاحتياطي</button>
+          <div class="cms-nav-tabs">
+            <button class="cms-nav-tab-btn active" id="cms-tab-btn-overview" onclick="switchCmsTab('overview')"><i class="fa-solid fa-chart-pie"></i> نظرة عامة وإحصائيات</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-news" onclick="switchCmsTab('news')"><i class="fa-solid fa-newspaper"></i> إدارة الأخبار والمدونة</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-counters" onclick="switchCmsTab('counters')"><i class="fa-solid fa-arrow-up-1-9"></i> عدادات وأرقام الموقع</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-gallery" onclick="switchCmsTab('gallery')"><i class="fa-solid fa-images"></i> المعرض الميداني والصور</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-courses" onclick="switchCmsTab('courses')"><i class="fa-solid fa-graduation-cap"></i> برامج الأكاديمية</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-info" onclick="switchCmsTab('info')"><i class="fa-solid fa-circle-info"></i> بيانات وهوية الموقع</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-inbox" onclick="switchCmsTab('inbox')"><i class="fa-solid fa-inbox"></i> صندوق الوارد والشكاوى</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-cloud" onclick="switchCmsTab('cloud')"><i class="fa-solid fa-cloud-arrow-up text-gold"></i> المزامنة السحابية والخزنة</button>
           </div>
 
-          <!-- CMS TAB 1: STATS EDITOR -->
-          <div id="cms-panel-stats">
-            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-pen-to-square"></i> تعديل الإحصائيات المعتمدة الحية</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <!-- TAB 1: OVERVIEW & KPIS -->
+          <div id="cms-panel-overview">
+            <h4 style="font-weight: 800; margin-bottom: 1.25rem; color: var(--color-primary);"><i class="fa-solid fa-chart-pie"></i> مؤشرات الأداء الحية للمنظومة</h4>
+            
+            <div class="cms-kpi-grid">
+              <div class="cms-kpi-card">
+                <div class="cms-kpi-icon" style="background: var(--color-emerald-50); color: var(--color-primary);"><i class="fa-solid fa-newspaper"></i></div>
+                <div>
+                  <div class="cms-kpi-val" id="cms-kpi-articles-count">4</div>
+                  <div class="cms-kpi-label">المقالات المنشورة</div>
+                </div>
+              </div>
+              <div class="cms-kpi-card">
+                <div class="cms-kpi-icon" style="background: #FEF3C7; color: #D97706;"><i class="fa-solid fa-inbox"></i></div>
+                <div>
+                  <div class="cms-kpi-val" id="cms-kpi-inbox-count">0</div>
+                  <div class="cms-kpi-label">استمارات ورسائل واردة</div>
+                </div>
+              </div>
+              <div class="cms-kpi-card">
+                <div class="cms-kpi-icon" style="background: #E0E7FF; color: #4F46E5;"><i class="fa-solid fa-images"></i></div>
+                <div>
+                  <div class="cms-kpi-val" id="cms-kpi-gallery-count">8</div>
+                  <div class="cms-kpi-label">صور توثيق ميداني</div>
+                </div>
+              </div>
+              <div class="cms-kpi-card">
+                <div class="cms-kpi-icon" style="background: #DCFCE7; color: #15803D;"><i class="fa-solid fa-users"></i></div>
+                <div>
+                  <div class="cms-kpi-val" id="cms-kpi-trainees-count">512</div>
+                  <div class="cms-kpi-label">متدرباً ومعتمداً</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div style="background: var(--color-bg); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+              <div>
+                <h5 style="font-weight: 800; margin-bottom: 0.25rem;">إجراءات سريعة لمدير الموقع:</h5>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">يمكنك نشر خبر جديد أو تغيير العدادات أو المزامنة مع كافة الأجهزة بنقرة واحدة.</p>
+              </div>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button class="btn btn-sm btn-primary" onclick="switchCmsTab('news'); openNewsForm();"><i class="fa-solid fa-plus"></i> إضافة مقال جديد</button>
+                <button class="btn btn-sm btn-gold" onclick="switchCmsTab('cloud'); publishToCloud();"><i class="fa-solid fa-cloud-arrow-up"></i> نشر سحابي فوري</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: NEWS & BLOG MANAGER -->
+          <div id="cms-panel-news" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+              <h4 style="font-weight: 800; color: var(--color-primary); margin: 0;"><i class="fa-solid fa-newspaper"></i> إدارة الأخبار والمدونة وتعديل المحتوى والصور</h4>
+              <button class="btn btn-sm btn-primary" onclick="openNewsForm()"><i class="fa-solid fa-plus"></i> إضافة خبر / مقال جديد</button>
+            </div>
+
+            <!-- Add / Edit Article Form Box -->
+            <div id="cms-news-form-box" style="display: none; background: var(--color-bg); padding: 1.5rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-primary); margin-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h5 id="news-form-title-label" style="font-weight: 800; color: var(--color-primary); margin: 0;">إضافة مقال أو خبر جديد</h5>
+                <button type="button" class="btn btn-sm" onclick="closeNewsForm()"><i class="fa-solid fa-xmark"></i> إلغاء</button>
+              </div>
+
+              <input type="hidden" id="news-form-id">
+
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">عنوان المقال أو الخبر *</label>
+                  <input type="text" id="news-form-title" class="form-control" placeholder="اكتب عنوان المقال بدقة...">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">التصنيف الإخباري *</label>
+                  <select id="news-form-cat" class="form-control">
+                    <option value="farms">أخبار المزارع والحصاد</option>
+                    <option value="academy">فعاليات الأكاديمية</option>
+                    <option value="environment">صون المياه والبيئة</option>
+                    <option value="partners">الشراكات والتمكين</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">تاريخ النشر *</label>
+                  <input type="date" id="news-form-date" class="form-control">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">الكاتب / المصدر *</label>
+                  <input type="text" id="news-form-author" class="form-control" placeholder="مثال: اللجنة الفنية الميدانية">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">وقت القراءة المقدر</label>
+                  <input type="text" id="news-form-readtime" class="form-control" placeholder="مثال: 3 دقائق">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">الموجز والملخص الإخباري (يظهر في كروت العرض) *</label>
+                <textarea id="news-form-summary" class="form-control" rows="2" placeholder="موجز مكثف للخبر..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">نص المقال الكامل (يدعم وسوم HTML والفقرات) *</label>
+                <textarea id="news-form-content" class="form-control" rows="5" placeholder="اكتب تفاصيل المقال كاملاً..."></textarea>
+              </div>
+
+              <!-- Hybrid Image Uploader (Direct File or URL) -->
+              <div style="background: var(--color-surface); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 1.25rem;">
+                <label class="form-label" style="font-weight: 800;"><i class="fa-solid fa-camera text-primary"></i> صورة المقال (رفع مباشر من الهاتف/الكمبيوتر مع ضغط ذكي، أو إدخال رابط خارجي):</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center;">
+                  <div>
+                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 0.25rem;">الخيار 1: رفع صورة من جهازك مباشرة</label>
+                    <input type="file" id="news-form-file-input" class="form-control" accept="image/*" onchange="handleNewsImageUpload(event)">
+                    <input type="hidden" id="news-form-img-base64">
+                  </div>
+                  <div>
+                    <label style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 0.25rem;">الخيار 2: أو إدخال رابط صورة خارجي (URL)</label>
+                    <input type="text" id="news-form-img-url" class="form-control" placeholder="https://... أو ./assets/images/...">
+                  </div>
+                </div>
+                <div id="news-img-preview" style="margin-top: 0.75rem;"></div>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                  <input type="checkbox" id="news-form-featured" style="accent-color: var(--color-primary); width: 18px; height: 18px;">
+                  <span style="font-weight: 700; font-size: 0.9rem;">تمييز كـ "تقرير رئيسي مميز" في أعلى صفحة الأخبار</span>
+                </label>
+              </div>
+
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-primary" id="news-form-submit-btn" onclick="saveCmsNewsArticle()"><i class="fa-solid fa-check"></i> حفظ المقال</button>
+                <button type="button" class="btn btn-outline-primary" onclick="closeNewsForm()">إلغاء</button>
+              </div>
+            </div>
+
+            <!-- Articles List -->
+            <div id="cms-news-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          </div>
+
+          <!-- TAB 3: COUNTERS & IMPACT METRICS -->
+          <div id="cms-panel-counters" style="display: none;">
+            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-arrow-up-1-9"></i> تعديل عدادات وأرقام الموقع الرسمية</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+              <div class="form-group">
+                <label class="form-label">المزارعون والمتدربون المعتمدون</label>
+                <input type="number" id="cms-cnt-farmers" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">نسبة خفض تكاليف الأعلاف (%)</label>
+                <input type="number" id="cms-cnt-feedcost" class="form-control">
+              </div>
               <div class="form-group">
                 <label class="form-label">عدد محطات الطاقة الشمسية</label>
-                <input type="number" id="cms-stat-solar" class="form-control">
+                <input type="number" id="cms-cnt-solar" class="form-control">
               </div>
               <div class="form-group">
-                <label class="form-label">سعة ضخ المياه اليومي (م³/يوم)</label>
-                <input type="number" id="cms-stat-pumping" class="form-control">
+                <label class="form-label">ضخ المياه اليومي (م³/يوم)</label>
+                <input type="number" id="cms-cnt-pumping" class="form-control">
               </div>
               <div class="form-group">
-                <label class="form-label">عدد المتدربين المعتمدين</label>
-                <input type="number" id="cms-stat-trainees" class="form-control">
+                <label class="form-label">متوسط زيادة دخل المربي (ج.م/شهرياً)</label>
+                <input type="number" id="cms-cnt-income" class="form-control">
               </div>
               <div class="form-group">
-                <label class="form-label">نسبة خفض تكلفة الأعلاف (%)</label>
-                <input type="number" id="cms-stat-feedcost" class="form-control">
+                <label class="form-label">وفر الكربون السنوي المتجنب (طن CO₂e)</label>
+                <input type="number" id="cms-cnt-co2" class="form-control">
               </div>
               <div class="form-group">
-                <label class="form-label">متوسط الزيادة بالدخل (ج.م)</label>
-                <input type="number" id="cms-stat-income" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">الكربون المتجنب سنوياً (طن)</label>
-                <input type="number" id="cms-stat-co2" class="form-control">
+                <label class="form-label">وفر السولار السنوي المتجنب (لتر)</label>
+                <input type="number" id="cms-cnt-diesel" class="form-control">
               </div>
             </div>
-            <button class="btn btn-primary" onclick="saveCmsStats()"><i class="fa-solid fa-floppy-disk"></i> حفظ الإحصائيات وتحديث الموقع</button>
+            <button class="btn btn-primary" onclick="saveCmsCounters()"><i class="fa-solid fa-floppy-disk"></i> حفظ العدادات وتحديث الموقع فوراً</button>
           </div>
 
-          <!-- CMS TAB 2: PARTNERS CRUD & FILE UPLOADER -->
-          <div id="cms-panel-partners" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h4 style="font-weight: 800; color: var(--color-primary);"><i class="fa-solid fa-handshake"></i> إدارة شبكة الشركاء واللوجوهات</h4>
-              <button class="btn btn-sm btn-gold" onclick="toggleAddPartnerForm()"><i class="fa-solid fa-plus"></i> إضافة شريك جديد</button>
+          <!-- TAB 4: FIELD GALLERY -->
+          <div id="cms-panel-gallery" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <h4 style="font-weight: 800; color: var(--color-primary); margin: 0;"><i class="fa-solid fa-images"></i> إدارة وتحديث صور المعرض الميداني المباشر</h4>
             </div>
 
-            <!-- Add Partner Form (Hidden by default) -->
-            <div id="cms-add-partner-box" style="display: none; background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; border: 1px solid var(--color-border);">
-              <h5 style="font-weight: 800; margin-bottom: 0.75rem;">إضافة شريك جديد مع رفع اللوجو</h5>
-              <div class="form-group">
-                <label class="form-label">اسم الشريك / الجهة *</label>
-                <input type="text" id="new-partner-name" class="form-control" placeholder="مثال: جامعة الإسكندرية">
+            <div style="background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 1.5rem;">
+              <h5 style="font-weight: 800; margin-bottom: 0.75rem;">إضافة صورة ميدانية جديدة للمعرض</h5>
+              <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">عنوان الصورة *</label>
+                  <input type="text" id="new-gal-title" class="form-control" placeholder="مثال: حصاد مزارع فرع أسوان">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">التصنيف</label>
+                  <select id="new-gal-category" class="form-control">
+                    <option value="مزارع تطبيقية">مزارع تطبيقية</option>
+                    <option value="طاقة شمسية ومياه">طاقة شمسية ومياه</option>
+                    <option value="تدريب وتمكين">تدريب وتمكين</option>
+                    <option value="فحوصات معملية">فحوصات معملية</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">الموقع الميداني</label>
+                  <input type="text" id="new-gal-location" class="form-control" placeholder="مثال: أسوان أو كفر الدوار">
+                </div>
               </div>
               <div class="form-group">
-                <label class="form-label">التصنيف المؤسسي *</label>
-                <select id="new-partner-cat" class="form-control">
-                  <option value="international">جهات مانحة دولية</option>
-                  <option value="executing">جهة تنفيذية</option>
-                  <option value="tech">شريك تكنولوجي</option>
-                  <option value="women">تمكين المرأة</option>
-                  <option value="training">تدريب وبناء قدرات</option>
-                  <option value="volunteer">مبادرة تطوعية</option>
-                  <option value="consulting">استشارات</option>
-                </select>
+                <label class="form-label">وصف الصورة</label>
+                <input type="text" id="new-gal-desc" class="form-control" placeholder="وصف تفصيلي للتوثيق الميداني...">
               </div>
-              <div class="form-group">
-                <label class="form-label">الوصف ودور الشريك *</label>
-                <textarea id="new-partner-desc" class="form-control" rows="2" placeholder="وصف موجز لطبيعة الشراكة..."></textarea>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                <div>
+                  <label class="form-label">رفع من جهازك مباشرة</label>
+                  <input type="file" class="form-control" accept="image/*" onchange="handleGalleryPhotoUpload(event)">
+                  <input type="hidden" id="new-gal-img-base64">
+                </div>
+                <div>
+                  <label class="form-label">أو إدخال رابط الصورة (URL)</label>
+                  <input type="text" id="new-gal-img-url" class="form-control" placeholder="https://...">
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-label">رفع اللوجو مباشرة من جهازك (Base64 FileReader) *</label>
-                <input type="file" id="new-partner-logo-file" class="form-control" accept="image/*" onchange="handlePartnerLogoUpload(event)">
-                <input type="hidden" id="new-partner-logo-base64">
-                <div id="partner-logo-preview" style="margin-top: 0.5rem;"></div>
-              </div>
-              <button class="btn btn-emerald btn-sm" onclick="saveNewPartner()"><i class="fa-solid fa-check"></i> حفظ الشريك</button>
+              <div id="gal-img-preview" style="margin-bottom: 0.75rem;"></div>
+              <button class="btn btn-primary btn-sm" onclick="saveNewGalleryPhoto()"><i class="fa-solid fa-plus"></i> إضافة الصورة للمعرض</button>
             </div>
 
-            <!-- Partners List in CMS -->
-            <div id="cms-partners-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+            <div id="cms-gallery-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
           </div>
 
-          <!-- CMS TAB 3: ARTICLES CRUD -->
-          <div id="cms-panel-articles" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <h4 style="font-weight: 800; color: var(--color-primary);"><i class="fa-solid fa-newspaper"></i> إدارة الأخبار وقصص النجاح</h4>
-              <button class="btn btn-sm btn-gold" onclick="toggleAddArticleForm()"><i class="fa-solid fa-plus"></i> نشر مقال / قصة نجاح</button>
-            </div>
-
-            <div id="cms-add-article-box" style="display: none; background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; border: 1px solid var(--color-border);">
-              <div class="form-group">
-                <label class="form-label">عنوان المقال / القصة *</label>
-                <input type="text" id="new-art-title" class="form-control">
-              </div>
-              <div class="form-group">
-                <label class="form-label">التصنيف *</label>
-                <input type="text" id="new-art-cat" class="form-control" placeholder="مثال: قصص نجاح أو أبحاث">
-              </div>
-              <div class="form-group">
-                <label class="form-label">ملخص المقال *</label>
-                <textarea id="new-art-excerpt" class="form-control" rows="2"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label">نص المقال الكامل *</label>
-                <textarea id="new-art-content" class="form-control" rows="4"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-label">صورة الغلاف (رفع مباشر Base64) *</label>
-                <input type="file" class="form-control" accept="image/*" onchange="handleArticleImgUpload(event)">
-                <input type="hidden" id="new-art-img-base64">
-              </div>
-              <button class="btn btn-emerald btn-sm" onclick="saveNewArticle()"><i class="fa-solid fa-check"></i> نشر المقال فوراً</button>
-            </div>
-
-            <div id="cms-articles-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          <!-- TAB 5: ACADEMY COURSES -->
+          <div id="cms-panel-courses" style="display: none;">
+            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-graduation-cap"></i> برامج ودورات أكاديمية أزولا مصر (12 برنامجاً معتمداً)</h4>
+            <div id="cms-courses-list" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
           </div>
 
-          <!-- CMS TAB 4: INBOX -->
+          <!-- TAB 6: SITE INFO & CONTACTS -->
+          <div id="cms-panel-info" style="display: none;">
+            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-circle-info"></i> تعديل بيانات وهوية ومعلومات الموقع</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+              <div class="form-group">
+                <label class="form-label">اسم المشروع الرسمي</label>
+                <input type="text" id="cms-info-name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">الشعار / السلوجان</label>
+                <input type="text" id="cms-info-slogan" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">هاتف التواصل المعتمد والواتساب</label>
+                <input type="text" id="cms-info-phone" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">البريد الإلكتروني الرسمي</label>
+                <input type="email" id="cms-info-email" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">المقر الرئيسي والمزارع</label>
+              <input type="text" id="cms-info-address" class="form-control">
+            </div>
+            <div class="form-group">
+              <label class="form-label">رابط Webhook لتلقي الاستمارات سحابياً (Google Sheets Webhook)</label>
+              <input type="text" id="cms-webhook-url" class="form-control">
+            </div>
+            <button class="btn btn-primary" onclick="saveCmsSiteInfo()"><i class="fa-solid fa-floppy-disk"></i> حفظ بيانات وهوية الموقع</button>
+          </div>
+
+          <!-- TAB 7: INBOX & GRIEVANCES -->
           <div id="cms-panel-inbox" style="display: none;">
-            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-inbox"></i> صندوق الرسائل وطلبات المزارع الواردة</h4>
-            <div id="cms-inbox-list" style="overflow-x: auto;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h4 style="font-weight: 800; color: var(--color-primary); margin: 0;"><i class="fa-solid fa-inbox"></i> صندوق الوارد والطلبات والبلاغات</h4>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn btn-sm btn-gold" onclick="exportInboxCSV()"><i class="fa-solid fa-file-excel"></i> تصدير Excel (CSV)</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+              <button class="btn btn-sm btn-primary" onclick="renderCmsInbox('')">الكل</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="renderCmsInbox('مزرعة')">مزارع</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="renderCmsInbox('أرض')">شراكة أرض</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="renderCmsInbox('تطوع')">متطوعين</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="renderCmsInbox('أكاديمية')">تدريب</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="renderCmsInbox('بلاغ')">بلاغات سرية</button>
+            </div>
+
+            <div class="cms-table-wrapper">
+              <div id="cms-inbox-list"></div>
+            </div>
           </div>
 
-          <!-- CMS TAB 5: BACKUP & RESTORE -->
-          <div id="cms-panel-backup" style="display: none;">
-            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-database"></i> تصدير واستيراد النسخ الاحتياطي (JSON Backup)</h4>
+          <!-- TAB 8: CLOUD SYNC & ENCRYPTED VAULT -->
+          <div id="cms-panel-cloud" style="display: none;">
+            <h4 style="font-weight: 800; margin-bottom: 1rem; color: var(--color-primary);"><i class="fa-solid fa-cloud-arrow-up text-gold"></i> المزامنة السحابية الحقيقية والخزنة المشفرة (Web Crypto AES-256-GCM)</h4>
+
             <div style="background: var(--color-bg); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-bottom: 1.5rem;">
-              <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-bottom: 1rem;">
-                يمكنك تنزيل نسخة احتياطية كاملة من جميع البيانات والإحصائيات والشركاء والصور بصيغة <code>.json</code> واستعادتها في أي وقت على أي جهاز آخر.
+              <h5 style="font-weight: 800; margin-bottom: 0.5rem; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-halved text-emerald"></i> خزنة الأمان المشفرة لـ GitHub Content API</h5>
+              <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.7; margin-bottom: 1.25rem;">
+                يتم حفظ توكن GitHub مشفراً داخل متصفحك بتقنية <strong>AES-256-GCM مع اشتقاق PBKDF2</strong> بكلمة مرورك الخاصة. لا يتم كشف التوكن لأي زائر أو رفعه للمستودع، ويُستخدم فقط أثناء جلسة الإدارة لنشر البيانات وتزامنها مع كافة الأجهزة.
               </p>
-              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="exportBackupJSON()"><i class="fa-solid fa-download"></i> تصدير النسخة الاحتياطية (site_backup.json)</button>
-                <label class="btn btn-gold" style="cursor: pointer;">
-                  <i class="fa-solid fa-upload"></i> استيراد نسخة احتياطية (Import JSON)
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">أدخل GitHub Token (المسجل للمشروع)</label>
+                  <input type="password" id="cms-vault-token-input" class="form-control" placeholder="ghp_••••••••••••••••••••">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">كلمة مرور تشفير الخزنة</label>
+                  <input type="password" id="cms-vault-pass-input" class="form-control" placeholder="أدخل كلمة مرور قوية لقفل الخزنة">
+                </div>
+              </div>
+              <button class="btn btn-sm btn-primary" onclick="saveAndEncryptGitHubToken()"><i class="fa-solid fa-lock"></i> تشفير وقفل التوكن في الخزنة</button>
+
+              <hr style="border: none; border-top: 1px dashed var(--color-border); margin: 1.5rem 0;">
+
+              <h5 style="font-weight: 800; margin-bottom: 0.5rem;"><i class="fa-solid fa-key text-gold"></i> فك قفل الخزنة للنشر السحابي</h5>
+              <div style="display: flex; gap: 0.75rem; align-items: center; max-width: 450px;">
+                <input type="password" id="cms-vault-pass" class="form-control" placeholder="كلمة مرور الخزنة">
+                <button class="btn btn-sm btn-gold" onclick="unlockVaultWithPassword()"><i class="fa-solid fa-unlock"></i> فتح الخزنة</button>
+              </div>
+            </div>
+
+            <!-- Big Sync Button -->
+            <div style="background: linear-gradient(135deg, #064E3B 0%, #0F172A 100%); color: #FFF; padding: 2rem; border-radius: var(--radius-lg); text-align: center; margin-bottom: 2rem;">
+              <h4 style="font-weight: 900; font-size: 1.35rem; margin-bottom: 0.5rem; color: #FDE68A;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> النشر والتزامن السحابي المباشر
+              </h4>
+              <p style="color: #E2ECE9; font-size: 0.92rem; max-width: 650px; margin: 0 auto 1.5rem auto;">
+                بمجرد الضغط على الزر، سيتم حفظ التعديلات والأخبار والصور في ملف <code>data/content.json</code> على GitHub، لتظهر فوراً على كافة هواتف وأجهزة زوار الموقع حول العالم!
+              </p>
+              <button class="btn btn-gold btn-lg" id="cms-btn-publish-cloud" onclick="publishToCloud()" style="background: #10B981; border-color: #10B981; font-weight: 900; padding: 0.85rem 2rem;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> نشر ومزامنة سحابية فورية لكافة الأجهزة
+              </button>
+              <div id="cms-cloud-sync-log"></div>
+            </div>
+
+            <!-- Backup & Export -->
+            <div style="background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+              <h5 style="font-weight: 800; margin-bottom: 0.75rem;"><i class="fa-solid fa-download"></i> النسخ الاحتياطي اليدوي المحلي</h5>
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="btn btn-sm btn-primary" onclick="exportBackupJSON()"><i class="fa-solid fa-download"></i> تحميل نسخة JSON احتياطية</button>
+                <label class="btn btn-sm btn-gold" style="cursor: pointer;">
+                  <i class="fa-solid fa-upload"></i> استيراد ملف JSON
                   <input type="file" accept=".json" style="display: none;" onchange="importBackupJSON(event)">
                 </label>
-                <button class="btn btn-outline-primary" style="color: #DC2626; border-color: #DC2626;" onclick="resetCmsDefaults()"><i class="fa-solid fa-rotate-left"></i> استعادة الضبط الافتراضي للمصنع</button>
+                <button class="btn btn-sm btn-outline-primary" style="color: #DC2626; border-color: #DC2626;" onclick="resetCmsDefaults()"><i class="fa-solid fa-rotate-left"></i> ضبط المصنع</button>
               </div>
             </div>
+
           </div>
 
         </div>
@@ -1274,7 +1519,7 @@
         <div>
           <img src="./assets/images/logo_azolla.png" alt="أزولا مصر" class="footer-brand-logo">
           <p style="font-size: 0.88rem; color: #94A3B8; line-height: 1.7; margin-bottom: 1.25rem;">
-            «أزولا مصر – ذهب مصر الأخضر» منظومة تنموية زراعية متكاملة وممولة من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع فرع أسوان التكاملية.
+            «تكنولوجيا الأعلاف البديلة .. أزولا مصر» منظومة تنموية زراعية متكاملة وممولة من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع فرع أسوان التكاملية.
           </p>
           <div style="display: inline-flex; align-items: center; gap: 0.4rem; color: #A7F3D0; font-weight: 700; font-size: 0.85rem;">
             <img src="./assets/images/logo_ngohub.png" alt="NGO HUB" style="height: 22px; border-radius: 3px;">
@@ -1290,6 +1535,7 @@
             <li><a href="#about" class="footer-link"><i class="fa-solid fa-angle-left"></i> عن المشروع والرؤية</a></li>
             <li><a href="#science" class="footer-link"><i class="fa-solid fa-angle-left"></i> التركيب العلمي والبروتين</a></li>
             <li><a href="#services" class="footer-link"><i class="fa-solid fa-angle-left"></i> الخدمات والحاسبات الذكية</a></li>
+            <li><a href="#news" class="footer-link"><i class="fa-solid fa-angle-left"></i> أخبارنا والمدونة</a></li>
             <li><a href="#academy" class="footer-link"><i class="fa-solid fa-angle-left"></i> الأكاديمية (12 برنامجاً)</a></li>
           </ul>
         </div>
@@ -1321,7 +1567,7 @@
 
       <div class="footer-bottom-bar">
         <div>
-          &copy; 2026 جميع الحقوق محفوظة لـ <strong>مشروع أزولا مصر – ذهب مصر الأخضر</strong>.
+          &copy; 2026 جميع الحقوق محفوظة لـ <strong>مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong>.
         </div>
         <div style="display: flex; align-items: center; gap: 1rem;">
           <span>تطوير وتصميم: <strong>NGO HUB</strong></span>

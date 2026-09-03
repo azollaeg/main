@@ -1,7 +1,7 @@
 
 /* ==========================================================================
-   AZOLLA EGYPT (أزولا مصر – ذهب مصر الأخضر)
-   Master Application Engine & Dynamic CMS - v7.0 (Pro Max Architecture)
+   AZOLLA EGYPT (تكنولوجيا الأعلاف البديلة .. أزولا مصر)
+   Master Application Engine & Dynamic CMS - v8.0 (Pro Max Architecture)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -76,6 +76,8 @@ function navigateTo(pageKey) {
     initCalculators();
   } else if (pageKey === 'services') {
     initCalculators();
+  } else if (pageKey === 'news' || pageKey === 'blog') {
+    renderNewsCards();
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -94,6 +96,8 @@ const routes = {
   impact: renderImpactPage,
   partners: renderPartnersPage,
   media: renderMediaPage,
+  news: renderNewsPage,
+  blog: renderNewsPage,
   contact: renderContactPage,
   privacy: renderPrivacyPage,
   governance: renderPrivacyPage
@@ -114,7 +118,7 @@ function renderHomePage() {
         <div class="hero-grid">
           <div>
             <h1 class="hero-main-title">
-              أزولا مصر… <br><span class="hero-highlight">ذهب مصر الأخضر</span>
+              أزولا مصر… <br><span class="hero-highlight">تكنولوجيا الأعلاف البديلة</span>
             </h1>
             <p class="hero-lead-text">
               المنظومة الوطنية الرائدة لإنتاج سرخس الأزولا الطافي وتخفيض تكاليف الأعلاف بنسبة تصل إلى <strong>60%</strong>، بدعم تنموي من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.
@@ -350,7 +354,7 @@ function renderHomePage() {
                 <i class="fa-solid fa-map-location-dot"></i>
               </div>
               <h3 style="font-size: 1.45rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem;">
-                لديك أرض زراعية؟ شاركنا ذهب مصر الأخضر
+                لديك أرض زراعية؟ شاركنا في تكنولوجيا الأعلاف البديلة
               </h3>
               <p style="font-size: 0.95rem; color: #E2ECE9; line-height: 1.7; margin-bottom: 1.5rem;">
                 نفتح باب الشراكة مع أصحاب وملاك الأراضي الزراعية في كافة المحافظات لإنشاء أحواض إنتاجية ومزارع أزولا كبرى بإشراف ودعم فني وتشغيلي متكامل من <strong>جمعية الخدمات المتكاملة</strong>.
@@ -393,7 +397,7 @@ function renderAboutPage() {
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">عن مشروع أزولا مصر – ذهب مصر الأخضر</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">عن مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر</h1>
         <p class="hero-lead-text">
           منظومة تنموية زراعية مستدامة تنطلق من كفر الدوار بالبحيرة ومزارع أسوان التكاملية، لبناء نموذج زراعي بيئي مستدام يحقق الأمن الغذائي والمناخي.
         </p>
@@ -1158,6 +1162,202 @@ function renderContactPage() {
 }
 
 /* ==========================================================================
+   5.6 SUB-PAGE: NEWS & BLOG CENTER (أخبارنا والمدونة الرسمية)
+   ========================================================================== */
+window.currentNewsCategory = 'all';
+window.currentNewsSearchQuery = '';
+
+function renderNewsPage() {
+  const articles = window.AZOLLA_DATA.newsArticles || [];
+  const featured = articles.find(a => a.featured) || articles[0];
+
+  return `
+    <header class="home-hero-section" style="padding: 3.5rem 0 2.5rem; background: linear-gradient(135deg, #064E3B 0%, #0F172A 100%);">
+      <div class="container">
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.2); color: #A7F3D0; padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; margin-bottom: 1rem; border: 1px solid rgba(16, 185, 129, 0.3);">
+          <i class="fa-solid fa-newspaper"></i> المركز الإعلامي والمدونة الرسمية 2026
+        </div>
+        <h1 class="hero-main-title" style="font-size: 2.35rem; margin-bottom: 0.75rem;">أخبار ومستجدات المنظومة</h1>
+        <p class="hero-lead-text" style="max-width: 850px; margin-bottom: 1.5rem;">
+          متابعة ميدانية حية لافتتاح الأحواض الإنتاجية، ورش العمل التطبيقية، بحوث صون المياه والأعلاف البديلة، وقصص نجاح المزارعين والمربين لمشروع <strong>تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong>.
+        </p>
+
+        <!-- Search & Filter Controls -->
+        <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; gap: 1rem;">
+          <!-- Search Bar -->
+          <div style="position: relative;">
+            <input type="text" id="news-search-input" oninput="handleNewsSearch(this.value)" placeholder="ابحث في الأخبار والتقارير الميدانية بالكلمات الدلالية..." style="width: 100%; padding: 0.85rem 3rem 0.85rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.95); color: #0F172A; font-size: 1rem; outline: none;">
+            <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--color-primary); font-size: 1.1rem;"></i>
+          </div>
+
+          <!-- Category Pills -->
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="news-category-pills">
+            <button class="btn btn-sm btn-gold active" onclick="filterNewsCategory('all', this)"><i class="fa-solid fa-border-all"></i> كافة الأخبار</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('farms', this)"><i class="fa-solid fa-water"></i> أخبار المزارع والحصاد</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('academy', this)"><i class="fa-solid fa-graduation-cap"></i> فعاليات الأكاديمية</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('environment', this)"><i class="fa-solid fa-droplet"></i> صون المياه والبيئة</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('partners', this)"><i class="fa-solid fa-handshake"></i> الشراكات والتمكين</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section section-bg-white" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+      <div class="container">
+
+        <!-- Featured News Card (Hero) -->
+        ${featured ? `
+          <div id="news-featured-card" style="margin-bottom: 3rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0;">
+            <div style="position: relative; overflow: hidden; min-height: 280px; max-height: 380px;">
+              <img src="${featured.image || './assets/images/gallery_aswan_basin.jpg'}" alt="${featured.title}" style="width: 100%; height: 100%; object-fit: cover;">
+              <span style="position: absolute; top: 1rem; right: 1rem; background: var(--color-gold); color: #0F172A; font-weight: 800; font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                <i class="fa-solid fa-star"></i> تقرير مميز
+              </span>
+            </div>
+            <div style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                  <span style="font-size: 0.78rem; font-weight: 800; color: var(--color-primary); background: var(--color-emerald-50); padding: 0.2rem 0.65rem; border-radius: var(--radius-full); border: 1px solid var(--color-emerald-200);">
+                    ${featured.categoryLabel || featured.category}
+                  </span>
+                  <span style="font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-calendar"></i> ${featured.date}</span>
+                  <span style="font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock"></i> ${featured.readTime || '3 دقائق'}</span>
+                </div>
+                <h2 style="font-size: 1.45rem; font-weight: 900; margin-bottom: 1rem; color: var(--color-primary-dark); line-height: 1.4;">
+                  ${featured.title}
+                </h2>
+                <p style="font-size: 0.95rem; color: var(--color-text-main); line-height: 1.7; margin-bottom: 1.5rem;">
+                  ${featured.summary}
+                </p>
+              </div>
+              <div>
+                <button class="btn btn-primary" onclick="openArticleModal('${featured.id}')">
+                  <i class="fa-solid fa-book-open-reader"></i> قراءة التقرير كاملاً
+                </button>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Articles Grid -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1.35rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;">
+            <i class="fa-solid fa-list-check text-gold"></i> كافة الأخبار والتقارير الميدانية
+          </h3>
+          <div id="news-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem;">
+            <!-- Populated by renderNewsCards() -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+  `;
+}
+
+function renderNewsCards() {
+  const container = document.getElementById('news-grid');
+  if (!container) return;
+
+  const articles = window.AZOLLA_DATA.newsArticles || [];
+  let filtered = articles;
+
+  if (window.currentNewsCategory && window.currentNewsCategory !== 'all') {
+    filtered = filtered.filter(a => a.category === window.currentNewsCategory);
+  }
+
+  if (window.currentNewsSearchQuery) {
+    const q = window.currentNewsSearchQuery.toLowerCase();
+    filtered = filtered.filter(a => 
+      (a.title && a.title.toLowerCase().includes(q)) || 
+      (a.summary && a.summary.toLowerCase().includes(q)) || 
+      (a.content && a.content.toLowerCase().includes(q))
+    );
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--color-bg); border-radius: var(--radius-md); border: 1px dashed var(--color-border);">
+        <i class="fa-solid fa-newspaper text-emerald" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
+        <h4 style="font-weight: 800; margin-bottom: 0.5rem;">لا توجد مقالات مطابقة لمعايير البحث</h4>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted);">يرجى اختيار تصنيف آخر أو إعادة ضبط كلمات البحث.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(a => `
+    <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <div style="position: relative; height: 200px; overflow: hidden;">
+        <img src="${a.image || './assets/images/gallery_training_session.jpg'}" alt="${a.title}" style="width: 100%; height: 100%; object-fit: cover;">
+        <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: var(--color-primary-dark); color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
+          ${a.categoryLabel || a.category}
+        </span>
+      </div>
+      <div style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+        <div>
+          <div style="display: flex; gap: 0.75rem; font-size: 0.78rem; color: var(--color-text-muted); margin-bottom: 0.65rem;">
+            <span><i class="fa-regular fa-calendar"></i> ${a.date}</span>
+            <span>•</span>
+            <span><i class="fa-regular fa-clock"></i> ${a.readTime || '3 دقائق'}</span>
+          </div>
+          <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--color-text-main); line-height: 1.45;">
+            ${a.title}
+          </h3>
+          <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.65; margin-bottom: 1.25rem;">
+            ${a.summary}
+          </p>
+        </div>
+        <button class="btn btn-outline-primary btn-sm btn-block" onclick="openArticleModal('${a.id}')">
+          <i class="fa-solid fa-arrow-left"></i> قراءة المقال كاملاً
+        </button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function filterNewsCategory(cat, btn) {
+  window.currentNewsCategory = cat;
+  if (btn) {
+    document.querySelectorAll('#news-category-pills .btn').forEach(b => {
+      b.className = 'btn btn-sm btn-outline-white';
+    });
+    btn.className = 'btn btn-sm btn-gold active';
+  }
+  renderNewsCards();
+}
+
+function handleNewsSearch(val) {
+  window.currentNewsSearchQuery = val;
+  renderNewsCards();
+}
+
+function openArticleModal(id) {
+  const a = (window.AZOLLA_DATA.newsArticles || []).find(art => art.id === id);
+  if (!a) return;
+
+  const modal = document.getElementById('modal-article-view');
+  if (!modal) return;
+
+  const titleEl = document.getElementById('art-view-title');
+  const catEl = document.getElementById('art-view-cat');
+  const dateEl = document.getElementById('art-view-date');
+  const authorEl = document.getElementById('art-view-author');
+  const readEl = document.getElementById('art-view-readtime');
+  const imgEl = document.getElementById('art-view-img');
+  const bodyEl = document.getElementById('art-view-body');
+
+  if (titleEl) titleEl.innerText = a.title;
+  if (catEl) catEl.innerText = a.categoryLabel || a.category;
+  if (dateEl) dateEl.innerText = a.date;
+  if (authorEl) authorEl.innerText = a.author || 'اللجنة الفنية للمشروع';
+  if (readEl) readEl.innerText = a.readTime || '3 دقائق';
+  if (imgEl) imgEl.src = a.image || './assets/images/gallery_aswan_basin.jpg';
+  if (bodyEl) bodyEl.innerHTML = a.content || `<p>${a.summary}</p>`;
+
+  openModal('modal-article-view');
+}
+
+/* ==========================================================================
    6. SUB-PAGE: PRIVACY, PROTECTION & GOVERNANCE POLICY (PDF COMPLIANT v1.0)
    ========================================================================== */
 function renderPrivacyPage() {
@@ -1175,7 +1375,7 @@ function renderPrivacyPage() {
           ${policy.title || 'سياسة الخصوصية والحماية وعدم التمييز وتلقي الشكاوى'}
         </h1>
         <p class="hero-lead-text" style="max-width: 800px; margin-bottom: 1.5rem;">
-          ${policy.subtitle || 'وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع أزولا مصر – ذهب مصر الأخضر'}
+          ${policy.subtitle || 'وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر»'}
         </p>
 
         <!-- Actions Toolbar -->
@@ -1236,7 +1436,7 @@ function renderPrivacyPage() {
               .1 الغرض من السياسة (Purpose & Scope)
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تحدد هذه الوثيقة المبادئ الحاكمة لضمان بيئة رقمية وميدانية آمنة، عادلة، محترمة وشاملة داخل منظومة «أزولا مصر – ذهب مصر الأخضر» وتطبيقاتها والمزارع الشريكة، مع ضمان تكافؤ الفرص وحظر التمييز بكافة أشكاله، وحماية بيانات الجمعيات والمزارعين والمستفيدين والمتدربين والمتطوعين من أي استغلال أو إفشاء غير مصرح به، وتوفير مسار آمن وسري ومحمي لتلقي الشكاوى والبلاغات ومعالجتها بحيادية تامة.
+              تحدد هذه الوثيقة المبادئ الحاكمة لضمان بيئة رقمية وميدانية آمنة، عادلة، محترمة وشاملة داخل منظومة «تكنولوجيا الأعلاف البديلة .. أزولا مصر» وتطبيقاتها والمزارع الشريكة، مع ضمان تكافؤ الفرص وحظر التمييز بكافة أشكاله، وحماية بيانات الجمعيات والمزارعين والمستفيدين والمتدربين والمتطوعين من أي استغلال أو إفشاء غير مصرح به، وتوفير مسار آمن وسري ومحمي لتلقي الشكاوى والبلاغات ومعالجتها بحيادية تامة.
             </p>
           </article>
 
@@ -1404,7 +1604,7 @@ function renderPrivacyPage() {
               </span>
             </div>
             <p style="font-size: 0.95rem; line-height: 1.8; color: var(--color-text-main); margin-bottom: 1.5rem;">
-              تم اعتماد هذه السياسة كوثيقة حوكمة وخصوصية رسمية ملزمة لمنظومة مشروع «أزولا مصر – ذهب مصر الأخضر» بالشراكة المؤسسية بين <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> و<strong>منصة NGO HUB</strong> ومزارع فرع أسوان التكاملية. إن استخدامك للمنصة أو التسجيل في برامجها يُعد موافقة والتزاماً صريحاً بما ورد فيها.
+              تم اعتماد هذه السياسة كوثيقة حوكمة وخصوصية رسمية ملزمة لمنظومة مشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر» بالشراكة المؤسسية بين <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> و<strong>منصة NGO HUB</strong> ومزارع فرع أسوان التكاملية. إن استخدامك للمنصة أو التسجيل في برامجها يُعد موافقة والتزاماً صريحاً بما ورد فيها.
             </p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; background: #FFFFFF; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
@@ -1781,7 +1981,7 @@ async function handleUniversalFormSubmit(e, formLabel) {
       assocGov: gov,
       assocCity: city,
       partnerScope: details,
-      notes: `${formLabel} | أزولا مصر ذهب مصر الأخضر`
+      notes: `${formLabel} | تكنولوجيا الأعلاف البديلة .. أزولا مصر`
     }
   };
 
@@ -1914,46 +2114,116 @@ function handleCmsLogout() {
   showToast('تم تسجيل الخروج من لوحة التحكم');
 }
 
+/* ==========================================================================
+   IMAGE COMPRESSION HELPER (Canvas-based WebP/JPEG)
+   ========================================================================== */
+function compressAndConvertImage(file, maxDimension = 1200, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    if (!file) return reject('No file provided');
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height && width > maxDimension) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else if (height > maxDimension) {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const base64 = canvas.toDataURL('image/jpeg', quality);
+        resolve(base64);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 function switchCmsTab(tabName) {
-  ['stats', 'partners', 'articles', 'inbox', 'backup'].forEach(t => {
+  const tabs = ['overview', 'news', 'counters', 'gallery', 'courses', 'info', 'inbox', 'cloud'];
+  tabs.forEach(t => {
     const p = document.getElementById(`cms-panel-${t}`);
     const b = document.getElementById(`cms-tab-btn-${t}`);
     if (p) p.style.display = t === tabName ? 'block' : 'none';
     if (b) {
       if (t === tabName) {
-        b.className = 'btn btn-sm btn-primary';
+        b.classList.add('active');
       } else {
-        b.className = 'btn btn-sm btn-outline-primary';
+        b.classList.remove('active');
       }
     }
   });
 }
 
 function renderCmsDashboard() {
-  const stats = window.AZOLLA_DATA.verifiedStats;
-  if (document.getElementById('cms-stat-solar')) document.getElementById('cms-stat-solar').value = stats.solarStationsCount;
-  if (document.getElementById('cms-stat-pumping')) document.getElementById('cms-stat-pumping').value = stats.dailyWaterPumpingM3;
-  if (document.getElementById('cms-stat-trainees')) document.getElementById('cms-stat-trainees').value = stats.directTrainees;
-  if (document.getElementById('cms-stat-feedcost')) document.getElementById('cms-stat-feedcost').value = stats.feedCostReductionPct;
-  if (document.getElementById('cms-stat-income')) document.getElementById('cms-stat-income').value = stats.avgIncomeIncreaseEgp;
-  if (document.getElementById('cms-stat-co2')) document.getElementById('cms-stat-co2').value = stats.annualCo2SavedTons;
+  const data = window.AZOLLA_DATA;
+  const stats = data.verifiedStats || {};
+  const news = data.newsArticles || [];
+  const inbox = data.inboxMessages || [];
+  const gallery = data.realGallery || [];
 
-  renderCmsPartnersList();
-  renderCmsArticlesList();
+  // 1. Update KPI Overview
+  if (document.getElementById('cms-kpi-articles-count')) document.getElementById('cms-kpi-articles-count').innerText = news.length;
+  if (document.getElementById('cms-kpi-inbox-count')) document.getElementById('cms-kpi-inbox-count').innerText = inbox.length;
+  if (document.getElementById('cms-kpi-gallery-count')) document.getElementById('cms-kpi-gallery-count').innerText = gallery.length;
+  if (document.getElementById('cms-kpi-trainees-count')) document.getElementById('cms-kpi-trainees-count').innerText = stats.directTrainees || 512;
+
+  // 2. Populate Counters inputs
+  if (document.getElementById('cms-cnt-farmers')) document.getElementById('cms-cnt-farmers').value = stats.directTrainees || 512;
+  if (document.getElementById('cms-cnt-feedcost')) document.getElementById('cms-cnt-feedcost').value = stats.feedCostReductionPct || 60;
+  if (document.getElementById('cms-cnt-solar')) document.getElementById('cms-cnt-solar').value = stats.solarStationsCount || 3;
+  if (document.getElementById('cms-cnt-pumping')) document.getElementById('cms-cnt-pumping').value = stats.dailyWaterPumpingM3 || 2350;
+  if (document.getElementById('cms-cnt-income')) document.getElementById('cms-cnt-income').value = stats.avgIncomeIncreaseEgp || 3800;
+  if (document.getElementById('cms-cnt-co2')) document.getElementById('cms-cnt-co2').value = stats.annualCo2SavedTons || 108;
+  if (document.getElementById('cms-cnt-diesel')) document.getElementById('cms-cnt-diesel').value = stats.annualDieselSavedLiters || 10200;
+
+  // 3. Populate Site Info
+  const proj = data.projectInfo || {};
+  if (document.getElementById('cms-info-name')) document.getElementById('cms-info-name').value = proj.nameAr || '';
+  if (document.getElementById('cms-info-slogan')) document.getElementById('cms-info-slogan').value = proj.sloganAr || '';
+  if (document.getElementById('cms-info-phone')) document.getElementById('cms-info-phone').value = proj.officialPhoneDisplay || '';
+  if (document.getElementById('cms-info-email')) document.getElementById('cms-info-email').value = proj.officialEmail || '';
+  if (document.getElementById('cms-info-address')) document.getElementById('cms-info-address').value = proj.headquarters || '';
+  if (document.getElementById('cms-webhook-url')) document.getElementById('cms-webhook-url').value = proj.googleSheetWebhookUrl || '';
+
+  // 4. Render Lists
+  renderCmsNewsList();
+  renderCmsGalleryList();
+  renderCmsCoursesList();
   renderCmsInbox();
+  updateCloudStatusUI();
 }
 
-function saveCmsStats() {
-  window.AZOLLA_DATA.verifiedStats.solarStationsCount = +document.getElementById('cms-stat-solar').value;
-  window.AZOLLA_DATA.verifiedStats.dailyWaterPumpingM3 = +document.getElementById('cms-stat-pumping').value;
-  window.AZOLLA_DATA.verifiedStats.directTrainees = +document.getElementById('cms-stat-trainees').value;
-  window.AZOLLA_DATA.verifiedStats.feedCostReductionPct = +document.getElementById('cms-stat-feedcost').value;
-  window.AZOLLA_DATA.verifiedStats.avgIncomeIncreaseEgp = +document.getElementById('cms-stat-income').value;
-  window.AZOLLA_DATA.verifiedStats.annualCo2SavedTons = +document.getElementById('cms-stat-co2').value;
+function saveCmsCounters() {
+  const stats = window.AZOLLA_DATA.verifiedStats;
+  stats.directTrainees = +document.getElementById('cms-cnt-farmers').value || stats.directTrainees;
+  stats.feedCostReductionPct = +document.getElementById('cms-cnt-feedcost').value || stats.feedCostReductionPct;
+  stats.solarStationsCount = +document.getElementById('cms-cnt-solar').value || stats.solarStationsCount;
+  stats.dailyWaterPumpingM3 = +document.getElementById('cms-cnt-pumping').value || stats.dailyWaterPumpingM3;
+  stats.avgIncomeIncreaseEgp = +document.getElementById('cms-cnt-income').value || stats.avgIncomeIncreaseEgp;
+  stats.annualCo2SavedTons = +document.getElementById('cms-cnt-co2').value || stats.annualCo2SavedTons;
+  stats.annualDieselSavedLiters = +document.getElementById('cms-cnt-diesel').value || stats.annualDieselSavedLiters;
 
   window.saveAzollaState(window.AZOLLA_DATA);
-  showToast('تم حفظ الإحصائيات وتحديث الموقع بنجاح!');
-  navigateTo(window.location.hash.replace('#', '') || 'home');
+  showToast('تم حفظ أرقام وإحصائيات الموقع وتحديثها لحظياً!');
+  markLocalChangesPending();
+  const route = window.location.hash.replace('#', '') || 'home';
+  if (route === 'home' || route === 'impact') {
+    navigateTo(route);
+  }
 }
 
 function renderCmsPartnersList() {
@@ -2030,100 +2300,344 @@ function deletePartner(idx) {
   }
 }
 
-function renderCmsArticlesList() {
-  const listEl = document.getElementById('cms-articles-list');
-  if (!listEl) return;
-  listEl.innerHTML = window.AZOLLA_DATA.articles.map((art, idx) => `
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-      <div>
-        <div style="font-weight: 800; font-size: 0.9rem;">${art.title}</div>
-        <div style="font-size: 0.75rem; color: var(--color-text-muted);">${art.category} | ${art.date}</div>
+/* ==========================================================================
+   CMS: NEWS ARTICLES CRUD & EDIT
+   ========================================================================== */
+function renderCmsNewsList() {
+  const container = document.getElementById('cms-news-list');
+  if (!container) return;
+
+  const news = window.AZOLLA_DATA.newsArticles || [];
+  if (news.length === 0) {
+    container.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--color-text-muted);">لا توجد مقالات منشورة حالياً. اضغط "إضافة خبر جديد" لإضافة أول مقال.</div>`;
+    return;
+  }
+
+  container.innerHTML = news.map((item) => `
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border); gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0;">
+        <img src="${item.image || './assets/images/gallery_aswan_basin.jpg'}" alt="${item.title}" style="width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); flex-shrink: 0; border: 1px solid var(--color-border);">
+        <div style="min-width: 0;">
+          <div style="font-weight: 800; font-size: 0.92rem; color: var(--color-text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            ${item.featured ? '<span style="color: var(--color-gold); margin-left: 4px;">★</span>' : ''}${item.title}
+          </div>
+          <div style="font-size: 0.78rem; color: var(--color-text-muted); display: flex; gap: 0.5rem; margin-top: 2px;">
+            <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
+            <span>•</span>
+            <span style="color: var(--color-primary); font-weight: 700;">${item.categoryLabel || item.category}</span>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-sm" style="color: #DC2626;" onclick="deleteArticle(${idx})"><i class="fa-solid fa-trash"></i></button>
+      <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+        <button class="btn btn-sm btn-primary" onclick="openNewsEditForm('${item.id}')" title="تعديل المقال والصورة"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
+        <button class="btn btn-sm" style="background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA;" onclick="deleteCmsNewsArticle('${item.id}')" title="حذف المقال"><i class="fa-solid fa-trash"></i></button>
+      </div>
     </div>
   `).join('');
 }
 
-function toggleAddArticleForm() {
-  const box = document.getElementById('cms-add-article-box');
-  if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+function openNewsForm(isEdit = false) {
+  const box = document.getElementById('cms-news-form-box');
+  if (!box) return;
+  box.style.display = 'block';
+
+  if (!isEdit) {
+    document.getElementById('news-form-id').value = '';
+    document.getElementById('news-form-title').value = '';
+    document.getElementById('news-form-cat').value = 'farms';
+    document.getElementById('news-form-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('news-form-author').value = 'اللجنة الفنية للمشروع';
+    document.getElementById('news-form-readtime').value = '3 دقائق';
+    document.getElementById('news-form-summary').value = '';
+    document.getElementById('news-form-content').value = '';
+    document.getElementById('news-form-img-base64').value = '';
+    document.getElementById('news-form-img-url').value = '';
+    document.getElementById('news-form-featured').checked = false;
+    document.getElementById('news-img-preview').innerHTML = '';
+    document.getElementById('news-form-title-label').innerText = 'إضافة مقال أو خبر جديد';
+    document.getElementById('news-form-submit-btn').innerHTML = '<i class="fa-solid fa-plus"></i> نشر المقال فوراً';
+  }
 }
 
-function handleArticleImgUpload(event) {
+function closeNewsForm() {
+  const box = document.getElementById('cms-news-form-box');
+  if (box) box.style.display = 'none';
+}
+
+function openNewsEditForm(id) {
+  const item = (window.AZOLLA_DATA.newsArticles || []).find(a => a.id === id);
+  if (!item) return;
+
+  openNewsForm(true);
+  document.getElementById('news-form-id').value = item.id;
+  document.getElementById('news-form-title').value = item.title;
+  document.getElementById('news-form-cat').value = item.category || 'farms';
+  document.getElementById('news-form-date').value = item.date || '';
+  document.getElementById('news-form-author').value = item.author || 'اللجنة الفنية للمشروع';
+  document.getElementById('news-form-readtime').value = item.readTime || '3 دقائق';
+  document.getElementById('news-form-summary').value = item.summary || '';
+  document.getElementById('news-form-content').value = item.content || '';
+  document.getElementById('news-form-img-base64').value = item.image && item.image.startsWith('data:') ? item.image : '';
+  document.getElementById('news-form-img-url').value = item.image && !item.image.startsWith('data:') ? item.image : '';
+  document.getElementById('news-form-featured').checked = !!item.featured;
+  document.getElementById('news-img-preview').innerHTML = `<img src="${item.image || './assets/images/gallery_aswan_basin.jpg'}" style="height: 60px; border-radius: 4px; border: 1px solid var(--color-border); object-fit: cover;">`;
+  document.getElementById('news-form-title-label').innerText = 'تعديل المقال والصورة';
+  document.getElementById('news-form-submit-btn').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> حفظ تعديلات المقال';
+}
+
+async function handleNewsImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    document.getElementById('new-art-img-base64').value = e.target.result;
-  };
-  reader.readAsDataURL(file);
+  try {
+    const base64 = await compressAndConvertImage(file, 1200, 0.82);
+    document.getElementById('news-form-img-base64').value = base64;
+    document.getElementById('news-form-img-url').value = '';
+    document.getElementById('news-img-preview').innerHTML = `<img src="${base64}" style="height: 60px; border-radius: 4px; border: 1px solid var(--color-border); object-fit: cover;">`;
+    showToast('تم تحميل الصورة وضغطها بنجاح!');
+  } catch (err) {
+    alert('حدث خطأ أثناء معالجة الصورة!');
+  }
 }
 
-function saveNewArticle() {
-  const title = document.getElementById('new-art-title')?.value;
-  const cat = document.getElementById('new-art-cat')?.value || 'أخبار عامة';
-  const excerpt = document.getElementById('new-art-excerpt')?.value;
-  const content = document.getElementById('new-art-content')?.value;
-  const img = document.getElementById('new-art-img-base64')?.value || './assets/images/field_farm_large.jpg';
+function saveCmsNewsArticle() {
+  const id = document.getElementById('news-form-id').value;
+  const title = document.getElementById('news-form-title').value.trim();
+  const category = document.getElementById('news-form-cat').value;
+  const date = document.getElementById('news-form-date').value || new Date().toISOString().split('T')[0];
+  const author = document.getElementById('news-form-author').value.trim() || 'إدارة المشروع';
+  const readTime = document.getElementById('news-form-readtime').value.trim() || '3 دقائق';
+  const summary = document.getElementById('news-form-summary').value.trim();
+  const content = document.getElementById('news-form-content').value.trim() || `<p>${summary}</p>`;
+  const imgBase64 = document.getElementById('news-form-img-base64').value;
+  const imgUrl = document.getElementById('news-form-img-url').value.trim();
+  const featured = document.getElementById('news-form-featured').checked;
 
-  if (!title || !content) {
-    alert('يرجى ملء عنوان ونص المقال!');
+  const image = imgBase64 || imgUrl || './assets/images/gallery_aswan_basin.jpg';
+
+  if (!title || !summary) {
+    alert('يرجى ملء عنوان المقال والموجز الإخباري!');
     return;
   }
 
-  window.AZOLLA_DATA.articles.unshift({
-    id: `art-${Date.now()}`,
+  const categoryLabels = {
+    farms: 'أخبار المزارع والحصاد',
+    academy: 'فعاليات الأكاديمية',
+    environment: 'صون المياه والبيئة',
+    partners: 'الشراكات والتمكين'
+  };
+
+  if (!window.AZOLLA_DATA.newsArticles) window.AZOLLA_DATA.newsArticles = [];
+
+  if (id) {
+    const idx = window.AZOLLA_DATA.newsArticles.findIndex(a => a.id === id);
+    if (idx !== -1) {
+      window.AZOLLA_DATA.newsArticles[idx] = {
+        ...window.AZOLLA_DATA.newsArticles[idx],
+        title,
+        category,
+        categoryLabel: categoryLabels[category] || category,
+        date,
+        author,
+        readTime,
+        summary,
+        content,
+        image,
+        featured
+      };
+      showToast('تم تحديث المقال بنجاح!');
+    }
+  } else {
+    const newArticle = {
+      id: `news-${Date.now()}`,
+      title,
+      category,
+      categoryLabel: categoryLabels[category] || category,
+      date,
+      author,
+      readTime,
+      summary,
+      content,
+      image,
+      featured
+    };
+    window.AZOLLA_DATA.newsArticles.unshift(newArticle);
+    showToast('تم نشر المقال الجديد بنجاح!');
+  }
+
+  window.saveAzollaState(window.AZOLLA_DATA);
+  closeNewsForm();
+  renderCmsNewsList();
+  renderNewsCards();
+  markLocalChangesPending();
+}
+
+function deleteCmsNewsArticle(id) {
+  if (confirm('هل أنت متأكد من رغبتك في حذف هذا المقال نهائياً؟')) {
+    window.AZOLLA_DATA.newsArticles = (window.AZOLLA_DATA.newsArticles || []).filter(a => a.id !== id);
+    window.saveAzollaState(window.AZOLLA_DATA);
+    renderCmsNewsList();
+    renderNewsCards();
+    markLocalChangesPending();
+    showToast('تم حذف المقال بنجاح');
+  }
+}
+
+/* ==========================================================================
+   CMS: GALLERY & MEDIA CRUD
+   ========================================================================== */
+function renderCmsGalleryList() {
+  const container = document.getElementById('cms-gallery-list');
+  if (!container) return;
+
+  const gallery = window.AZOLLA_DATA.realGallery || [];
+  container.innerHTML = gallery.map((item, idx) => `
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="${item.src}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-border);">
+        <div>
+          <div style="font-weight: 800; font-size: 0.9rem;">${item.title}</div>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted);">${item.category} | ${item.location}</div>
+        </div>
+      </div>
+      <button class="btn btn-sm" style="color: #DC2626;" onclick="deleteGalleryPhoto(${idx})"><i class="fa-solid fa-trash"></i></button>
+    </div>
+  `).join('');
+}
+
+async function handleGalleryPhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const base64 = await compressAndConvertImage(file, 1200, 0.82);
+    document.getElementById('new-gal-img-base64').value = base64;
+    document.getElementById('gal-img-preview').innerHTML = `<img src="${base64}" style="height: 60px; border-radius: 4px; border: 1px solid var(--color-border); object-fit: cover;">`;
+  } catch (e) {
+    alert('حدث خطأ أثناء معالجة الصورة!');
+  }
+}
+
+function saveNewGalleryPhoto() {
+  const title = document.getElementById('new-gal-title')?.value?.trim();
+  const category = document.getElementById('new-gal-category')?.value || 'مزارع تطبيقية';
+  const location = document.getElementById('new-gal-location')?.value?.trim() || 'كفر الدوار / أسوان';
+  const desc = document.getElementById('new-gal-desc')?.value?.trim() || '';
+  const imgBase64 = document.getElementById('new-gal-img-base64')?.value;
+  const imgUrl = document.getElementById('new-gal-img-url')?.value?.trim();
+
+  const src = imgBase64 || imgUrl || './assets/images/gallery_aswan_basin.jpg';
+
+  if (!title) {
+    alert('يرجى إدخال عنوان الصورة!');
+    return;
+  }
+
+  if (!window.AZOLLA_DATA.realGallery) window.AZOLLA_DATA.realGallery = [];
+  window.AZOLLA_DATA.realGallery.unshift({
+    id: `gal-${Date.now()}`,
     title,
-    category: cat,
-    date: 'الآن',
-    image: img,
-    author: 'إدارة أزولا مصر',
-    excerpt: excerpt || title,
-    content
+    category,
+    location,
+    desc,
+    src
   });
 
   window.saveAzollaState(window.AZOLLA_DATA);
-  showToast('تم نشر المقال بنجاح!');
-  toggleAddArticleForm();
-  renderCmsArticlesList();
+  showToast('تمت إضافة الصورة إلى المعرض الميداني!');
+  renderCmsGalleryList();
+  markLocalChangesPending();
+
+  document.getElementById('new-gal-title').value = '';
+  document.getElementById('new-gal-desc').value = '';
+  document.getElementById('new-gal-img-base64').value = '';
+  document.getElementById('new-gal-img-url').value = '';
+  document.getElementById('gal-img-preview').innerHTML = '';
 }
 
-function deleteArticle(idx) {
-  if (confirm('هل أنت متأكد من حذف هذا المقال؟')) {
-    window.AZOLLA_DATA.articles.splice(idx, 1);
+function deleteGalleryPhoto(idx) {
+  if (confirm('هل ترغب في حذف هذه الصورة من المعرض الميداني؟')) {
+    window.AZOLLA_DATA.realGallery.splice(idx, 1);
     window.saveAzollaState(window.AZOLLA_DATA);
-    renderCmsArticlesList();
-    showToast('تم حذف المقال');
+    renderCmsGalleryList();
+    markLocalChangesPending();
+    showToast('تم حذف الصورة بنجاح');
   }
 }
 
-function renderCmsInbox() {
-  const listEl = document.getElementById('cms-inbox-list');
-  if (!listEl) return;
-  const msgs = window.AZOLLA_DATA.inboxMessages || [];
-  if (msgs.length === 0) {
-    listEl.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.9rem;">لا توجد رسائل جديدة في صندوق الوارد.</p>';
+/* ==========================================================================
+   CMS: SITE INFO & CONTACTS
+   ========================================================================== */
+function saveCmsSiteInfo() {
+  const p = window.AZOLLA_DATA.projectInfo;
+  p.nameAr = document.getElementById('cms-info-name').value.trim() || p.nameAr;
+  p.sloganAr = document.getElementById('cms-info-slogan').value.trim() || p.sloganAr;
+  p.officialPhoneDisplay = document.getElementById('cms-info-phone').value.trim() || p.officialPhoneDisplay;
+  p.officialEmail = document.getElementById('cms-info-email').value.trim() || p.officialEmail;
+  p.headquarters = document.getElementById('cms-info-address').value.trim() || p.headquarters;
+
+  window.saveAzollaState(window.AZOLLA_DATA);
+  showToast('تم حفظ بيانات ومعلومات الموقع بنجاح!');
+  markLocalChangesPending();
+}
+
+/* ==========================================================================
+   CMS: ACADEMY COURSES
+   ========================================================================== */
+function renderCmsCoursesList() {
+  const container = document.getElementById('cms-courses-list');
+  if (!container) return;
+
+  const courses = window.AZOLLA_DATA.courses || [];
+  container.innerHTML = courses.map((c) => `
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+      <div>
+        <div style="font-weight: 800; font-size: 0.9rem;">${c.title}</div>
+        <div style="font-size: 0.75rem; color: var(--color-text-muted);">${c.category} | ${c.duration} | ${c.targetAudience}</div>
+      </div>
+      <button class="btn btn-sm btn-outline-primary" onclick="alert('برنامج: ${c.title}\\nالمدة: ${c.duration}\\nالفئة: ${c.targetAudience}')"><i class="fa-solid fa-eye"></i> معاينة</button>
+    </div>
+  `).join('');
+}
+
+/* ==========================================================================
+   CMS: INBOX & EXPORT
+   ========================================================================== */
+function renderCmsInbox(filter = '') {
+  const container = document.getElementById('cms-inbox-list');
+  if (!container) return;
+
+  let messages = window.AZOLLA_DATA.inboxMessages || [];
+  if (filter) {
+    messages = messages.filter(m => m.formType && m.formType.includes(filter));
+  }
+
+  if (messages.length === 0) {
+    container.innerHTML = `<div style="text-align: center; padding: 2.5rem; color: var(--color-text-muted);">لا توجد رسائل أو استمارات واردة حالياً.</div>`;
     return;
   }
-  listEl.innerHTML = `
-    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: right;">
+
+  container.innerHTML = `
+    <table class="cms-table">
       <thead>
-        <tr style="background: var(--color-bg); border-bottom: 2px solid var(--color-border);">
-          <th style="padding: 0.5rem;">التاريخ</th>
-          <th style="padding: 0.5rem;">الاسم</th>
-          <th style="padding: 0.5rem;">الهاتف</th>
-          <th style="padding: 0.5rem;">الموضوع</th>
-          <th style="padding: 0.5rem;">الحالة</th>
+        <tr>
+          <th>كود الطلب</th>
+          <th>التاريخ والوقت</th>
+          <th>النوع</th>
+          <th>الاسم</th>
+          <th>الهاتف</th>
+          <th>المحافظة</th>
+          <th>التفاصيل والملاحظات</th>
         </tr>
       </thead>
       <tbody>
-        ${msgs.map(m => `
-          <tr style="border-bottom: 1px solid var(--color-border);">
-            <td style="padding: 0.5rem;">${m.date}</td>
-            <td style="padding: 0.5rem; font-weight: 700;">${m.name}</td>
-            <td style="padding: 0.5rem;"><a href="tel:${m.phone}" style="color: var(--color-primary);">${m.phone}</a></td>
-            <td style="padding: 0.5rem;">${m.subject}</td>
-            <td style="padding: 0.5rem;"><span style="background: var(--color-emerald-50); color: var(--color-primary); padding: 2px 6px; border-radius: 4px;">${m.status}</span></td>
+        ${messages.map(m => `
+          <tr>
+            <td><code>${m.id}</code></td>
+            <td style="font-size: 0.78rem; color: var(--color-text-muted);">${m.time}</td>
+            <td><span class="badge" style="background: var(--color-emerald-50); color: var(--color-primary); border: 1px solid var(--color-emerald-200);">${m.formType}</span></td>
+            <td><strong>${m.name}</strong></td>
+            <td><a href="tel:${m.phone}" dir="ltr" style="color: var(--color-primary); font-weight: 700;">${m.phone}</a></td>
+            <td>${m.gov}</td>
+            <td style="font-size: 0.82rem; max-width: 250px;">${m.details}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -2131,11 +2645,170 @@ function renderCmsInbox() {
   `;
 }
 
-function exportBackupJSON() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.AZOLLA_DATA, null, 2));
+function exportInboxCSV() {
+  const messages = window.AZOLLA_DATA.inboxMessages || [];
+  if (messages.length === 0) {
+    alert('لا توجد رسائل واردة لتصديرها!');
+    return;
+  }
+  let csv = '\uFEFFكود الطلب,التاريخ,نوع الاستمارة,الاسم,الهاتف,المحافظة,المدينة,التفاصيل\n';
+  messages.forEach(m => {
+    csv += `"${m.id}","${m.time}","${m.formType}","${m.name}","${m.phone}","${m.gov}","${m.city}","${(m.details||'').replace(/"/g, '""')}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.setAttribute("href", dataStr);
-  a.setAttribute("download", `azolla_site_backup_${new Date().toISOString().slice(0, 10)}.json`);
+  a.href = url;
+  a.download = `azolla_inbox_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  showToast('تم تصدير ملف الإكسل (CSV) بنجاح!');
+}
+
+/* ==========================================================================
+   CMS: CLOUD SYNC & ENCRYPTED VAULT (AES-256-GCM)
+   ========================================================================== */
+function markLocalChangesPending() {
+  const badge = document.getElementById('cms-cloud-status-badge');
+  if (badge) {
+    badge.className = 'cloud-status-badge pending';
+    badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> تعديلات محلية بحاجة للنشر السحابي';
+  }
+}
+
+function updateCloudStatusUI() {
+  const badge = document.getElementById('cms-cloud-status-badge');
+  const token = sessionStorage.getItem('AZOLLA_GH_TOKEN');
+  if (badge) {
+    if (token) {
+      badge.className = 'cloud-status-badge synced';
+      badge.innerHTML = '<i class="fa-solid fa-lock"></i> الخزنة مشفرة ومفتوحة (جاهز للنشر)';
+    } else {
+      badge.className = 'cloud-status-badge';
+      badge.innerHTML = '<i class="fa-solid fa-shield-halved"></i> الخزنة المشفرة مقفلة';
+    }
+  }
+}
+
+async function unlockVaultWithPassword() {
+  const pass = document.getElementById('cms-vault-pass')?.value;
+  if (!pass) {
+    alert('يرجى إدخال كلمة مرور الخزنة!');
+    return;
+  }
+  const vaultStr = localStorage.getItem('AZOLLA_GH_VAULT');
+  if (!vaultStr) {
+    alert('لا يوجد مفتاح محفوظ في الخزنة! يرجى إدخال مفتاح GitHub Token وحفظه مشفراً.');
+    return;
+  }
+
+  try {
+    const vaultObj = JSON.parse(vaultStr);
+    const token = await window.decryptSecret(vaultObj, pass);
+    if (token && token.startsWith('ghp_')) {
+      sessionStorage.setItem('AZOLLA_GH_TOKEN', token);
+      updateCloudStatusUI();
+      showToast('تم فك تشفير الخزنة بنجاح!');
+      document.getElementById('cms-vault-pass').value = '';
+    } else {
+      throw new Error('Invalid token format');
+    }
+  } catch (err) {
+    alert('كلمة المرور غير صحيحة لفك تشفير الخزنة!');
+  }
+}
+
+async function saveAndEncryptGitHubToken() {
+  const token = document.getElementById('cms-vault-token-input')?.value?.trim();
+  const pass = document.getElementById('cms-vault-pass-input')?.value?.trim();
+
+  if (!token || !pass) {
+    alert('يرجى إدخال التوكن وكلمة مرور التشفير!');
+    return;
+  }
+
+  try {
+    const vaultObj = await window.encryptSecret(token, pass);
+    localStorage.setItem('AZOLLA_GH_VAULT', JSON.stringify(vaultObj));
+    sessionStorage.setItem('AZOLLA_GH_TOKEN', token);
+    updateCloudStatusUI();
+    document.getElementById('cms-vault-token-input').value = '';
+    document.getElementById('cms-vault-pass-input').value = '';
+    showToast('تم تشفير التوكن وحفظه في الخزنة بأمان (AES-256)!');
+  } catch (err) {
+    alert('فشل تشفير البيانات: ' + err.message);
+  }
+}
+
+async function publishToCloud() {
+  let token = sessionStorage.getItem('AZOLLA_GH_TOKEN');
+  if (!token) {
+    const pass = prompt('يرجى إدخال كلمة مرور الخزنة لنشر البيانات سحابياً:');
+    if (!pass) return;
+    const vaultStr = localStorage.getItem('AZOLLA_GH_VAULT');
+    if (vaultStr) {
+      try {
+        token = await window.decryptSecret(JSON.parse(vaultStr), pass);
+        sessionStorage.setItem('AZOLLA_GH_TOKEN', token);
+      } catch (e) {
+        alert('كلمة المرور غير صحيحة!');
+        return;
+      }
+    } else {
+      token = prompt('أدخل GitHub Token الخاص بمستودع azollaeg/main:');
+      if (!token) return;
+      sessionStorage.setItem('AZOLLA_GH_TOKEN', token);
+    }
+  }
+
+  const btn = document.getElementById('cms-btn-publish-cloud');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري النشر والتزامن السحابي لكافة الأجهزة...';
+  }
+
+  try {
+    const payload = {
+      version: '1.0',
+      lastUpdated: new Date().toISOString(),
+      projectInfo: window.AZOLLA_DATA.projectInfo,
+      counters: {
+        farmers: window.AZOLLA_DATA.verifiedStats.directTrainees || 5000,
+        feedReductionPct: window.AZOLLA_DATA.verifiedStats.feedCostReductionPct || 60,
+        annualTons: 1200,
+        waterSavedM3: 240000,
+        co2AvoidedTons: window.AZOLLA_DATA.verifiedStats.annualCo2SavedTons || 37,
+        treesPlanted: 1678
+      },
+      newsArticles: window.AZOLLA_DATA.newsArticles || []
+    };
+
+    const res = await window.publishContentToGitHub(token, payload);
+    showToast('✅ تم النشر السحابي بنجاح! التحديثات متاحة الآن لجميع الأجهزة فوراً.');
+    const badge = document.getElementById('cms-cloud-status-badge');
+    if (badge) {
+      badge.className = 'cloud-status-badge synced';
+      badge.innerHTML = `<i class="fa-solid fa-cloud-check"></i> متزامن سحابياً (${new Date().toLocaleTimeString('ar-EG')})`;
+    }
+    const logEl = document.getElementById('cms-cloud-sync-log');
+    if (logEl) {
+      logEl.innerHTML = `<div style="color: #059669; font-size: 0.85rem; margin-top: 0.5rem;"><i class="fa-solid fa-circle-check"></i> تم التحديث بنجاح: SHA <code>${res.content?.sha?.substring(0, 7) || 'OK'}</code></div>`;
+    }
+  } catch (err) {
+    alert('فشل النشر السحابي: ' + err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> نشر ومزامنة سحابية فورية لكافة الأجهزة';
+    }
+  }
+}
+
+function exportBackupJSON() {
+  const jsonString = JSON.stringify(window.AZOLLA_DATA, null, 2);
+  const blob = new Blob([jsonString], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `azolla_egypt_backup_${new Date().toISOString().split('T')[0]}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -2163,15 +2836,6 @@ function importBackupJSON(event) {
     }
   };
   reader.readAsText(file);
-}
-
-function saveWebhookUrl() {
-  const url = document.getElementById('cms-webhook-url')?.value?.trim();
-  if (!url) return;
-  if (!window.AZOLLA_DATA.projectInfo) window.AZOLLA_DATA.projectInfo = {};
-  window.AZOLLA_DATA.projectInfo.googleSheetWebhookUrl = url;
-  window.saveAzollaState(window.AZOLLA_DATA);
-  showToast('تم حفظ رابط Google Sheet Webhook بنجاح!');
 }
 
 function resetCmsDefaults() {

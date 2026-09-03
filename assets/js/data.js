@@ -1,22 +1,22 @@
 /* ==========================================================================
-   AZOLLA EGYPT (أزولا مصر – ذهب مصر الأخضر)
-   Master Data Repository & Constants - v7.0 (Pro Max + CMS Edition)
+   AZOLLA EGYPT (تكنولوجيا الأعلاف البديلة .. أزولا مصر)
+   Master Data Repository & Constants - v8.0 (Full CMS & Cloud Sync Edition)
    ========================================================================== */
 
 const DEFAULT_AZOLLA_DATA = {
   projectInfo: {
     id: "AZOLLA-EGYPT",
-    nameAr: "أزولا مصر",
-    nameEn: "Azolla Egypt",
-    sloganAr: "ذهب مصر الأخضر",
-    sloganEn: "Egypt's Green Gold",
-    taglineAr: "من الطبيعة... لصحة أفضل وإنتاج زراعي مستدام",
+    nameAr: "تكنولوجيا الأعلاف البديلة .. أزولا مصر",
+    nameEn: "Alternative Feed Technology .. Azolla Egypt",
+    sloganAr: "تكنولوجيا الأعلاف البديلة .. أزولا مصر",
+    sloganEn: "Alternative Feed Technology .. Azolla Egypt",
+    taglineAr: "من الطبيعة... لصحة أفضل وإنتاج زراعي مستدام وتوفير مائي 90%",
     domain: "https://azollaegypt.org",
     headquarters: "مركز كفر الدوار – محافظة البحيرة – ومزارع فرع أسوان التكاملية",
-    lastUpdated: "2026-08-22",
+    lastUpdated: "2026-09-03",
     officialPhone: "+201026847508",
     officialPhoneDisplay: "01026847508",
-    whatsappLink: "https://wa.me/201026847508?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D8%A3%D8%B2%D9%88%D9%84%D8%A7%20%D9%85%D8%B5%D8%B1%20%D9%88%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D8%A7%D9%84%D9%85%D8%B2%D8%A7%D8%B1%D8%B9%20%D9%88%D8%A7%D9%84%D8%AA%D8%AF%D8%B1%D9%8A%D8%A8%20%D8%A7%D9%84%D9%85%D8%B9%D8%AA%D9%85%D8%AF",
+    whatsappLink: "https://wa.me/201026847508?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7%20%D8%A7%D9%84%D8%A3%D8%B9%D9%84%D8%A7%D9%81%20%D8%A7%D9%84%D8%A8%D8%AF%D9%8A%D9%84%D8%A9%20%D8%A3%D8%B2%D9%88%D9%84%D8%A7%20%D9%85%D8%B5%D8%B1",
     officialEmail: "info@azollaegypt.org",
     googleSheetWebhookUrl: "https://script.google.com/macros/s/AKfycbzLgr3QjxaKx7Vv9xxF1ELDSh7acdySX9Na5TWHUN8gQ4oVmlbazINuR69cRlSvsAc/exec"
   },
@@ -533,14 +533,70 @@ const DEFAULT_AZOLLA_DATA = {
     }
   },
 
+  /* News & Blog Articles Data (Synchronized with data/content.json) */
+  newsArticles: [
+    {
+      id: "news-1",
+      title: "افتتاح التوسعات الإنتاجية لأحواض أسوان بنظام الطاقة الشمسية والتدوير المغلق",
+      category: "farms",
+      categoryLabel: "أخبار المزارع والحصاد",
+      date: "2026-08-28",
+      author: "اللجنة الفنية الميدانية",
+      readTime: "3 دقائق",
+      image: "./assets/images/gallery_aswan_basin.jpg",
+      featured: true,
+      summary: "تدشين المرحلة الثالثة من الأحواض الإنتاجية في فرع أسوان بمساحة تتجاوز 4,200 م² مع نظام ضخ وتدوير يعمل كلياً بالطاقة الشمسية وتظليل سيرام لخفض البخر المائي بنسبة 90%.",
+      content: "<p>شهدت مزارع فرع أسوان التكاملية التابعة لمشروع <strong>«تكنولوجيا الأعلاف البديلة .. أزولا مصر»</strong> تدشين التوسعات الإنتاجية الكبرى لعام 2026، والتي تهدف إلى رفع الطاقة الإنتاجية اليومية لتصل إلى أكثر من 1.8 طن من سرخس الأزولا الطازج فائق البروتين.</p><p>تعتمد المنظومة الجديدة على أحواض عازلة بتقنية التدوير المائي المغلق (Closed-loop water recirculation) بالاعتماد الكامل على محطات الطاقة الشمسية الكهروضوئية، مما يحقق صفر استهلاك للوقود الأحفوري وصفر هدر للمياه الجوفية.</p><p>وأكد المهندس المشرف على المزارع أن هذا الإنجاز يأتي ضمن خطة التوسع المدعومة من برنامج المنح الصغيرة (SGP/GEF/UNDP) لنقل التجربة إلى كافة قرى صعيد مصر لتأمين بدائل أعلاف مستدامة لصغار المربين بأسعار تنافسية.</p>"
+    },
+    {
+      id: "news-2",
+      title: "انطلاق الدفعة الرابعة لتدريب المرأة الريفية على مزارع أسطح المنازل المنزلية",
+      category: "academy",
+      categoryLabel: "فعاليات الأكاديمية",
+      date: "2026-08-15",
+      author: "أكاديمية أزولا مصر",
+      readTime: "4 دقائق",
+      image: "./assets/images/gallery_rooftop_basin.jpg",
+      featured: false,
+      summary: "بدء فعاليات البرنامج التدريبي التمكيني بمشاركة 48 سيدة ريفية لإنشاء وإدارة وحدات الأزولا على أسطح المنازل لتغذية الدواجن والبط وتوفير تكاليف الشراء بنسبة 55%.",
+      content: "<p>أعلنت أكاديمية أزولا مصر بالشراكة مع <strong>حاضنة الأعمال البيئية للمرأة المصرية</strong> عن انطلاق الدفعة الرابعة من البرنامج التدريبي المتخصص في تكنولوجيا استزراع الأزولا على أسطح المنازل والمساحات غير المستغلة.</p><p>يشتمل البرنامج على تدريب تطبيقي على تركيب الأحواض الخشبية المعزولة بمشمعات صديقة للبيئة، ضبط درجات الملوحة والحموضة، واستخدام المستخلصات العضوية في التغذية لضمان إنتاج مستمر يصل إلى 3.5 كجم يومياً لكل وحدة 15 م².</p><p>تحصل المتدربات في نهاية الدورة على شهادة معتمدة وحقيبة تقاوي أولية عالية الحيوية للبدء الفوري في مشاريعهن الإنتاجية المنزلية.</p>"
+    },
+    {
+      id: "news-3",
+      title: "تقرير بيئي موثق: منظومة الأزولا توفر 88% من استهلاك مياه ري الأعلاف التقليدية",
+      category: "environment",
+      categoryLabel: "صون المياه والبيئة",
+      date: "2026-08-05",
+      author: "فريق الرصد البيئي والمائي",
+      readTime: "5 دقائق",
+      image: "./assets/images/gallery_training_session.jpg",
+      featured: false,
+      summary: "أظهرت نتائج القياسات الميدانية المقارنة على مدار موسم كامل وفر أكثر من 1,600 م³ مياه لكل طن بروتين جاف يتم إنتاجه من الأزولا مقارنة بزراعة البرسيم الحجازي والذرة.",
+      content: "<p>أصدر المركز البيئي لبحوث المياه التابع للمشروع تقريره السنوي حول كفاءة الاستهلاك المائي لمنظومة <strong>«تكنولوجيا الأعلاف البديلة .. أزولا مصر»</strong> مقارنة بالأعلاف الحقلية التقليدية في دلتا النيل وصعيد مصر.</p><p>أوضحت النتائج أن الأزولا لا تحتاج إلى غمر أو ري سطحي، حيث يتم الاحتفاظ بالمياه داخل الأحواض لشهور طويلة مع تعويض الفاقد البخري فقط، مما يخفض البصمة المائية بنسبة تتراوح بين 85% إلى 90.2% مع تغطية الشباك الواقية (Saran Net).</p><p>يساهم هذا الوفر في دعم استراتيجية الدولة المصرية للأمن المائي والتكيف مع التغيرات المناخية في قطاع الإنتاج الحيواني والداجني.</p>"
+    },
+    {
+      id: "news-4",
+      title: "توقيع مذكرات تفاهم لتوزيع تقاوي أزولا عالية النقاوة على 15 جمعية أهلية شريكة",
+      category: "partners",
+      categoryLabel: "الشراكات والتمكين",
+      date: "2026-07-22",
+      author: "إدارة العلاقات والشراكات",
+      readTime: "3 دقائق",
+      image: "./assets/images/gallery_lab_analysis.jpg",
+      featured: false,
+      summary: "جمعية الخدمات المتكاملة توقع بروتوكولات تعاون مع جمعيات تنموية في محافظات البحيرة والإسكندرية وقنا لتأسيس مشاتل إنتاجية قاعدية وتدريب صغار المزارعين.",
+      content: "<p>في إطار خطة التوسع الأفقي وتعظيم الأثر الاجتماعي للمشروع، أبرمت جمعية الخدمات المتكاملة لتنمية المجتمع بكفر الدوار عدداً من مذكرات التفاهم مع 15 جمعية أهلية ومؤسسة مجتمعية.</p><p>يشمل الاتفاق تزويد الجمعيات الشريكة بسلالات الأزولا النقية (Azolla Pinnata) الخالية من الطفيليات والشوائب، مع تقديم الدعم الفني الرقمي من خلال منصة <strong>NGO HUB</strong> لتتبع نسب الإنتاج والوفر المالي للجمعيات والمستفيدين.</p><p>تستهدف هذه الشراكات الوصول إلى أكثر من 3,000 مستفيد ومستفيدة خلال النصف الثاني من عام 2026 لترسيخ نموذج الاقتصاد الدائري الأخضر.</p>"
+    }
+  ],
+
   /* Institutional Privacy, Protection & Governance Policy Data */
   privacyPolicyData: {
     title: "سياسة الخصوصية والحماية وعدم التمييز وتلقي الشكاوى",
-    subtitle: "وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «أزولا مصر – ذهب مصر الأخضر»",
+    subtitle: "وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر»",
     version: "الإصدار 1.0 — عام 2026",
     metadata: {
       issuingEntity: "جمعية الخدمات المتكاملة لتنمية المجتمع بكفر الدوار (مشهرة برقم 1997/752) ومزارع فرع أسوان التكاملية",
-      intellectualProperty: "مشروع أزولا مصر – ذهب مصر الأخضر بالشراكة مع منصة NGOHUB للتحول الرقمي والأخضر",
+      intellectualProperty: "مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر بالشراكة مع منصة NGOHUB للتحول الرقمي والأخضر",
       applicationScope: "جميع الجمعيات الشريكة، المستفيدين، المزارعين والمربين، المتدربين، المتطوعين (GCT)، وفرق العمل الميدانية",
       documentStatus: "وثيقة حوكمة وسياسة خصوصية وحماية معتمدة ونافذة إلكترونياً وميدانياً – 2026"
     },
@@ -552,12 +608,17 @@ const DEFAULT_AZOLLA_DATA = {
   }
 };
 
-// Initialize State with LocalStorage Sync (static-website-cms-dashboard standard)
+// Initialize State with LocalStorage & Cloud Sync
 function getAzollaState() {
   try {
-    const saved = localStorage.getItem('AZOLLA_STORAGE_V7');
+    const saved = localStorage.getItem('AZOLLA_STORAGE_V8');
     if (saved) {
-      return JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+      // Ensure newsArticles exists
+      if (!parsed.newsArticles || !Array.isArray(parsed.newsArticles)) {
+        parsed.newsArticles = DEFAULT_AZOLLA_DATA.newsArticles;
+      }
+      return parsed;
     }
   } catch (e) {
     console.error('Error loading saved state:', e);
@@ -567,13 +628,157 @@ function getAzollaState() {
 
 function saveAzollaState(state) {
   try {
-    localStorage.setItem('AZOLLA_STORAGE_V7', JSON.stringify(state));
+    localStorage.setItem('AZOLLA_STORAGE_V8', JSON.stringify(state));
   } catch (e) {
     console.error('Error saving state:', e);
   }
+}
+
+/* ==========================================================================
+   WEB CRYPTO AES-256-GCM ZERO-KNOWLEDGE VAULT (NIST Compliant)
+   ========================================================================== */
+async function deriveKeyFromPassword(password, salt) {
+  const enc = new TextEncoder();
+  const keyMaterial = await window.crypto.subtle.importKey(
+    'raw',
+    enc.encode(password),
+    'PBKDF2',
+    false,
+    ['deriveKey']
+  );
+  return window.crypto.subtle.deriveKey(
+    {
+      name: 'PBKDF2',
+      salt: salt,
+      iterations: 100000,
+      hash: 'SHA-256'
+    },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function encryptSecret(plainText, password) {
+  const enc = new TextEncoder();
+  const salt = window.crypto.getRandomValues(new Uint8Array(16));
+  const iv = window.crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKeyFromPassword(password, salt);
+  const encrypted = await window.crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    enc.encode(plainText)
+  );
+
+  return {
+    ciphertext: btoa(String.fromCharCode(...new Uint8Array(encrypted))),
+    iv: btoa(String.fromCharCode(...iv)),
+    salt: btoa(String.fromCharCode(...salt))
+  };
+}
+
+async function decryptSecret(vaultObj, password) {
+  const dec = new TextDecoder();
+  const salt = new Uint8Array(atob(vaultObj.salt).split('').map(c => c.charCodeAt(0)));
+  const iv = new Uint8Array(atob(vaultObj.iv).split('').map(c => c.charCodeAt(0)));
+  const ciphertext = new Uint8Array(atob(vaultObj.ciphertext).split('').map(c => c.charCodeAt(0)));
+  const key = await deriveKeyFromPassword(password, salt);
+  const decrypted = await window.crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv },
+    key,
+    ciphertext
+  );
+  return dec.decode(decrypted);
+}
+
+/* ==========================================================================
+   CROSS-DEVICE CLOUD SYNC & GITHUB CONTENT API PUBLISHING
+   ========================================================================== */
+async function fetchCloudContent() {
+  try {
+    const res = await fetch(`./data/content.json?_t=${Date.now()}`);
+    if (res.ok) {
+      const cloud = await res.json();
+      if (cloud.newsArticles && Array.isArray(cloud.newsArticles)) {
+        window.AZOLLA_DATA.newsArticles = cloud.newsArticles;
+      }
+      if (cloud.counters) {
+        window.AZOLLA_DATA.counters = Object.assign(window.AZOLLA_DATA.counters || {}, cloud.counters);
+      }
+      if (cloud.projectInfo) {
+        window.AZOLLA_DATA.projectInfo = Object.assign(window.AZOLLA_DATA.projectInfo || {}, cloud.projectInfo);
+      }
+      saveAzollaState(window.AZOLLA_DATA);
+      console.log('✅ Real-time Cloud Content synchronized from GitHub data/content.json');
+      return window.AZOLLA_DATA;
+    }
+  } catch (err) {
+    console.warn('Fallback to local stored content:', err);
+  }
+  return window.AZOLLA_DATA;
+}
+
+async function publishContentToGitHub(token, contentData) {
+  const repo = 'azollaeg/main';
+  const path = 'data/content.json';
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+  // 1. Check existing SHA
+  let sha = '';
+  try {
+    const checkRes = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (checkRes.ok) {
+      const meta = await checkRes.json();
+      sha = meta.sha;
+    }
+  } catch (e) {
+    console.warn('Could not fetch existing file SHA:', e);
+  }
+
+  // 2. Prepare payload with UTF-8 base64
+  contentData.lastUpdated = new Date().toISOString();
+  const jsonString = JSON.stringify(contentData, null, 2);
+  const utf8Bytes = new TextEncoder().encode(jsonString);
+  let binaryString = '';
+  utf8Bytes.forEach(b => binaryString += String.fromCharCode(b));
+  const base64Content = btoa(binaryString);
+
+  const payload = {
+    message: `CMS: update website content and news articles [${new Date().toISOString()}]`,
+    content: base64Content
+  };
+  if (sha) payload.sha = sha;
+
+  // 3. PUT request
+  const putRes = await fetch(apiUrl, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!putRes.ok) {
+    const errObj = await putRes.json().catch(() => ({ message: putRes.statusText }));
+    throw new Error(errObj.message || `فشل الحفظ السحابي في GitHub (رمز ${putRes.status})`);
+  }
+
+  return await putRes.json();
 }
 
 let AZOLLA_DATA = getAzollaState();
 window.AZOLLA_DATA = AZOLLA_DATA;
 window.saveAzollaState = saveAzollaState;
 window.DEFAULT_AZOLLA_DATA = DEFAULT_AZOLLA_DATA;
+window.encryptSecret = encryptSecret;
+window.decryptSecret = decryptSecret;
+window.fetchCloudContent = fetchCloudContent;
+window.publishContentToGitHub = publishContentToGitHub;
