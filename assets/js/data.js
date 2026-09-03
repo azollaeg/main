@@ -605,6 +605,176 @@ const DEFAULT_AZOLLA_DATA = {
       officialEmail: "info@azollaegypt.org",
       hotline: "01026847508"
     }
+  },
+
+  /* Web Traffic & User Interactions Analytics Engine Data */
+  analytics: {
+    totalViews: 622480,
+    uniqueVisitors: 485120,
+    avgTimeOnPage: 29.8,
+    pageExitPct: 16.4,
+    bouncePct: 21.6,
+    calculatorRuns: 1420,
+    waterCalculatorRuns: 890,
+    deviceSessions: {
+      desktop: 58,
+      mobile: 36,
+      tablet: 6
+    },
+    trafficChannels: {
+      organic: 42,
+      direct: 28,
+      social: 18,
+      referral: 8,
+      paid: 4
+    },
+    timeline: {
+      months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+      sessionsMonth: [12400, 15800, 22100, 29400, 38200, 44100, 52300, 61800, 68900, 74200, 81500, 89200],
+      sessionsYear: [145000, 280000, 410000, 622480],
+      years: ['2023', '2024', '2025', '2026']
+    },
+    recentEvents: []
+  },
+
+  /* Master Site Pages & Sections Media/Content Directory */
+  sitePages: {
+    home: {
+      title: "الصفحة الرئيسية",
+      icon: "fa-house",
+      sections: [
+        {
+          id: "hero",
+          name: "بانر البداية والترحيب (Hero Section)",
+          title: "أزولا مصر… تكنولوجيا الأعلاف البديلة",
+          lead: "المنظومة الوطنية الرائدة لإنتاج سرخس الأزولا الطافي وتخفيض تكاليف الأعلاف بنسبة تصل إلى 60%، بدعم تنموي من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.",
+          image: "./assets/images/field_farm_large.jpg",
+          defaultImage: "./assets/images/field_farm_large.jpg"
+        },
+        {
+          id: "about_intro",
+          name: "نبذة عن سر نجاح الأزولا وكفاءة التكلفة",
+          title: "لماذا تكنولوجيا سرخس الأزولا؟",
+          lead: "تنتج مزارعنا سلالات نقية مضاعفة الكتلة الحيوية كل 3 إلى 5 أيام بمحتوى بروتيني خام يتراوح بين 25% إلى 35%، متفوقة على البرسيم والذرة وفول الصويا وبأقل استهلاك مائي ممكن.",
+          image: "./assets/images/azolla_protein_macro.jpg",
+          defaultImage: "./assets/images/azolla_protein_macro.jpg"
+        }
+      ]
+    },
+    about: {
+      title: "عن المشروع والمؤسسين",
+      icon: "fa-circle-info",
+      sections: [
+        {
+          id: "vision",
+          name: "رؤية ورسالة المشروع والأهداف الاستراتيجية",
+          title: "رؤيتنا: الاكتفاء الذاتي الأخضر لمربي مصر",
+          lead: "الوصول إلى أكثر من 10,000 مربٍ ومزارع مصري بحلول 2027، وتخفيض فاتورة استيراد الأعلاف التقليدية، وخلق فرص عمل خضراء مستدامة للمرأة والشباب الريفي في الدلتا والصعيد.",
+          image: "./assets/images/gallery_training_session.jpg",
+          defaultImage: "./assets/images/gallery_training_session.jpg"
+        },
+        {
+          id: "governance",
+          name: "الحوكمة والريادة الميدانية",
+          title: "إشراف مؤسسي معتمد وتطبيق ميداني رصين",
+          lead: "تدار كافة العمليات الزراعية والتدريبية تحت إشراف مباشر من جمعية الخدمات المتكاملة بكفر الدوار (مشهرة برقم 1997/752) ومزارع فرع أسوان بالتنسيق مع SGP Egypt / UNDP.",
+          image: "./assets/images/gallery_aswan_basin.jpg",
+          defaultImage: "./assets/images/gallery_aswan_basin.jpg"
+        }
+      ]
+    },
+    science: {
+      title: "الأزولا واستخداماته العلمية",
+      icon: "fa-flask",
+      sections: [
+        {
+          id: "nutrition",
+          name: "التركيب الغذائي والبروتيني المعملي",
+          title: "تحليل معملي دقيق: بروتين فائق وأحماض أمينية أساسية",
+          lead: "يحتوي سرخس الأزولا الطافي على نسبة بروتين خام 25-35%، وألياف هضمية مثالية، وأحماض أمينية أساسية تعزز مناعة الماشية والطيور والأسماك وترفع معدلات التحويل الغذائي بنسبة 28%.",
+          image: "./assets/images/gallery_lab_analysis.jpg",
+          defaultImage: "./assets/images/gallery_lab_analysis.jpg"
+        }
+      ]
+    },
+    services: {
+      title: "الخدمات والحاسبات الذكية",
+      icon: "fa-calculator",
+      sections: [
+        {
+          id: "calc_feed",
+          name: "حاسبة الأعلاف والوفر الاقتصادي",
+          title: "حاسبة تكاليف الأعلاف والوفر المالي الذكية",
+          lead: "أداة خوارزمية دقيقة تمكن المربي من إدخال عدد رؤوس الماشية أو الدواجن واحتساب التوفير المالي الشهري الدقيق وخفض الأعلاف بنسبة تصل إلى 60%.",
+          image: "./assets/images/gallery_feeding_cows.jpg",
+          defaultImage: "./assets/images/gallery_feeding_cows.jpg"
+        },
+        {
+          id: "calc_water",
+          name: "حاسبة صون الموارد المائية",
+          title: "حاسبة توفير المياه وخفض البصمة المائية",
+          lead: "احتساب كميات المياه المحفوظة بالامتار المكعبة سنوياً عند استبدال زراعة البرسيم والأعلاف النجيلية بأحواض الأزولا المغلقة المزودة بشباك الحماية.",
+          image: "./assets/images/gallery_solar_pump.jpg",
+          defaultImage: "./assets/images/gallery_solar_pump.jpg"
+        }
+      ]
+    },
+    academy: {
+      title: "الأكاديمية والبرامج التدريبية",
+      icon: "fa-graduation-cap",
+      sections: [
+        {
+          id: "programs",
+          name: "البرامج التدريبية والتأهيل الفني",
+          title: "منهج تدريبي تطبيقي متكامل من المزرعة إلى السوق",
+          lead: "تتضمن الأكاديمية 12 مساراً تدريبياً معتمداً يشمل: إنشاء الأحواض، ضبط التغذية، رعاية السلالات النقية، إدارة الطاقة الشمسية، وتمكين رائدات الأعمال في القرى.",
+          image: "./assets/images/gallery_rooftop_basin.jpg",
+          defaultImage: "./assets/images/gallery_rooftop_basin.jpg"
+        }
+      ]
+    },
+    impact: {
+      title: "الأثر البيئي والتمكين المجتمعي",
+      icon: "fa-earth-africa",
+      sections: [
+        {
+          id: "impact_solar",
+          name: "المناخ وصون المياه والتمكين النسائي",
+          title: "أثر حقيقي موثق بالأرقام والشواهد الميدانية",
+          lead: "خفض استهلاك الديزل بأكثر من 10,200 لتر سنوياً عبر محطات الطاقة الشمسية، وخفض انبعاثات الكربون بمقدار 108 أطنان مكافئ سنوياً، مع تمكين 62% من السيدات الريفيات المعيلات.",
+          image: "./assets/images/gallery_solar_basin.jpg",
+          defaultImage: "./assets/images/gallery_solar_basin.jpg"
+        }
+      ]
+    },
+    partners: {
+      title: "الشركاء والجهات المؤسسية",
+      icon: "fa-handshake",
+      sections: [
+        {
+          id: "alliances",
+          name: "التحالف التنموي والتكنولوجي",
+          title: "شراكات استراتيجية لتحقيق استدامة الأمن الغذائي",
+          lead: "تحالف مؤسسي رائد يجمع بين الدعم الدولي (SGP / GEF / UNDP)، والخبرة الميدانية لجمعية الخدمات المتكاملة، والشراكة الرقمية لمنصة NGO HUB.",
+          image: "./assets/images/logo_azolla.png",
+          defaultImage: "./assets/images/logo_azolla.png"
+        }
+      ]
+    },
+    privacy: {
+      title: "الخصوصية والحوكمة وتلقي الشكاوى",
+      icon: "fa-shield-halved",
+      sections: [
+        {
+          id: "governance_policy",
+          name: "ميثاق الحوكمة والحماية وعدم التمييز",
+          title: "منظومة شكاوى مشفرة والتزام بأعلى معايير الشفافية",
+          lead: "تلتزم إدارة المشروع بحماية خصوصية جميع المزارعين والمستفيدين والمتطوعين، مع توفير قناة سرية مشفرة لرفع الملاحظات والشكاوى دون أي إفصاح.",
+          image: "./assets/images/logo_ngo.jpg",
+          defaultImage: "./assets/images/logo_ngo.jpg"
+        }
+      ]
+    }
   }
 };
 
@@ -614,9 +784,14 @@ function getAzollaState() {
     const saved = localStorage.getItem('AZOLLA_STORAGE_V8');
     if (saved) {
       const parsed = JSON.parse(saved);
-      // Ensure newsArticles exists
       if (!parsed.newsArticles || !Array.isArray(parsed.newsArticles)) {
         parsed.newsArticles = DEFAULT_AZOLLA_DATA.newsArticles;
+      }
+      if (!parsed.analytics) {
+        parsed.analytics = DEFAULT_AZOLLA_DATA.analytics;
+      }
+      if (!parsed.sitePages) {
+        parsed.sitePages = DEFAULT_AZOLLA_DATA.sitePages;
       }
       return parsed;
     }
@@ -708,6 +883,12 @@ async function fetchCloudContent() {
       }
       if (cloud.projectInfo) {
         window.AZOLLA_DATA.projectInfo = Object.assign(window.AZOLLA_DATA.projectInfo || {}, cloud.projectInfo);
+      }
+      if (cloud.sitePages) {
+        window.AZOLLA_DATA.sitePages = Object.assign(window.AZOLLA_DATA.sitePages || {}, cloud.sitePages);
+      }
+      if (cloud.analytics) {
+        window.AZOLLA_DATA.analytics = Object.assign(window.AZOLLA_DATA.analytics || {}, cloud.analytics);
       }
       saveAzollaState(window.AZOLLA_DATA);
       console.log('✅ Real-time Cloud Content synchronized from GitHub data/content.json');

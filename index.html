@@ -108,11 +108,6 @@
           <i class="fa-solid fa-moon" id="theme-icon"></i>
         </button>
 
-        <!-- CMS Admin Quick Access Button -->
-        <button class="btn btn-outline-primary btn-sm" onclick="openAdminModal()" title="لوحة تحكم المنظومة">
-          <i class="fa-solid fa-sliders"></i> لوحة التحكم
-        </button>
-
         <!-- Mobile Drawer Toggle -->
         <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="فتح القائمة">
           <i class="fa-solid fa-bars"></i>
@@ -1149,7 +1144,8 @@
           
           <!-- CMS Navigation Tabs -->
           <div class="cms-nav-tabs">
-            <button class="cms-nav-tab-btn active" id="cms-tab-btn-overview" onclick="switchCmsTab('overview')"><i class="fa-solid fa-chart-pie"></i> نظرة عامة وإحصائيات</button>
+            <button class="cms-nav-tab-btn active" id="cms-tab-btn-overview" onclick="switchCmsTab('overview')"><i class="fa-solid fa-chart-line"></i> تحليلات وحركة المرور (Web Traffic)</button>
+            <button class="cms-nav-tab-btn" id="cms-tab-btn-pages" onclick="switchCmsTab('pages')"><i class="fa-solid fa-file-pen"></i> محتوى وصفحات الموقع والصور</button>
             <button class="cms-nav-tab-btn" id="cms-tab-btn-news" onclick="switchCmsTab('news')"><i class="fa-solid fa-newspaper"></i> إدارة الأخبار والمدونة</button>
             <button class="cms-nav-tab-btn" id="cms-tab-btn-counters" onclick="switchCmsTab('counters')"><i class="fa-solid fa-arrow-up-1-9"></i> عدادات وأرقام الموقع</button>
             <button class="cms-nav-tab-btn" id="cms-tab-btn-gallery" onclick="switchCmsTab('gallery')"><i class="fa-solid fa-images"></i> المعرض الميداني والصور</button>
@@ -1159,51 +1155,260 @@
             <button class="cms-nav-tab-btn" id="cms-tab-btn-cloud" onclick="switchCmsTab('cloud')"><i class="fa-solid fa-cloud-arrow-up text-gold"></i> المزامنة السحابية والخزنة</button>
           </div>
 
-          <!-- TAB 1: OVERVIEW & KPIS -->
+          <!-- TAB 1: WEB TRAFFIC & ADVANCED ANALYTICS (Matches Reference Dashboard) -->
           <div id="cms-panel-overview">
-            <h4 style="font-weight: 800; margin-bottom: 1.25rem; color: var(--color-primary);"><i class="fa-solid fa-chart-pie"></i> مؤشرات الأداء الحية للمنظومة</h4>
             
-            <div class="cms-kpi-grid">
-              <div class="cms-kpi-card">
-                <div class="cms-kpi-icon" style="background: var(--color-emerald-50); color: var(--color-primary);"><i class="fa-solid fa-newspaper"></i></div>
-                <div>
-                  <div class="cms-kpi-val" id="cms-kpi-articles-count">4</div>
-                  <div class="cms-kpi-label">المقالات المنشورة</div>
-                </div>
+            <!-- Dashboard Top Header with Period Filters -->
+            <div class="wt-header-row">
+              <div>
+                <h3 class="wt-dashboard-title">
+                  <i class="fa-solid fa-chart-line text-emerald"></i> تحليلات وحركة المرور (Web Traffic)
+                </h3>
+                <p class="wt-dashboard-subtitle">لوحة مؤشرات الأداء الحية، تتبع المشاهدات، واستخدام الحاسبات الذكية لمنظومة أزولا مصر</p>
               </div>
-              <div class="cms-kpi-card">
-                <div class="cms-kpi-icon" style="background: #FEF3C7; color: #D97706;"><i class="fa-solid fa-inbox"></i></div>
-                <div>
-                  <div class="cms-kpi-val" id="cms-kpi-inbox-count">0</div>
-                  <div class="cms-kpi-label">استمارات ورسائل واردة</div>
-                </div>
-              </div>
-              <div class="cms-kpi-card">
-                <div class="cms-kpi-icon" style="background: #E0E7FF; color: #4F46E5;"><i class="fa-solid fa-images"></i></div>
-                <div>
-                  <div class="cms-kpi-val" id="cms-kpi-gallery-count">8</div>
-                  <div class="cms-kpi-label">صور توثيق ميداني</div>
-                </div>
-              </div>
-              <div class="cms-kpi-card">
-                <div class="cms-kpi-icon" style="background: #DCFCE7; color: #15803D;"><i class="fa-solid fa-users"></i></div>
-                <div>
-                  <div class="cms-kpi-val" id="cms-kpi-trainees-count">512</div>
-                  <div class="cms-kpi-label">متدرباً ومعتمداً</div>
-                </div>
+              <div class="wt-period-pills">
+                <button type="button" class="wt-pill-btn active" id="wt-btn-month" onclick="setAnalyticsTimeframe('month')">Month (شهر)</button>
+                <button type="button" class="wt-pill-btn" id="wt-btn-year" onclick="setAnalyticsTimeframe('year')">Year (سنة)</button>
+                <button type="button" class="wt-pill-btn" id="wt-btn-total" onclick="setAnalyticsTimeframe('total')">Total (الإجمالي)</button>
               </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div style="background: var(--color-bg); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+            <!-- Top 4 Metrics Cards with Trend Sparklines -->
+            <div class="wt-cards-grid">
+              
+              <!-- Card 1: Unique Pageviews -->
+              <div class="wt-metric-card">
+                <div class="wt-metric-header">
+                  <span class="wt-metric-label">إجمالي المشاهدات الفريدة (Total Pageviews)</span>
+                  <i class="fa-solid fa-eye text-primary"></i>
+                </div>
+                <div class="wt-metric-val" id="wt-stat-views">622,480</div>
+                <div class="wt-sparkline-box">
+                  <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
+                    <path d="M0,32 Q25,28 45,20 T90,26 T130,12 T160,8" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="wt-metric-footer">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-up"></i> +14.8%</span> مقارنة بالشهر السابق
+                </div>
+              </div>
+
+              <!-- Card 2: Avg Time on Page -->
+              <div class="wt-metric-card">
+                <div class="wt-metric-header">
+                  <span class="wt-metric-label">متوسط وقت التصفح (Avg Time on Page)</span>
+                  <i class="fa-solid fa-clock text-primary"></i>
+                </div>
+                <div class="wt-metric-val" id="wt-stat-time">29.8s</div>
+                <div class="wt-sparkline-box">
+                  <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
+                    <path d="M0,20 Q30,10 65,24 T110,14 T140,22 T160,16" fill="none" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="wt-metric-footer">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-up"></i> +6.2%</span> زيادة التفاعل القرائي
+                </div>
+              </div>
+
+              <!-- Card 3: Page Exit % -->
+              <div class="wt-metric-card">
+                <div class="wt-metric-header">
+                  <span class="wt-metric-label">معدل الخروج (Page Exit %)</span>
+                  <i class="fa-solid fa-arrow-right-from-bracket text-primary"></i>
+                </div>
+                <div class="wt-metric-val" id="wt-stat-exit">16.4%</div>
+                <div class="wt-sparkline-box">
+                  <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
+                    <path d="M0,15 Q35,28 75,18 T120,28 T160,32" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="wt-metric-footer">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-arrow-trend-down"></i> -3.1%</span> انخفاض معدل الارتداد
+                </div>
+              </div>
+
+              <!-- Card 4: Calculator Runs & Bounce -->
+              <div class="wt-metric-card">
+                <div class="wt-metric-header">
+                  <span class="wt-metric-label">مرات تشغيل الحاسبات الذكية (Calculator Runs)</span>
+                  <i class="fa-solid fa-calculator text-primary"></i>
+                </div>
+                <div class="wt-metric-val" id="wt-stat-calc">1,420</div>
+                <div class="wt-sparkline-box">
+                  <svg viewBox="0 0 160 38" class="wt-sparkline-svg">
+                    <path d="M0,30 Q30,22 60,34 T110,10 T140,18 T160,6" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="wt-metric-footer">
+                  <span class="text-emerald font-bold"><i class="fa-solid fa-bolt text-gold"></i> 78.4%</span> معدل إتمام حساب الجدوى
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Charts Middle Row: Device Sessions & Channel Sessions & Timeline -->
+            <div class="wt-charts-grid">
+              
+              <!-- Device Sessions Bar Card -->
+              <div class="wt-chart-card">
+                <h4 class="wt-chart-title"><i class="fa-solid fa-mobile-screen"></i> جلسات الأجهزة (Device Sessions)</h4>
+                <div class="wt-bars-list">
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Desktop (كمبيوتر مكتبي)</span>
+                      <strong id="wt-device-desktop-val">58%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" id="wt-device-desktop-fill" style="width: 58%; background: #0F4C81;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Mobile (الهواتف الذكية)</span>
+                      <strong id="wt-device-mobile-val">36%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" id="wt-device-mobile-fill" style="width: 36%; background: #059669;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Tablet (الأجهزة اللوحية)</span>
+                      <strong id="wt-device-tablet-val">6%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" id="wt-device-tablet-fill" style="width: 6%; background: #38BDF8;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Channel Sessions Card -->
+              <div class="wt-chart-card">
+                <h4 class="wt-chart-title"><i class="fa-solid fa-chart-simple"></i> قنوات ومصادر الزيارات (Channel Sessions)</h4>
+                <div class="wt-bars-list">
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Organic Search (محركات البحث)</span>
+                      <strong>42%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" style="width: 42%; background: #059669;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Direct (الزيارات المباشرة)</span>
+                      <strong>28%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" style="width: 28%; background: #0F4C81;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Social Media (وسائل التواصل والواتساب)</span>
+                      <strong>18%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" style="width: 18%; background: #25D366;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Referral (مواقع الجمعيات الشريكة)</span>
+                      <strong>8%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" style="width: 8%; background: #D97706;"></div>
+                    </div>
+                  </div>
+                  <div class="wt-bar-item">
+                    <div class="wt-bar-label-row">
+                      <span>Paid / Campaigns (حملات التوعية)</span>
+                      <strong>4%</strong>
+                    </div>
+                    <div class="wt-progress-track">
+                      <div class="wt-progress-fill" style="width: 4%; background: #6366F1;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sessions Timeline Area Chart -->
+              <div class="wt-chart-card">
+                <h4 class="wt-chart-title"><i class="fa-solid fa-wave-square"></i> منحنى الجلسات الشهري (Sessions Volume)</h4>
+                <div class="wt-chart-svg-wrap" id="wt-sessions-chart-svg">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Row: Sessions by Device Trend & Pageviews Volume -->
+            <div class="wt-bottom-grid">
+              
+              <!-- Sessions by Device Timeline -->
+              <div class="wt-chart-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <h4 class="wt-chart-title" style="margin: 0;"><i class="fa-solid fa-chart-line"></i> نمو الزيارات حسب نوع الجهاز (Sessions by Device)</h4>
+                  <div style="font-size: 0.75rem; display: flex; gap: 0.75rem;">
+                    <span style="color: #0F4C81;"><i class="fa-solid fa-circle"></i> Desktop</span>
+                    <span style="color: #059669;"><i class="fa-solid fa-circle"></i> Mobile</span>
+                    <span style="color: #38BDF8;"><i class="fa-solid fa-circle"></i> Tablet</span>
+                  </div>
+                </div>
+                <div class="wt-chart-svg-wrap" id="wt-devices-chart-svg">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+              <!-- Pageviews Histogram Bars -->
+              <div class="wt-chart-card">
+                <h4 class="wt-chart-title"><i class="fa-solid fa-chart-column"></i> كثافة المشاهدات (Pageviews Histogram)</h4>
+                <div class="wt-chart-svg-wrap" id="wt-pageviews-histogram-svg">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Live Events Feed -->
+            <div style="background: var(--color-bg); padding: 1.25rem 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); margin-top: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <h5 style="font-weight: 800; margin: 0; color: var(--color-primary);"><i class="fa-solid fa-satellite-dish text-emerald"></i> سجل النشاط الحي للزوار والحاسبات (Live Activity Feed)</h5>
+                <span class="badge" style="background: var(--color-emerald-50); color: var(--color-primary); border: 1px solid var(--color-emerald-200);"><i class="fa-solid fa-circle text-emerald"></i> تتبع نشط</span>
+              </div>
+              <div id="wt-live-activity-stream" style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;"></div>
+            </div>
+
+          </div>
+
+          <!-- TAB 2: MASTER SITE PAGES & SECTIONS CONTENT/MEDIA MANAGER -->
+          <div id="cms-panel-pages" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
               <div>
-                <h5 style="font-weight: 800; margin-bottom: 0.25rem;">إجراءات سريعة لمدير الموقع:</h5>
-                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">يمكنك نشر خبر جديد أو تغيير العدادات أو المزامنة مع كافة الأجهزة بنقرة واحدة.</p>
+                <h4 style="font-weight: 800; color: var(--color-primary); margin: 0;"><i class="fa-solid fa-file-pen"></i> محرر صفحات ومحتوى الموقع بالكامل وتبديل الصور</h4>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0.25rem 0 0 0;">اختر الصفحة، وقم بتعديل النصوص والفقرات، أو استبدال ورفع صورها فوراً من جهازك أو برابط خارجي:</p>
               </div>
-              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                <button class="btn btn-sm btn-primary" onclick="switchCmsTab('news'); openNewsForm();"><i class="fa-solid fa-plus"></i> إضافة مقال جديد</button>
-                <button class="btn btn-sm btn-gold" onclick="switchCmsTab('cloud'); publishToCloud();"><i class="fa-solid fa-cloud-arrow-up"></i> نشر سحابي فوري</button>
-              </div>
+              <button class="btn btn-sm btn-gold" onclick="switchCmsTab('cloud'); publishToCloud();"><i class="fa-solid fa-cloud-arrow-up"></i> نشر سحابي لكافة الصفحات</button>
+            </div>
+
+            <!-- Page Selector Tabs -->
+            <div class="cms-pages-selector-bar">
+              <button class="cms-page-pill-btn active" id="page-pill-home" onclick="selectCmsPageToEdit('home')"><i class="fa-solid fa-house"></i> الرئيسية</button>
+              <button class="cms-page-pill-btn" id="page-pill-about" onclick="selectCmsPageToEdit('about')"><i class="fa-solid fa-circle-info"></i> عن المشروع</button>
+              <button class="cms-page-pill-btn" id="page-pill-science" onclick="selectCmsPageToEdit('science')"><i class="fa-solid fa-flask"></i> الأزولا واستخداماته</button>
+              <button class="cms-page-pill-btn" id="page-pill-services" onclick="selectCmsPageToEdit('services')"><i class="fa-solid fa-calculator"></i> الخدمات والحاسبات</button>
+              <button class="cms-page-pill-btn" id="page-pill-academy" onclick="selectCmsPageToEdit('academy')"><i class="fa-solid fa-graduation-cap"></i> الأكاديمية</button>
+              <button class="cms-page-pill-btn" id="page-pill-impact" onclick="selectCmsPageToEdit('impact')"><i class="fa-solid fa-earth-africa"></i> الأثر والتمكين</button>
+              <button class="cms-page-pill-btn" id="page-pill-partners" onclick="selectCmsPageToEdit('partners')"><i class="fa-solid fa-handshake"></i> الشركاء</button>
+              <button class="cms-page-pill-btn" id="page-pill-privacy" onclick="selectCmsPageToEdit('privacy')"><i class="fa-solid fa-shield-halved"></i> الخصوصية والحوكمة</button>
+            </div>
+
+            <!-- Active Page Sections Editor Box -->
+            <div id="cms-page-sections-editor" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <!-- Dynamic section cards populated by JS -->
             </div>
           </div>
 
