@@ -2111,6 +2111,10 @@ function openAdminModal() {
   } else {
     if (loginView) loginView.style.display = 'block';
     if (dashView) dashView.style.display = 'none';
+    const userInput = document.getElementById('cms-user');
+    const passInput = document.getElementById('cms-pass');
+    if (userInput) userInput.value = '';
+    if (passInput) passInput.value = '';
   }
   openModal('modal-admin-cms');
 }
@@ -2136,6 +2140,10 @@ function handleCmsLogout() {
   sessionStorage.removeItem('AZOLLA_CMS_LOGGED_IN');
   document.getElementById('cms-login-view').style.display = 'block';
   document.getElementById('cms-dashboard-view').style.display = 'none';
+  const userInput = document.getElementById('cms-user');
+  const passInput = document.getElementById('cms-pass');
+  if (userInput) userInput.value = '';
+  if (passInput) passInput.value = '';
   showToast('تم تسجيل الخروج من لوحة التحكم');
 }
 
@@ -2617,7 +2625,7 @@ function renderPageContentEditor(pageKey = 'home') {
         </div>
         <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
           <label style="font-size: 0.85rem; font-weight: 800; color: var(--color-text-main);"><i class="fa-solid fa-image text-primary"></i> تغيير / استبدال صورة هذا القسم:</label>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div class="cms-section-inputs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
             <div>
               <label style="font-size: 0.75rem; color: var(--color-text-muted); display: block; margin-bottom: 2px;">رفع مباشر من الهاتف/الكمبيوتر</label>
               <input type="file" class="form-control" style="font-size: 0.78rem;" accept="image/*" onchange="handleSectionImageUpload(event, '${pageKey}', '${sec.id}')">
@@ -2628,7 +2636,7 @@ function renderPageContentEditor(pageKey = 'home') {
               <input type="text" id="sec-img-url-${pageKey}-${sec.id}" class="form-control" style="font-size: 0.82rem;" placeholder="https://..." value="${sec.image && sec.image.startsWith('data:') ? '' : (sec.image || '')}">
             </div>
           </div>
-          <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+          <div class="cms-section-btns-row" style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
             <button type="button" class="btn btn-sm" style="font-size: 0.75rem; background: var(--color-surface-hover);" onclick="resetSectionImageToDefault('${pageKey}', '${sec.id}')">
               <i class="fa-solid fa-rotate-left"></i> استعادة الصورة الأصلية
             </button>
@@ -2879,7 +2887,7 @@ function renderCmsNewsList() {
   }
 
   container.innerHTML = news.map((item) => `
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border); gap: 1rem;">
+    <div class="cms-news-item-card" style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border); gap: 1rem;">
       <div style="display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0;">
         <img src="${item.image || './assets/images/gallery_aswan_basin.jpg'}" alt="${item.title}" style="width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); flex-shrink: 0; border: 1px solid var(--color-border);">
         <div style="min-width: 0;">
@@ -2893,7 +2901,7 @@ function renderCmsNewsList() {
           </div>
         </div>
       </div>
-      <div style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+      <div class="news-item-actions" style="display: flex; gap: 0.5rem; flex-shrink: 0;">
         <button class="btn btn-sm btn-primary" onclick="openNewsEditForm('${item.id}')" title="تعديل المقال والصورة"><i class="fa-solid fa-pen-to-square"></i> تعديل</button>
         <button class="btn btn-sm" style="background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA;" onclick="deleteCmsNewsArticle('${item.id}')" title="حذف المقال"><i class="fa-solid fa-trash"></i></button>
       </div>

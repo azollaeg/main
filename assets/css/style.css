@@ -1879,4 +1879,296 @@ button {
   background: #FFF;
 }
 
+/* ==========================================================================
+   16. COMPREHENSIVE MOBILE OPTIMIZATION FOR ADMIN CMS DASHBOARD
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Modal Dialog & Fullscreen Container on Mobile */
+  #modal-admin-cms {
+    padding: 0 !important;
+  }
+
+  #modal-admin-cms .modal-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border: none !important;
+  }
+
+  #modal-admin-cms .modal-header {
+    padding: 0.65rem 0.85rem !important;
+    gap: 0.4rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  #modal-admin-cms .modal-header h3 {
+    font-size: 0.88rem !important;
+    line-height: 1.25 !important;
+    max-width: 170px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #modal-admin-cms .cloud-status-badge {
+    padding: 0.2rem 0.55rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  #modal-admin-cms .modal-body {
+    padding: 0.85rem 0.65rem !important;
+    max-height: calc(100vh - 54px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* 2. Login View Mobile Polish */
+  #cms-login-view {
+    padding: 2.25rem 1.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+  }
+
+  #cms-login-view h3 {
+    font-size: 1.28rem !important;
+    line-height: 1.3 !important;
+  }
+
+  #cms-login-view p {
+    font-size: 0.84rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  #cms-login-form {
+    max-width: 100% !important;
+  }
+
+  #cms-login-form .form-control {
+    font-size: 16px !important; /* Prevents Safari iOS auto-zoom */
+    padding: 0.75rem 1rem !important;
+  }
+
+  #cms-login-form .btn {
+    padding: 0.85rem 1rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* 3. Horizontal Touch Carousel for CMS Nav Tabs */
+  .cms-nav-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.35rem !important;
+    padding-bottom: 0.6rem !important;
+    margin-bottom: 1rem !important;
+    border-bottom: 2px solid var(--color-border) !important;
+  }
+
+  .cms-nav-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .cms-nav-tab-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.78rem !important;
+    padding: 0.42rem 0.75rem !important;
+    border-radius: var(--radius-full) !important;
+  }
+
+  /* 4. Web Traffic Analytics Mobile Optimization */
+  .wt-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  .wt-dashboard-title {
+    font-size: 1.15rem !important;
+  }
+
+  .wt-dashboard-subtitle {
+    font-size: 0.78rem !important;
+  }
+
+  .wt-period-pills {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    gap: 3px !important;
+    padding: 3px !important;
+  }
+
+  .wt-pill-btn {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 0.38rem 0.35rem !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap !important;
+  }
+
+  .wt-cards-grid {
+    grid-template-columns: 1fr 1fr !important; /* 2x2 compact grid */
+    gap: 0.65rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .wt-metric-card {
+    padding: 0.75rem !important;
+  }
+
+  .wt-metric-header {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .wt-metric-label {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .wt-metric-val {
+    font-size: 1.35rem !important;
+  }
+
+  .wt-sparkline-box {
+    margin: 0.35rem 0 0.25rem 0 !important;
+    height: 24px !important;
+  }
+
+  .wt-metric-footer {
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .wt-charts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .wt-chart-card {
+    padding: 0.85rem !important;
+  }
+
+  .wt-chart-title {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+
+  .wt-chart-svg-wrap {
+    height: 130px !important;
+  }
+
+  .wt-bottom-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* 5. Pages & Media Content Manager Mobile Optimization */
+  .cms-pages-selector-bar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 0.35rem !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    scrollbar-width: none !important;
+  }
+
+  .cms-pages-selector-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .cms-page-pill-btn {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    padding: 0.38rem 0.75rem !important;
+    font-size: 0.76rem !important;
+  }
+
+  .cms-section-card {
+    padding: 0.85rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .cms-section-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+  }
+
+  .cms-section-header .btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .cms-section-img-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    padding: 0.75rem !important;
+    text-align: center;
+  }
+
+  .cms-section-thumb {
+    width: 100% !important;
+    max-width: 240px !important;
+    height: 135px !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
+  .cms-section-inputs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .cms-section-btns-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.4rem !important;
+    width: 100% !important;
+  }
+
+  .cms-section-btns-row .btn {
+    justify-content: center !important;
+  }
+
+  /* 6. Form Controls & Inputs on Mobile */
+  .modal-box input,
+  .modal-box select,
+  .modal-box textarea {
+    font-size: 16px !important; /* Prevents iOS pinch zoom */
+  }
+
+  /* 7. News & Articles Manager Mobile Polish */
+  .cms-news-item-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+
+  .cms-news-item-card .news-item-actions {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: flex-end !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .wt-cards-grid {
+    grid-template-columns: 1fr !important; /* Single column on tiny phones */
+  }
+}
+
 

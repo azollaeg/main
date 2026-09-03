@@ -1125,14 +1125,14 @@
         <h3 style="font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; color: var(--color-text-main);">لوحة التحكم وإدارة الموقع الشاملة</h3>
         <p style="color: var(--color-text-muted); margin-bottom: 1.75rem; font-size: 0.95rem;">منطقة الإدارة المركزية لمشروع <strong>تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong></p>
 
-        <form id="cms-login-form" onsubmit="handleCmsLogin(event)" style="max-width: 380px; margin: 0 auto; text-align: right;">
+        <form id="cms-login-form" onsubmit="handleCmsLogin(event)" style="max-width: 380px; margin: 0 auto; text-align: right;" autocomplete="off">
           <div class="form-group">
             <label class="form-label"><i class="fa-solid fa-user text-primary"></i> اسم المستخدم</label>
-            <input type="text" id="cms-user" class="form-control" required placeholder="admin" autocomplete="username">
+            <input type="text" id="cms-user" class="form-control" required placeholder="" autocomplete="off" value="">
           </div>
           <div class="form-group">
             <label class="form-label"><i class="fa-solid fa-key text-primary"></i> كلمة المرور</label>
-            <input type="password" id="cms-pass" class="form-control" required placeholder="••••••••" autocomplete="current-password">
+            <input type="password" id="cms-pass" class="form-control" required placeholder="" autocomplete="new-password" value="">
           </div>
           <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 1rem;">
             <i class="fa-solid fa-lock-open"></i> الدخول الآمن للوحة التحكم
