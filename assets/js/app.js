@@ -420,11 +420,15 @@ function renderHomePage() {
         </div>
 
         <div class="partners-logo-wall">
-          ${partners.map(p => `
-            <div class="partner-wall-card" title="${p.name} - ${p.role}">
-              ${p.logo ? `<img src="${p.logo}" alt="${p.name}" class="partner-wall-img">` : `<span style="font-weight: 800; font-size: 0.85rem; color: var(--color-primary);">${p.name}</span>`}
+          ${partners.map(p => {
+            const pName = t('partner_' + p.id + '_name', p.name);
+            const pRole = t('partner_' + p.id + '_role', p.role);
+            return `
+            <div class="partner-wall-card" title="${pName} - ${pRole}">
+              ${p.logo ? `<img src="${p.logo}" alt="${pName}" class="partner-wall-img">` : `<span style="font-weight: 800; font-size: 0.85rem; color: var(--color-primary);">${pName}</span>`}
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
@@ -441,21 +445,29 @@ function renderHomePage() {
         </div>
 
         <div class="gallery-grid" style="margin-bottom: 2.5rem;">
-          ${gallery.map(item => `
+          ${gallery.map(item => {
+            const cleanId = item.id.replace(/-/g, '_');
+            const gTitle = t('gal_' + cleanId + '_title', item.title);
+            const gLoc = t('gal_' + cleanId + '_location', item.location);
+            const gDesc = t('gal_' + cleanId + '_desc', item.desc);
+            const safeTitle = gTitle.replace(/'/g, "\\'");
+            const safeDesc = gDesc.replace(/'/g, "\\'");
+            return `
             <div class="gallery-card">
-              <div class="gallery-img-wrap" onclick="openLightbox('${item.image}', '${item.title}', '${item.desc}')">
-                <img src="${item.image}" alt="${item.title}" class="gallery-img">
+              <div class="gallery-img-wrap" onclick="openLightbox('${item.image}', '${safeTitle}', '${safeDesc}')">
+                <img src="${item.image}" alt="${gTitle}" class="gallery-img">
                 <div class="gallery-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
               </div>
               <div style="padding: 1.25rem;">
                 <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem;">
-                  <i class="fa-solid fa-location-dot"></i> ${item.location}
+                  <i class="fa-solid fa-location-dot"></i> ${gLoc}
                 </div>
-                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.35rem;">${item.title}</h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-muted);">${item.desc}</p>
+                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.35rem;">${gTitle}</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">${gDesc}</p>
               </div>
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
 
         <div style="text-align: center;">
@@ -1158,22 +1170,29 @@ function renderPartnersPage() {
                 <i class="fa-solid ${cat.icon}"></i> ${cat.title}
               </h3>
               <div class="partners-cards-grid">
-                ${list.map(p => `
+                ${list.map(p => {
+                  const pName = t('partner_' + p.id + '_name', p.name);
+                  const pRole = t('partner_' + p.id + '_role', p.role);
+                  const pSlogan = p.slogan ? t('partner_' + p.id + '_slogan', p.slogan) : '';
+                  const pDesc = t('partner_' + p.id + '_desc', p.description);
+                  const pBadge = p.badge ? t('partner_' + p.id + '_badge', p.badge) : '';
+                  return `
                   <div class="partner-profile-card">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                       <div class="partner-logo-frame">
-                        ${p.logo ? `<img src="${p.logo}" alt="${p.name}">` : `<i class="fa-solid fa-building text-gold" style="font-size: 2rem;"></i>`}
+                        ${p.logo ? `<img src="${p.logo}" alt="${pName}">` : `<i class="fa-solid fa-building text-gold" style="font-size: 2rem;"></i>`}
                       </div>
                       <div>
-                        <h4 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.2rem;">${p.name}</h4>
-                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); background: var(--color-emerald-50); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${p.role}</span>
+                        <h4 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.2rem;">${pName}</h4>
+                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary); background: var(--color-emerald-50); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${pRole}</span>
                       </div>
                     </div>
-                    ${p.slogan ? `<div style="font-size: 0.8rem; font-weight: 700; color: var(--color-gold-dark); margin-bottom: 0.4rem;">"${p.slogan}"</div>` : ''}
-                    <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.6; flex: 1;">${p.description}</p>
-                    ${p.badge ? `<div style="margin-top: 0.75rem; font-size: 0.75rem; font-weight: 800; color: var(--color-primary); background: var(--color-emerald-50); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); align-self: flex-start;">${p.badge}</div>` : ''}
+                    ${pSlogan ? `<div style="font-size: 0.8rem; font-weight: 700; color: var(--color-gold-dark); margin-bottom: 0.4rem;">"${pSlogan}"</div>` : ''}
+                    <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.6; flex: 1;">${pDesc}</p>
+                    ${pBadge ? `<div style="margin-top: 0.75rem; font-size: 0.75rem; font-weight: 800; color: var(--color-primary); background: var(--color-emerald-50); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); align-self: flex-start;">${pBadge}</div>` : ''}
                   </div>
-                `).join('')}
+                `;
+                }).join('')}
               </div>
             </div>
           `;
@@ -1200,21 +1219,29 @@ function renderMediaPage() {
     <section class="section section-bg-white">
       <div class="container">
         <div class="gallery-grid">
-          ${gallery.map(item => `
+          ${gallery.map(item => {
+            const cleanId = item.id.replace(/-/g, '_');
+            const gTitle = t('gal_' + cleanId + '_title', item.title);
+            const gLoc = t('gal_' + cleanId + '_location', item.location);
+            const gDesc = t('gal_' + cleanId + '_desc', item.desc);
+            const safeTitle = gTitle.replace(/'/g, "\\'");
+            const safeDesc = gDesc.replace(/'/g, "\\'");
+            return `
             <div class="gallery-card">
-              <div class="gallery-img-wrap" onclick="openLightbox('${item.image}', '${item.title}', '${item.desc}')">
-                <img src="${item.image}" alt="${item.title}" class="gallery-img">
+              <div class="gallery-img-wrap" onclick="openLightbox('${item.image}', '${safeTitle}', '${safeDesc}')">
+                <img src="${item.image}" alt="${gTitle}" class="gallery-img">
                 <div class="gallery-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
               </div>
               <div style="padding: 1.25rem;">
                 <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem;">
-                  <i class="fa-solid fa-location-dot"></i> ${item.location}
+                  <i class="fa-solid fa-location-dot"></i> ${gLoc}
                 </div>
-                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.35rem;">${item.title}</h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-muted);">${item.desc}</p>
+                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.35rem;">${gTitle}</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">${gDesc}</p>
               </div>
             </div>
-          `).join('')}
+          `;
+          }).join('')}
         </div>
       </div>
     </section>
@@ -1543,18 +1570,19 @@ function renderPrivacyPage() {
   const policy = window.AZOLLA_DATA.privacyPolicyData || {};
   const meta = policy.metadata || {};
   const contact = policy.contact || {};
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 2.5rem; background: linear-gradient(135deg, #064E3B 0%, #0F172A 100%);">
       <div class="container">
         <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.2); color: #A7F3D0; padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; margin-bottom: 1rem; border: 1px solid rgba(16, 185, 129, 0.3);">
-          <i class="fa-solid fa-shield-halved"></i> وثيقة الحوكمة والعمل المؤسسي | ${policy.version || 'الإصدار 1.0 — 2026'}
+          <i class="fa-solid fa-shield-halved"></i> ${t('privacyDocBadge', 'وثيقة الحوكمة والعمل المؤسسي')} | ${t('privacyDocVersion', 'الإصدار 1.0 — 2026')}
         </div>
         <h1 class="hero-main-title" style="font-size: 2.25rem; margin-bottom: 0.75rem;">
-          ${policy.title || 'سياسة الخصوصية والحماية وعدم التمييز وتلقي الشكاوى'}
+          ${t('privacyHeaderTitle', policy.title || 'سياسة الخصوصية والحماية وعدم التمييز وتلقي الشكاوى')}
         </h1>
         <p class="hero-lead-text" style="max-width: 800px; margin-bottom: 1.5rem;">
-          ${policy.subtitle || 'وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر»'}
+          ${t('privacyHeaderLead', policy.subtitle || 'وثيقة الحوكمة الرقمية والعمل المؤسسي لمشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر»')}
         </p>
 
         <!-- Actions Toolbar -->
@@ -1575,138 +1603,131 @@ function renderPrivacyPage() {
     <section class="section section-bg-white" style="padding-top: 3rem; padding-bottom: 4rem;">
       <div class="container" style="max-width: 960px;">
 
-        <!-- 1. OFFICIAL INSTITUTIONAL METADATA TABLE (Page 1 in PDF) -->
+        <!-- 1. OFFICIAL INSTITUTIONAL METADATA TABLE -->
         <div style="background: var(--color-bg); border: 2px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
           <div style="background: var(--color-primary-dark); color: #FFFFFF; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
             <div style="font-weight: 900; font-size: 1.05rem;">
-              <i class="fa-solid fa-certificate text-gold"></i> بطاقة اعتماد الوثيقة المؤسسية والحوكمة
+              <i class="fa-solid fa-certificate text-gold"></i> ${t('privacyMetaTitle', 'بطاقة اعتماد الوثيقة المؤسسية والحوكمة')}
             </div>
             <span style="font-size: 0.8rem; background: rgba(255,255,255,0.15); padding: 0.2rem 0.65rem; border-radius: var(--radius-full); font-weight: 700;">
-              AZOLLA-EGYPT-POL-2026-v1.0
+              ${t('privacyMetaDocCode', 'AZOLLA-EGYPT-POL-2026-v1.0')}
             </span>
           </div>
 
           <div style="padding: 1.25rem; display: grid; grid-template-columns: 1fr; gap: 0.75rem;">
             <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--color-border);">
-              <span style="font-weight: 800; color: var(--color-primary);">الجهة المنفذة والمستضيفة:</span>
-              <span style="font-weight: 700; color: var(--color-text-main);">${meta.issuingEntity}</span>
+              <span style="font-weight: 800; color: var(--color-primary);">${t('privacyMetaEntityLabel', 'الجهة المنفذة والمستضيفة:')}</span>
+              <span style="font-weight: 700; color: var(--color-text-main);">${t('privacyMetaEntityVal', meta.issuingEntity)}</span>
             </div>
             <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--color-border);">
-              <span style="font-weight: 800; color: var(--color-primary);">المنظومة والملكية الفكرية:</span>
-              <span style="font-weight: 700; color: var(--color-text-main);">${meta.intellectualProperty}</span>
+              <span style="font-weight: 800; color: var(--color-primary);">${t('privacyMetaIpLabel', 'المنظومة والملكية الفكرية:')}</span>
+              <span style="font-weight: 700; color: var(--color-text-main);">${t('privacyMetaIpVal', meta.intellectualProperty)}</span>
             </div>
             <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--color-border);">
-              <span style="font-weight: 800; color: var(--color-primary);">نطاق التطبيق:</span>
-              <span style="color: var(--color-text-main);">${meta.applicationScope}</span>
+              <span style="font-weight: 800; color: var(--color-primary);">${t('privacyMetaScopeLabel', 'نطاق التطبيق:')}</span>
+              <span style="color: var(--color-text-main);">${t('privacyMetaScopeVal', meta.applicationScope)}</span>
             </div>
             <div style="display: grid; grid-template-columns: 200px 1fr; gap: 1rem; padding: 0.6rem 0;">
-              <span style="font-weight: 800; color: var(--color-primary);">حالة الوثيقة والسريان:</span>
-              <span style="color: var(--color-text-main);"><strong class="text-emerald">${meta.documentStatus}</strong></span>
+              <span style="font-weight: 800; color: var(--color-primary);">${t('privacyMetaStatusLabel', 'حالة الوثيقة والسريان:')}</span>
+              <span style="color: var(--color-text-main);"><strong class="text-emerald">${t('privacyMetaStatusVal', meta.documentStatus)}</strong></span>
             </div>
           </div>
         </div>
 
-        <!-- 2. ARTICLES CONTENT (MATCHING PDF STRUCTURE) -->
+        <!-- 2. ARTICLES CONTENT -->
         <div style="display: flex; flex-direction: column; gap: 2rem;">
 
           <!-- Article 1 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
-              .1 الغرض من السياسة (Purpose & Scope)
+              ${t('privacyArt1Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تحدد هذه الوثيقة المبادئ الحاكمة لضمان بيئة رقمية وميدانية آمنة، عادلة، محترمة وشاملة داخل منظومة «تكنولوجيا الأعلاف البديلة .. أزولا مصر» وتطبيقاتها والمزارع الشريكة، مع ضمان تكافؤ الفرص وحظر التمييز بكافة أشكاله، وحماية بيانات الجمعيات والمزارعين والمستفيدين والمتدربين والمتطوعين من أي استغلال أو إفشاء غير مصرح به، وتوفير مسار آمن وسري ومحمي لتلقي الشكاوى والبلاغات ومعالجتها بحيادية تامة.
+              ${t('privacyArt1Body')}
             </p>
           </article>
 
           <!-- Article 2 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
-              .2 نطاق التطبيق والمنظومة (Scope of Application)
+              ${t('privacyArt2Title')}
             </h3>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--color-text-main);">
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-circle-check text-emerald" style="margin-top: 0.25rem;"></i>
-                <span>تسري هذه السياسة على موقع المنصة وتطبيقات الهواتف الذكية، ولوحات التحكم، وقواعد البيانات السحابية، وورش التدريب الميدانية والأكاديمية، ومواقع المزارع والأحواض الإنتاجية.</span>
+                <span>${t('privacyArt2Item1')}</span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-circle-check text-emerald" style="margin-top: 0.25rem;"></i>
-                <span>يلتزم بأحكامها كافة المستخدمين والجمعيات الأهلية المسجلة، والمتدربين والمتدربات في المنح التدريبية (Scholarships)، والكوادر الإدارية، وفرق العمل الميدانية، وسفراء البيئة والمتطوعين (GCT).</span>
+                <span>${t('privacyArt2Item2')}</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                <i class="fa-solid fa-circle-check text-emerald" style="margin-top: 0.25rem;"></i>
+                <span>${t('privacyArt2Item3')}</span>
               </li>
             </ul>
           </article>
 
           <!-- Article 3 -->
-          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-gold); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
-            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-gold-dark); margin-bottom: 0.75rem;">
-              .3 التمكين وتكافؤ الفرص ومشاركة المرأة (Equal Opportunity & Gender Equity)
+          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
+              ${t('privacyArt3Title')}
             </h3>
-            <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem;">
-              تعتمد المنصة مبدأ تكافؤ الفرص في تقديم الخدمات السحابية والمنح التدريبية والدعم الفني الميداني، وتولي اهتماماً خاصاً بدعم ريادة الأعمال النسائية للمرأة الريفية وتمكينها بتمثيل نسائي قيادي يصل إلى <strong>62%</strong> من المستفيدين بالشراكة مع حاضنة الأعمال البيئية للمرأة المصرية، مع حظر تام للتمييز المبني على النوع، أو العمر، أو الموقع الجغرافي، أو الخلفية الاجتماعية، أو الإعاقة.
+            <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
+              ${t('privacyArt3Body')}
             </p>
           </article>
 
           <!-- Article 4 -->
-          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-azure); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
-            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-azure-dark); margin-bottom: 0.75rem;">
-              .4 بيئة العمل الآمنة والمرنة والذكية (Safe & Flexible Work Environment)
+          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
+              ${t('privacyArt4Title')}
             </h3>
-            <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--color-text-main);">
-              <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fa-solid fa-check text-azure" style="margin-top: 0.25rem;"></i>
-                <span>اعتماد نظام عمل وتشغيل ميداني مرن يتيح العمل والتعلم بساعات تتناسب مع الظروف الأسرية والاجتماعية دون أعباء غير مبررة (5-6 ساعات عمل يومياً).</span>
-              </li>
-              <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fa-solid fa-check text-azure" style="margin-top: 0.25rem;"></i>
-                <span>حظر أي سلوك ينطوي على التحرش، أو الإساءة اللفظية أو النفسية أو البدنية، أو استغلال السلطة عبر القنوات الرقمية أو الميدانية بالمزارع.</span>
-              </li>
-              <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
-                <i class="fa-solid fa-check text-azure" style="margin-top: 0.25rem;"></i>
-                <span>توفير حماية كاملة لكرامة وخصوصية المستخدمين مع إمكانية التبليغ دون الحاجة للمواجهة المباشرة.</span>
-              </li>
-            </ul>
+            <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
+              ${t('privacyArt4Body')}
+            </p>
           </article>
 
           <!-- Article 5 -->
-          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid #EF4444; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
-            <h3 style="font-size: 1.2rem; font-weight: 900; color: #B91C1C; margin-bottom: 0.75rem;">
-              .5 الحماية من الاستغلال والتحرش والعنف (Anti-Harassment & Protection)
+          <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
+              ${t('privacyArt5Title')}
             </h3>
-            <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0.5rem;">
-              تعتبر أي محاولة ابتزاز أو تحرش أو استغلال للسلطة أو التهديد مخالفة جسيمة يترتب عليها الحظر الفوري والإحالة للمساءلة القانونية والقضائية.
+            <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0.75rem;">
+              ${t('privacyArt5Body1')}
             </p>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              يحظر استغلال البيانات أو المساعدات أو المنح العينية (التقاوي/الأسمدة/المعدات) للحصول على أي منافع شخصية أو ممارسة ضغوط على المستفيدين أو صغار المزارعين.
+              ${t('privacyArt5Body2')}
             </p>
           </article>
 
           <!-- Article 6 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
-              .6 سياسة عدم الانتقام وحماية المبلغين (Non-Retaliation Policy)
+              ${t('privacyArt6Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تضمن المنومة حماية كاملة لأي شخص يتقدم ببلاغ أو شكوى بحسن نية، ويُحظر تماماً اتخاذ أي إجراء سلبي أو تضييق إداري أو تقني أو ميداني أو حرمان من التدريب والخدمات ضد المبلغين أو الشهود المشاركين في فحص الشكاوى.
+              ${t('privacyArt6Body')}
             </p>
           </article>
 
           <!-- Article 7 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-azure); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-azure-dark); margin-bottom: 0.75rem;">
-              .7 خصوصية البيانات والأمن السيبراني وصون البيانات الميدانية (Data Privacy & Cyber-Security)
+              ${t('privacyArt7Title')}
             </h3>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem; color: var(--color-text-main);">
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-lock text-azure" style="margin-top: 0.25rem;"></i>
-                <span><strong>التشفير وعزل البيانات:</strong> يتم تشفير كافة الاتصالات والبيانات باستخدام بروتوكولات HTTPS و TLS 1.2+ مع عزل قواعد البيانات لضمان السرية التامة.</span>
+                <span><strong>${t('privacyArt7Item1Title')}</strong> ${t('privacyArt7Item1Text')}</span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-shield text-azure" style="margin-top: 0.25rem;"></i>
-                <span><strong>الامتثال لقوانين الخصوصية:</strong> تلتزم المنظومة بالقوانين المنظمة لحماية البيانات الشخصية، ولا يتم بيع أو تأجير أو مشاركة أي بيانات لأي طرف ثالث تجاري.</span>
+                <span><strong>${t('privacyArt7Item2Title')}</strong> ${t('privacyArt7Item2Text')}</span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-database text-azure" style="margin-top: 0.25rem;"></i>
-                <span><strong>الاستخدام المحدود:</strong> تستخدم البيانات فقط للأغراض التشغيلية وإصدار التوصيات الزراعية وتوليد مؤشرات الأثر البيئي والمائي المعتمدة للمنح الدولية (UNDP/SGP/GEF).</span>
+                <span><strong>${t('privacyArt7Item3Title')}</strong> ${t('privacyArt7Item3Text')}</span>
               </li>
             </ul>
           </article>
@@ -1714,40 +1735,40 @@ function renderPrivacyPage() {
           <!-- Article 8 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-gold); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-gold-dark); margin-bottom: 0.75rem;">
-              .8 التدريب وبناء القدرات والمنح المعتمدة (Training & Certified Scholarships)
+              ${t('privacyArt8Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تلتزم أكاديمية أزولا مصر بتوفير منح تدريبية متكافئة وعادلة عبر 12 برنامجاً تدريبياً معتمداً لأكثر من 500+ مزارع وشاب ومتطوع في مجالات استزراع الأزولا، تراكيب الأعلاف، الطاقة الشمسية، والإدارة المائية، مع إصدار شهادات إتمام رقمية مؤمنة بنظام تحقق سحابي موثق.
+              ${t('privacyArt8Body')}
             </p>
           </article>
 
           <!-- Article 9 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
-              .9 الشمول المالي والتحول الرقمي وصون الموارد (Financial Inclusion & Digital Transformation)
+              ${t('privacyArt9Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تشجيع المزارعين والمربين والمستفيدين بالتعاون مع منصة <strong>NGO HUB</strong> على استخدام أدوات الدفع والتحصيل الإلكتروني والمحافظ الرقمية لحوكمة المعاملات ورفع الشفافية المالية، وربط القرارات الزراعية بالحاسبات الرقمية لصون الموارد المائية والطاقة.
+              ${t('privacyArt9Body')}
             </p>
           </article>
 
           <!-- Article 10 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-gold); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-gold-dark); margin-bottom: 0.75rem;">
-              .10 قنوات تلقي الشكاوى وآلية المعالجة والإنصاف (Grievance & Redress Mechanism)
+              ${t('privacyArt10Title')}
             </h3>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.95rem; color: var(--color-text-main);">
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-paper-plane text-gold" style="margin-top: 0.25rem;"></i>
-                <span><strong>القناة المشفرة:</strong> نموذج تقديم الشكاوى السري المتاح داخل موقع المنصة مع خيار عدم الكشف عن الهوية (Anonymous).</span>
+                <span><strong>${t('privacyArt10Item1Title')}</strong> ${t('privacyArt10Item1Text')}</span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-envelope text-gold" style="margin-top: 0.25rem;"></i>
-                <span><strong>البريد المباشر للحماية والامتثال:</strong> <a href="mailto:${contact.grievanceEmail}" style="font-weight: 800; color: var(--color-primary);">${contact.grievanceEmail}</a></span>
+                <span><strong>${t('privacyArt10Item2Title')}</strong> <a href="mailto:${contact.grievanceEmail || 'protic1613@gmail.com'}" style="font-weight: 800; color: var(--color-primary);">${contact.grievanceEmail || 'protic1613@gmail.com'}</a></span>
               </li>
               <li style="display: flex; align-items: flex-start; gap: 0.5rem;">
                 <i class="fa-solid fa-clock-rotate-left text-gold" style="margin-top: 0.25rem;"></i>
-                <span><strong>مسار الفحص والبت:</strong> يتم مراجعة وتصنيف البلاغات خلال <strong>48 ساعة</strong> بواسطة لجنة حماية مستقلة، واتخاذ القرارات التصحيحية خلال <strong>7 أيام عمل</strong> بسرية تامة.</span>
+                <span><strong>${t('privacyArt10Item3Title')}</strong> ${t('privacyArt10Item3Text')}</span>
               </li>
             </ul>
           </article>
@@ -1755,96 +1776,96 @@ function renderPrivacyPage() {
           <!-- Article 11 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid #EF4444; border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: #B91C1C; margin-bottom: 0.75rem;">
-              .11 الإجراءات التصحيحية والجزاءات (Corrective Measures)
+              ${t('privacyArt11Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تتخذ الإدارة إجراءات حاسمة ومتدرجة تشمل: التنبيه الكتابي، تعليق الحساب السحابي أو الاستفادة من المنح، إلغاء الشراكة والتعاون المؤسسي، مع إحالة الجرائم الإلكترونية أو الانتهاكات الجسيمة للجهات القضائية والرسمية المختصة فوراً.
+              ${t('privacyArt11Body')}
             </p>
           </article>
 
           <!-- Article 12 -->
           <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-right: 5px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; box-shadow: var(--shadow-sm);">
             <h3 style="font-size: 1.2rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.75rem;">
-              .12 السريان والتحديث والاعتماد القانوني (Governing Law & Legal Enforcement)
+              ${t('privacyArt12Title')}
             </h3>
             <p style="color: var(--color-text-main); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0;">
-              تعتبر هذه السياسة نافذة ومطبقة إلكترونياً وميدانياً على كافة خدمات ومنتجات منصة ومشروع «أزولا مصر» اعتباراً من تاريخ إصدارها لعام <strong>2026</strong>، وتخضع لمراجعة وتدقيق سنوي دوري لضمان أعلى معايير الحوكمة والنزاهة المؤسسية.
+              ${t('privacyArt12Body')}
             </p>
           </article>
 
-          <!-- 3. OFFICIAL ENDORSEMENT STAMP CARD (Page 3 in PDF) -->
+          <!-- 3. OFFICIAL ENDORSEMENT STAMP CARD -->
           <div style="background: linear-gradient(135deg, var(--color-emerald-50) 0%, var(--color-gold-50) 100%); border: 2px solid var(--color-primary); border-radius: var(--radius-lg); padding: 2rem; margin-top: 1.5rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
               <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--color-primary-dark); margin: 0;">
-                <i class="fa-solid fa-stamp text-gold"></i> إقرار الاعتماد والنفاذ المؤسسي
+                <i class="fa-solid fa-stamp text-gold"></i> ${t('privacyEndorseTitle')}
               </h3>
               <span style="font-size: 0.85rem; font-weight: 800; color: var(--color-primary); background: #FFF; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); border: 1px solid var(--color-primary);">
-                معتمد وموثق رسمياً — 2026 م
+                ${t('privacyEndorseBadge')}
               </span>
             </div>
             <p style="font-size: 0.95rem; line-height: 1.8; color: var(--color-text-main); margin-bottom: 1.5rem;">
-              تم اعتماد هذه السياسة كوثيقة حوكمة وخصوصية رسمية ملزمة لمنظومة مشروع «تكنولوجيا الأعلاف البديلة .. أزولا مصر» بالشراكة المؤسسية بين <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> و<strong>منصة NGO HUB</strong> ومزارع فرع أسوان التكاملية. إن استخدامك للمنصة أو التسجيل في برامجها يُعد موافقة والتزاماً صريحاً بما ورد فيها.
+              ${t('privacyEndorseDesc')}
             </p>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; background: #FFFFFF; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
               <div>
-                <div style="font-size: 0.8rem; font-weight: 800; color: var(--color-text-muted); margin-bottom: 0.25rem;">البريد الإلكتروني للخصوصية والحماية:</div>
-                <div style="font-weight: 800; color: var(--color-primary);">${contact.grievanceEmail}</div>
+                <div style="font-size: 0.8rem; font-weight: 800; color: var(--color-text-muted); margin-bottom: 0.25rem;">${t('privacyEndorseEmailLabel')}</div>
+                <div style="font-weight: 800; color: var(--color-primary);">${contact.grievanceEmail || 'protic1613@gmail.com'}</div>
               </div>
               <div>
-                <div style="font-size: 0.8rem; font-weight: 800; color: var(--color-text-muted); margin-bottom: 0.25rem;">الخط المباشر للدعم الميداني والشكاوى:</div>
-                <div style="font-weight: 800; color: var(--color-gold);">${contact.hotline}</div>
+                <div style="font-size: 0.8rem; font-weight: 800; color: var(--color-text-muted); margin-bottom: 0.25rem;">${t('privacyEndorseHotlineLabel')}</div>
+                <div style="font-weight: 800; color: var(--color-gold);">${contact.hotline || '01553335579 / 0452182834'}</div>
               </div>
             </div>
           </div>
 
-          <!-- 4. INTERACTIVE ACKNOWLEDGMENT & COMMITMENT FORM (Page 4/5 in PDF) -->
+          <!-- 4. INTERACTIVE ACKNOWLEDGMENT & COMMITMENT FORM -->
           <div style="background: var(--color-surface); border: 2px dashed var(--color-primary); border-radius: var(--radius-lg); padding: 2rem; margin-top: 1rem;">
             <div style="text-align: center; margin-bottom: 1.5rem;">
               <h3 style="font-size: 1.3rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 0.5rem;">
-                <i class="fa-solid fa-file-signature text-gold"></i> مرفق: إقرار بالاطلاع والالتزام
+                <i class="fa-solid fa-file-signature text-gold"></i> ${t('privacyCommitTitle')}
               </h3>
               <p style="font-size: 0.9rem; color: var(--color-text-muted); max-width: 650px; margin: 0 auto;">
-                «أقر أنا الموقع/ة أدناه بأنني اطلعت على "سياسة الحماية وعدم التمييز وتلقي الشكاوى" الخاصة بمشروع أزولا مصر، وفهمت ما ورد بها، وألتزم باحترامها والإبلاغ عن أي مخالفة أو خطر وفق القنوات المعتمدة.»
+                ${t('privacyCommitDesc')}
               </p>
             </div>
 
             <form id="form-policy-commitment" onsubmit="handleCommitmentSubmit(event)" style="max-width: 650px; margin: 0 auto;">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                 <div class="form-group" style="margin: 0;">
-                  <label class="form-label">الاسم الرباعي *</label>
-                  <input type="text" id="commit-name" class="form-control" required placeholder="أدخل اسمك الكريم">
+                  <label class="form-label">${t('privacyCommitNameLabel')}</label>
+                  <input type="text" id="commit-name" class="form-control" required placeholder="${t('privacyCommitNamePh')}">
                 </div>
                 <div class="form-group" style="margin: 0;">
-                  <label class="form-label">الصفة / الفريق / الجمعية *</label>
-                  <input type="text" id="commit-role" class="form-control" required placeholder="مثال: متدرب / مزارع / متطوع GCT">
+                  <label class="form-label">${t('privacyCommitRoleLabel')}</label>
+                  <input type="text" id="commit-role" class="form-control" required placeholder="${t('privacyCommitRolePh')}">
                 </div>
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
                 <div class="form-group" style="margin: 0;">
-                  <label class="form-label">رقم الهاتف والواتساب *</label>
+                  <label class="form-label">${t('contactFormPhone', 'رقم الهاتف والواتساب *')}</label>
                   <input type="tel" id="commit-phone" class="form-control" required placeholder="010XXXXXXXX">
                 </div>
                 <div class="form-group" style="margin: 0;">
-                  <label class="form-label">المحافظة / المركز *</label>
-                  <input type="text" id="commit-gov" class="form-control" required placeholder="مثال: البحيرة - كفر الدوار أو أسوان">
+                  <label class="form-label">${t('privacyCommitGovLabel')}</label>
+                  <input type="text" id="commit-gov" class="form-control" required placeholder="${t('privacyCommitGovPh')}">
                 </div>
               </div>
 
               <div class="form-group" style="margin-bottom: 1.5rem;">
                 <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer; font-size: 0.9rem; font-weight: 700; color: var(--color-text-main);">
                   <input type="checkbox" required style="width: 20px; height: 20px; accent-color: var(--color-primary);">
-                  <span>أوافق وأتعهد بالالتزام التام بكافة بنود ومبادئ سياسة الخصوصية والحوكمة لسنة 2026.</span>
+                  <span>${t('privacyCommitCheckbox')}</span>
                 </label>
               </div>
 
               <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                 <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">
-                  <i class="fa-solid fa-signature"></i> توقيع وتأكيد الالتزام إلكترونياً
+                  <i class="fa-solid fa-signature"></i> ${t('privacyCommitSubmitBtn')}
                 </button>
                 <button type="button" onclick="window.print()" class="btn btn-outline-primary btn-lg">
-                  <i class="fa-solid fa-print"></i> طباعة الوثيقة
+                  <i class="fa-solid fa-print"></i> ${t('privacyPrintDocBtn')}
                 </button>
               </div>
             </form>
