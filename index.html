@@ -353,14 +353,10 @@
         <div class="smart-hub-header-card">
           <div>
             <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); color: #FDE68A; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 0.75rem;">
-              <i class="fa-solid fa-microchip"></i> بوابة الحاسبات الزراعية الذكية 2026
+              <i class="fa-solid fa-microchip"></i> <span data-i18n="calcHubBadge">بوابة الحاسبات الزراعية الذكية 2026</span>
             </div>
-            <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;">
-              حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)
-            </h2>
-            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 650px;">
-              طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.
-            </p>
+            <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;" data-i18n="calcHubTitle">حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)</h2>
+            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 650px;" data-i18n="calcHubDesc">طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.</p>
           </div>
 
           <div class="smart-hub-logo-tag">
@@ -374,62 +370,62 @@
 
         <div class="calc-nav-tabs">
           <button class="calc-tab-btn active" onclick="switchCalcTab('tab-basin', this)">
-            <i class="fa-solid fa-compass-drafting"></i> 1. تصميم الأحواض والإنتاج
+            <i class="fa-solid fa-compass-drafting"></i> <span data-i18n="calcTabBasin">1. تصميم الأحواض والإنتاج</span>
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-feed', this)">
-            <i class="fa-solid fa-cow"></i> 2. خلط عليقة الأعلاف
+            <i class="fa-solid fa-cow"></i> <span data-i18n="calcTabFeed">2. خلط عليقة الأعلاف</span>
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-water', this)">
-            <i class="fa-solid fa-droplet text-azure"></i> 3. صون وتوفير المياه
+            <i class="fa-solid fa-droplet text-azure"></i> <span data-i18n="calcTabWater">3. صون وتوفير المياه</span>
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-carbon', this)">
-            <i class="fa-solid fa-leaf"></i> 4. خفض الانبعاثات
+            <i class="fa-solid fa-leaf"></i> <span data-i18n="calcTabCarbon">4. خفض الانبعاثات</span>
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-roi', this)">
-            <i class="fa-solid fa-chart-pie"></i> 5. العائد الاستثماري (ROI)
+            <i class="fa-solid fa-chart-pie"></i> <span data-i18n="calcTabRoi">5. العائد الاستثماري (ROI)</span>
           </button>
         </div>
 
         <!-- 1. BASIN CALC -->
         <div id="tab-basin" class="calculator-box">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-water text-azure"></i> حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي
+            <i class="fa-solid fa-water text-azure"></i> <span data-i18n="basinCalcTitle">حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي</span>
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">طول الحوض المتاح (متر) *</label>
+                <label class="form-label" data-i18n="basinLengthLabel">طول الحوض المتاح (متر) *</label>
                 <input type="number" id="calc-basin-length" class="form-control" value="10" min="1" oninput="runBasinCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">عرض الحوض المتاح (متر) *</label>
+                <label class="form-label" data-i18n="basinWidthLabel">عرض الحوض المتاح (متر) *</label>
                 <input type="number" id="calc-basin-width" class="form-control" value="5" min="1" oninput="runBasinCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">عمق المياه المستهدف (سم)</label>
+                <label class="form-label" data-i18n="basinDepthLabel">عمق المياه المستهدف (سم)</label>
                 <input type="number" class="form-control" value="15" readonly style="background: var(--color-surface-hover);">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي المساحة المائية:</span>
+                <span class="result-label" data-i18n="resBasinArea">إجمالي المساحة المائية:</span>
                 <span class="result-value" id="res-basin-area">50 م²</span>
               </div>
               <div class="result-row">
-                <span class="result-label">احتياج التقاوي الأولية:</span>
+                <span class="result-label" data-i18n="resBasinSeed">احتياج التقاوي الأولية:</span>
                 <span class="result-value" id="res-basin-seed">25 كجم</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الإنتاج اليومي صيفاً:</span>
+                <span class="result-label" data-i18n="resBasinYieldSummer">الإنتاج اليومي صيفاً:</span>
                 <span class="result-value" id="res-basin-yield-summer">22.5 كجم / يوم</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الإنتاج اليومي شتاءً:</span>
+                <span class="result-label" data-i18n="resBasinYieldWinter">الإنتاج اليومي شتاءً:</span>
                 <span class="result-value" id="res-basin-yield-winter">15.0 كجم / يوم</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">الوفر المالي الشهري:</span>
+                <span class="result-label" data-i18n="resBasinSavings">الوفر المالي الشهري:</span>
                 <span class="result-value text-gold" id="res-basin-savings">3,375 ج.م / شهر</span>
               </div>
             </div>
@@ -439,12 +435,12 @@
         <!-- 2. FEED CALC -->
         <div id="tab-feed" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-wheat-awn text-gold"></i> حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك
+            <i class="fa-solid fa-wheat-awn text-gold"></i> <span data-i18n="feedCalcTitle">حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك</span>
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">نوع القطيع أو الحيوانات *</label>
+                <label class="form-label" data-i18n="feedTypeLabel">نوع القطيع أو الحيوانات *</label>
                 <select id="calc-feed-type" class="form-control" onchange="runFeedCalc()">
                   <option value="cattle_dairy">أبقار وجاموس حلاب</option>
                   <option value="cattle_beef" selected>أبقار وجاموس تسمين</option>
@@ -454,30 +450,30 @@
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">عدد الرؤوس بالقطيع *</label>
+                <label class="form-label" data-i18n="feedHeadsLabel">عدد الرؤوس بالقطيع *</label>
                 <input type="number" id="calc-feed-heads" class="form-control" value="10" min="1" oninput="runFeedCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">سعر كيلو العلف الجاف (جنيه) *</label>
+                <label class="form-label" data-i18n="feedPriceLabel">سعر كيلو العلف الجاف (جنيه) *</label>
                 <input type="number" id="calc-feed-price" class="form-control" value="22" min="5" oninput="runFeedCalc()">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي العلف الجاف:</span>
+                <span class="result-label" data-i18n="resFeedTotalDry">إجمالي العلف الجاف:</span>
                 <span class="result-value" id="res-feed-total-dry">120 كجم / يوم</span>
               </div>
               <div class="result-row">
-                <span class="result-label">العلف الجاف الموفر يومياً:</span>
+                <span class="result-label" data-i18n="resFeedSavedDry">العلف الجاف الموفر يومياً:</span>
                 <span class="result-value text-emerald" id="res-feed-saved-dry">24 كجم / يوم</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الأزولا الطازجة الواجب خلطها:</span>
+                <span class="result-label" data-i18n="resFeedAzollaNeeded">الأزولا الطازجة الواجب خلطها:</span>
                 <span class="result-value" id="res-feed-azolla-needed">96 كجم / يوم</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">الوفر المالي الشهري:</span>
+                <span class="result-label" data-i18n="resBasinSavings">الوفر المالي الشهري:</span>
                 <span class="result-value text-gold" id="res-feed-monthly-saved">15,840 ج.م / شهر</span>
               </div>
             </div>
@@ -488,23 +484,23 @@
         <div id="tab-water" class="calculator-box" style="display: none;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin: 0;">
-              <i class="fa-solid fa-droplet text-azure"></i> حاسبة صون وكفاءة استهلاك وتوفير المياه (Water Conservation)
+              <i class="fa-solid fa-droplet text-azure"></i> <span data-i18n="waterCalcTitle">حاسبة صون وكفاءة استهلاك وتوفير المياه (Water Conservation)</span>
             </h3>
             <span style="background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-weight: 800; font-size: 0.85rem; border: 1px solid var(--color-azure-100);">
-              <i class="fa-solid fa-gauge-high text-azure"></i> وفر مائي يصل إلى 90%
+              <i class="fa-solid fa-gauge-high text-azure"></i> <span data-i18n="waterCutBadge">وفر مائي يصل إلى 90%</span>
             </span>
           </div>
 
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-ruler-combined text-azure"></i> مساحة الأحواض المائية (م²) *</label>
+                <label class="form-label"><i class="fa-solid fa-ruler-combined text-azure"></i> <span data-i18n="waterAreaLabel">مساحة الأحواض المائية (م²) *</span></label>
                 <input type="number" id="calc-water-area" class="form-control" value="100" min="10" step="10" oninput="runWaterCalc()">
                 <small style="color: var(--color-text-muted); font-size: 0.78rem;">(مثال: 100 م² = حوض متوسط، 4200 م² = فدان كامل)</small>
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-seedling text-emerald"></i> المحصول العلفي المقارن *</label>
+                <label class="form-label"><i class="fa-solid fa-seedling text-emerald"></i> <span data-i18n="waterCropLabel">المحصول العلفي المقارن *</span></label>
                 <select id="calc-water-crop" class="form-control" onchange="runWaterCalc()">
                   <option value="alfalfa" selected>البرسيم الحجازي (Alfalfa - 1,850 م³/طن جاف)</option>
                   <option value="berseem">البرسيم المصري (Berseem - 1,450 م³/طن جاف)</option>
@@ -514,7 +510,7 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-solar-panel text-gold"></i> تقنية الري وتدوير المياه *</label>
+                <label class="form-label"><i class="fa-solid fa-solar-panel text-gold"></i> <span data-i18n="waterTechLabel">تقنية الري وتدوير المياه *</span></label>
                 <select id="calc-water-tech" class="form-control" onchange="runWaterCalc()">
                   <option value="closed_solar_shade" selected>أحواض مغلقة + ضخ شمسي + تظليل سيرام 50% (أعلى كفاءة وفر 90%)</option>
                   <option value="closed_solar_open">أحواض مغلقة مع تدوير بالطاقة الشمسية بدون تظليل (وفر 82%)</option>
@@ -524,7 +520,7 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-calendar-days text-primary"></i> فترة الحساب والتشغيل *</label>
+                <label class="form-label"><i class="fa-solid fa-calendar-days text-primary"></i> <span data-i18n="waterPeriodLabel">فترة الحساب والتشغيل *</span></label>
                 <select id="calc-water-period" class="form-control" onchange="runWaterCalc()">
                   <option value="year" selected>سنة كاملة (365 يوماً إنتاجي)</option>
                   <option value="month">شهر واحد (30 يوماً)</option>
@@ -534,27 +530,27 @@
 
             <div class="calc-result-panel" style="background: linear-gradient(135deg, rgba(240, 249, 255, 0.8) 0%, rgba(209, 250, 229, 0.8) 100%); border: 2px solid var(--color-azure-100);">
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-faucet-drip text-azure"></i> استهلاك منظومة الأزولا:</span>
+                <span class="result-label"><i class="fa-solid fa-faucet-drip text-azure"></i> <span data-i18n="resWaterAzollaConsumed">استهلاك منظومة الأزولا:</span></span>
                 <span class="result-value text-azure" id="res-water-azolla-consumed">128 م³</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-shower text-gold"></i> استهلاك الزراعة التقليدية:</span>
+                <span class="result-label"><i class="fa-solid fa-shower text-gold"></i> <span data-i18n="resWaterConventionalConsumed">استهلاك الزراعة التقليدية:</span></span>
                 <span class="result-value" id="res-water-conventional-consumed">1,120 م³</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-emerald-200);">
-                <span class="result-label" style="font-weight: 900; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-heart text-emerald"></i> صافي الوفر المائي المحقق:</span>
+                <span class="result-label" style="font-weight: 900; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-heart text-emerald"></i> <span data-i18n="resWaterSavedM3Label">صافي الوفر المائي المحقق:</span></span>
                 <span class="result-value text-emerald" id="res-water-saved-m3" style="font-size: 1.35rem; font-weight: 900;">992 م³ موفرة</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-percent text-emerald"></i> نسبة صون وتوفير المياه:</span>
+                <span class="result-label"><i class="fa-solid fa-percent text-emerald"></i> <span data-i18n="resWaterSavedPct">نسبة صون وتوفير المياه:</span></span>
                 <span class="result-value text-emerald" id="res-water-saved-pct">88.6%</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-users text-azure"></i> مكافئ مياه شرب منزلية:</span>
+                <span class="result-label"><i class="fa-solid fa-users text-azure"></i> <span data-i18n="resHouseholdEquiv">مكافئ مياه شرب منزلية:</span></span>
                 <span class="result-value text-azure" id="res-water-household-equiv">18 فرد / سنة</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-dna text-gold"></i> كفاءة إنتاج البروتين المائي:</span>
+                <span class="result-label"><i class="fa-solid fa-dna text-gold"></i> <span data-i18n="resProteinEfficiency">كفاءة إنتاج البروتين المائي:</span></span>
                 <span class="result-value text-gold" id="res-water-protein-efficiency">0.82 كجم بروتين / م³</span>
               </div>
             </div>
@@ -581,27 +577,27 @@
         <!-- 4. CARBON CALC -->
         <div id="tab-carbon" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-leaf text-emerald"></i> حاسبة البصمة البيئية وخفض الانبعاثات
+            <i class="fa-solid fa-leaf text-emerald"></i> <span data-i18n="carbonCalcTitle">حاسبة البصمة البيئية وخفض الانبعاثات</span>
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">إنتاج الأزولا السنوي التقديري (طن) *</label>
+                <label class="form-label" data-i18n="annualAzollaTonsLabel">إنتاج الأزولا السنوي التقديري (طن) *</label>
                 <input type="number" id="calc-carbon-tons" class="form-control" value="20" min="1" oninput="runCarbonCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">السولار الموفر بفضل الطاقة الشمسية (لتر/سنة) *</label>
+                <label class="form-label" data-i18n="dieselSavedLabel">السولار الموفر بفضل الطاقة الشمسية (لتر/سنة) *</label>
                 <input type="number" id="calc-carbon-diesel" class="form-control" value="10000" min="0" oninput="runCarbonCalc()">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي الكربون المتجنب سنوياً:</span>
+                <span class="result-label" data-i18n="resCarbonTotal">إجمالي الكربون المتجنب سنوياً:</span>
                 <span class="result-value text-emerald" id="res-carbon-total">37.3 طن CO₂e</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">ما يعادل زراعة أشجار:</span>
+                <span class="result-label" data-i18n="resCarbonTrees">ما يعادل زراعة أشجار:</span>
                 <span class="result-value text-gold" id="res-carbon-trees">1,678 شجرة</span>
               </div>
             </div>
@@ -611,11 +607,11 @@
         <!-- 5. ROI CALC -->
         <div id="tab-roi" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-chart-line text-azure"></i> حاسبة العائد الاستثماري ونماذج المزارع (ROI)
+            <i class="fa-solid fa-chart-line text-azure"></i> <span data-i18n="roiCalcTitle">حاسبة العائد الاستثماري ونماذج المزارع (ROI)</span>
           </h3>
           <div style="text-align: center; margin-bottom: 2rem;">
             <button class="btn btn-gold btn-lg" onclick="openModal('modal-land-partner')" style="background: var(--color-primary); color: #FFF; border-color: var(--color-primary); font-weight: 800;">
-              <i class="fa-solid fa-map-location-dot"></i> هل تمتلك أرضاً زراعية؟ قدّمها للشراكة الاستثمارية مع المشروع
+              <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="roiPartnerCta">هل تمتلك أرضاً زراعية؟ قدّمها للشراكة الاستثمارية مع المشروع</span>
             </button>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
@@ -648,8 +644,8 @@
     <section class="section section-bg-light">
       <div class="container">
         <div class="section-header-box">
-          <h2 class="section-title">أكاديمية أزولا مصر (12 برنامجاً معتمداً)</h2>
-          <p class="section-desc">تأهيل الكوادر الزراعية والمربين بالشراكة مع مركز التدريب البيئي وحاضنة المرأة.</p>
+          <h2 class="section-title" data-i18n="academyHeaderTitle">أكاديمية أزولا مصر (12 برنامجاً معتمداً)</h2>
+          <p class="section-desc" data-i18n="academyHeaderLead">تأهيل الكوادر الزراعية والمربين بالشراكة مع مركز التدريب البيئي وحاضنة المرأة.</p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
@@ -691,7 +687,7 @@
         </div>
 
         <div style="text-align: center;">
-          <a href="#academy" class="btn btn-outline-primary"><i class="fa-solid fa-graduation-cap"></i> استعرض كافة البرامج الـ 12 للأكاديمية</a>
+          <a href="#academy" class="btn btn-outline-primary"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="viewAllAcademyBtn">استعرض كافة البرامج الـ 12 للأكاديمية</span></a>
         </div>
       </div>
     </section>
@@ -699,8 +695,8 @@
     <section class="section section-bg-white">
       <div class="container">
         <div class="section-header-box" style="margin-bottom: 2.5rem;">
-          <h2 class="section-title">شبكة الشركاء والجهات والتعاون المؤسسي</h2>
-          <p class="section-desc">نعتز بالتعاون المشترك مع المنظمات الدولية والمحلية والشركاء التكنولوجيين والتدريبيين.</p>
+          <h2 class="section-title" data-i18n="partnersWallTitle">شبكة الشركاء والجهات والتعاون المؤسسي</h2>
+          <p class="section-desc" data-i18n="partnersWallDesc">نعتز بالتعاون المشترك مع المنظمات الدولية والمحلية والشركاء التكنولوجيين والتدريبيين.</p>
         </div>
 
         <div class="partners-logo-wall">
@@ -734,7 +730,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
-          <a href="#partners" class="btn btn-outline-primary"><i class="fa-solid fa-handshake"></i> صفحة الشركاء وتفاصيل الأدوار</a>
+          <a href="#partners" class="btn btn-outline-primary"><i class="fa-solid fa-handshake"></i> <span data-i18n="viewAllPartnersBtn">صفحة الشركاء وتفاصيل الأدوار</span></a>
         </div>
       </div>
     </section>
@@ -742,8 +738,8 @@
     <section class="section section-bg-light">
       <div class="container">
         <div class="section-header-box">
-          <h2 class="section-title">معرض التوثيق الميداني الحي</h2>
-          <p class="section-desc">مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان وجلسات التوعية الحقلية.</p>
+          <h2 class="section-title" data-i18n="mediaSectionTitle">معرض التوثيق الميداني الحي</h2>
+          <p class="section-desc" data-i18n="mediaSectionDesc">مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان وجلسات التوعية الحقلية.</p>
         </div>
 
         <div class="gallery-grid" style="margin-bottom: 2.5rem;">
@@ -791,7 +787,7 @@
         </div>
 
         <div style="text-align: center;">
-          <a href="#media" class="btn btn-primary"><i class="fa-solid fa-images"></i> استعراض كافة الصور بالمعرض الميداني</a>
+          <a href="#media" class="btn btn-primary"><i class="fa-solid fa-images"></i> <span data-i18n="viewAllMediaBtn">استعراض كافة الصور بالمعرض الميداني</span></a>
         </div>
       </div>
     </section>
@@ -1792,7 +1788,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; align-items: center;">
         <div>
           <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #A7F3D0; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 1rem;">
-            <i class="fa-solid fa-mobile-screen text-emerald"></i> تطبيق الهواتف الذكية المعتمد (Standalone PWA & Native APK)
+            <i class="fa-solid fa-mobile-screen text-emerald"></i> <span data-i18n="appBadgeTitle">تطبيق الهواتف الذكية المعتمد (Standalone PWA & Native APK)</span>
           </div>
           <h2 style="font-size: 1.75rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem; line-height: 1.3;" data-i18n="appBannerTitle">
             حاسبات أزولا مصر الحقلية بين يديك… حتى دون إنترنت!
@@ -1822,15 +1818,15 @@
           <a href="simulator.html" style="text-decoration: none; text-align: center;" title="اضغط لفتح المحاكي التفاعلي">
             <div style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(16, 185, 129, 0.4); border-radius: 28px; padding: 1.5rem 1.25rem; box-shadow: 0 15px 35px rgba(0,0,0,0.5); width: 200px; text-align: center; transition: transform 0.2s ease;">
               <i class="fa-solid fa-mobile-screen-button" style="font-size: 4rem; color: #10B981; margin-bottom: 0.75rem;"></i>
-              <div style="font-size: 1rem; font-weight: 900; color: #FFF; margin-bottom: 0.25rem;">شاشة التطبيق</div>
-              <div style="font-size: 0.75rem; color: #FDE68A;">اضغط لتشغيل المحاكي</div>
+              <div style="font-size: 1rem; font-weight: 900; color: #FFF; margin-bottom: 0.25rem;" data-i18n="appMockupTitle">شاشة التطبيق</div>
+              <div style="font-size: 0.75rem; color: #FDE68A;" data-i18n="appMockupClick">اضغط لتشغيل المحاكي</div>
             </div>
           </a>
 
           <!-- QR Code Box -->
           <div style="background: #FFFFFF; padding: 1rem; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 150px;">
             <img src="./assets/images/qr_simulator.png" alt="كود QR محاكي وتطبيق أزولا مصر" style="width: 110px; height: 110px; display: block; margin: 0 auto; border-radius: 6px;">
-            <div style="font-size: 0.72rem; color: #1E293B; font-weight: 800; margin-top: 0.5rem;">امسح لتجربة المحاكي</div>
+            <div style="font-size: 0.72rem; color: #1E293B; font-weight: 800; margin-top: 0.5rem;" data-i18n="appQrScan">امسح لتجربة المحاكي</div>
           </div>
         </div>
 
@@ -1846,52 +1842,52 @@
         <!-- Col 1 -->
         <div>
           <img src="./assets/images/logo_azolla.png" alt="أزولا مصر" class="footer-brand-logo">
-          <p style="font-size: 0.88rem; color: #94A3B8; line-height: 1.7; margin-bottom: 1.25rem;">
+          <p style="font-size: 0.88rem; color: #94A3B8; line-height: 1.7; margin-bottom: 1.25rem;" data-i18n="footerDesc">
             «تكنولوجيا الأعلاف البديلة .. أزولا مصر» منظومة تنموية زراعية متكاملة وممولة من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع فرع أسوان التكاملية.
           </p>
           <div style="display: inline-flex; align-items: center; gap: 0.4rem; color: #A7F3D0; font-weight: 700; font-size: 0.85rem;">
             <img src="./assets/images/logo_ngohub.png" alt="NGO HUB" style="height: 22px; border-radius: 3px;">
-            <span>المنصة الرقمية: Powered by <strong>NGO HUB</strong></span>
+            <span data-i18n="footerPoweredBy">المنصة الرقمية: Powered by <strong>NGO HUB</strong></span>
           </div>
         </div>
 
         <!-- Col 2 -->
         <div>
-          <h4 class="footer-heading">أقسام المنصة</h4>
+          <h4 class="footer-heading" data-i18n="quickLinksTitle">أقسام المنصة</h4>
           <ul class="footer-links-list">
-            <li><a href="#home" class="footer-link"><i class="fa-solid fa-angle-left"></i> الرئيسية</a></li>
-            <li><a href="#about" class="footer-link"><i class="fa-solid fa-angle-left"></i> عن المشروع والرؤية</a></li>
-            <li><a href="#science" class="footer-link"><i class="fa-solid fa-angle-left"></i> التركيب العلمي والبروتين</a></li>
-            <li><a href="#services" class="footer-link"><i class="fa-solid fa-angle-left"></i> الخدمات والحاسبات الذكية</a></li>
-            <li><a href="#news" class="footer-link"><i class="fa-solid fa-angle-left"></i> أخبارنا والمدونة</a></li>
-            <li><a href="#academy" class="footer-link"><i class="fa-solid fa-angle-left"></i> الأكاديمية (12 برنامجاً)</a></li>
-            <li><a href="simulator.html" class="footer-link"><i class="fa-solid fa-mobile-screen text-gold"></i> محاكي التطبيق (Simulator)</a></li>
-            <li><a href="azolla_egypt.apk" class="footer-link" download><i class="fa-brands fa-android text-emerald"></i> تنزيل تطبيق أندرويد (APK)</a></li>
+            <li><a href="#home" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="navHome">الرئيسية</span></a></li>
+            <li><a href="#about" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkAbout">عن المشروع والرؤية</span></a></li>
+            <li><a href="#science" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkScience">التركيب العلمي والبروتين</span></a></li>
+            <li><a href="#services" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkServices">الخدمات والحاسبات الذكية</span></a></li>
+            <li><a href="#news" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkNews">أخبارنا والمدونة</span></a></li>
+            <li><a href="#academy" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkAcademy">الأكاديمية (12 برنامجاً)</span></a></li>
+            <li><a href="simulator.html" class="footer-link"><i class="fa-solid fa-mobile-screen text-gold"></i> <span data-i18n="footerLinkSim">محاكي التطبيق (Simulator)</span></a></li>
+            <li><a href="azolla_egypt.apk" class="footer-link" download><i class="fa-brands fa-android text-emerald"></i> <span data-i18n="footerLinkApk">تنزيل تطبيق أندرويد (APK)</span></a></li>
           </ul>
         </div>
 
         <!-- Col 3 -->
         <div>
-          <h4 class="footer-heading">الشركاء والتوثيق</h4>
+          <h4 class="footer-heading" data-i18n="partnersTitle">الشركاء والتوثيق</h4>
           <ul class="footer-links-list">
-            <li><a href="#partners" class="footer-link"><i class="fa-solid fa-angle-left"></i> شبكة الشركاء والجهات</a></li>
-            <li><a href="#impact" class="footer-link"><i class="fa-solid fa-angle-left"></i> تقرير الأثر والتمكين</a></li>
-            <li><a href="#media" class="footer-link"><i class="fa-solid fa-angle-left"></i> معرض التوثيق الميداني</a></li>
-            <li><a href="#contact" class="footer-link"><i class="fa-solid fa-angle-left"></i> قنوات التواصل الرسمية</a></li>
-            <li><a href="#privacy" class="footer-link"><i class="fa-solid fa-angle-left"></i> سياسة الخصوصية والحوكمة</a></li>
+            <li><a href="#partners" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkPartners">شبكة الشركاء والجهات</span></a></li>
+            <li><a href="#impact" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkImpact">تقرير الأثر والتمكين</span></a></li>
+            <li><a href="#media" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkMedia">معرض التوثيق الميداني</span></a></li>
+            <li><a href="#contact" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkContact">قنوات التواصل الرسمية</span></a></li>
+            <li><a href="#privacy" class="footer-link"><i class="fa-solid fa-angle-left"></i> <span data-i18n="footerLinkPrivacy">سياسة الخصوصية والحوكمة</span></a></li>
           </ul>
         </div>
 
         <!-- Col 4 -->
         <div>
-          <h4 class="footer-heading">المقر والتواصل</h4>
-          <p class="footer-link" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-location-dot text-gold"></i> كفر الدوار – البحيرة – وأسوان</p>
+          <h4 class="footer-heading" data-i18n="contactTitle">المقر والتواصل</h4>
+          <p class="footer-link" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-location-dot text-gold"></i> <span data-i18n="contactMainOffice">كفر الدوار – البحيرة – وأسوان</span></p>
           <div style="margin-bottom: 0.5rem;">
             <p class="footer-link" style="margin-bottom: 0.2rem;">
               <i class="fa-solid fa-phone text-gold"></i> 
               <a href="tel:01553335579" style="color: inherit;">01553335579</a> / <a href="tel:0452182834" style="color: inherit;">0452182834</a>
             </p>
-            <span style="display: block; font-size: 0.72rem; color: #94A3B8; padding-right: 1.25rem;">(تواصل تليفون فقط علي هذه الأرقام)</span>
+            <span style="display: block; font-size: 0.72rem; color: #94A3B8; padding-right: 1.25rem;" data-i18n="contactPhoneOnlyNote">(تواصل تليفون فقط علي هذه الأرقام)</span>
           </div>
           <p class="footer-link" style="margin-bottom: 0.5rem;">
             <i class="fa-brands fa-whatsapp text-emerald"></i> 
@@ -1902,7 +1898,7 @@
             <a href="mailto:protic1613@gmail.com" style="color: inherit;">protic1613@gmail.com</a>
           </p>
           <div style="background: rgba(255, 255, 255, 0.05); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.8rem; color: #A7F3D0;">
-            <i class="fa-solid fa-certificate text-gold"></i> جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752)
+            <i class="fa-solid fa-certificate text-gold"></i> <span data-i18n="contactExecEntityVal">جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752)</span>
           </div>
         </div>
 
@@ -1913,7 +1909,7 @@
           &copy; 2026 <span data-i18n="copyrightText">جميع الحقوق محفوظة لـ <strong>مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong>.</span>
         </div>
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <span>تطوير وتصميم: <strong>NGO HUB</strong></span>
+          <span data-i18n="footerDevBy">تطوير وتصميم: <strong>NGO HUB</strong></span>
           <span>•</span>
           <a href="javascript:void(0)" onclick="openAdminModal()" style="color: #94A3B8; font-size: 0.82rem; font-weight: 700;"><i class="fa-solid fa-lock text-gold"></i> <span data-i18n="cmsLogin">لوحة التحكم (CMS)</span></a>
         </div>

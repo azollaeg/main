@@ -118,8 +118,12 @@ function setLanguage(langCode, notify = true) {
   // Re-render the active SPA page so content reflects the selected language
   if (typeof window.location !== 'undefined') {
     let hash = window.location.hash.replace('#', '').trim() || 'home';
-    if (typeof routes !== 'undefined' && routes[hash]) {
-      navigateTo(hash);
+    const targetRoute = (typeof routes !== 'undefined' && routes[hash]) ? hash : 'home';
+    if (typeof navigateTo === 'function') {
+      navigateTo(targetRoute);
+    }
+    if (typeof initCalculators === 'function') {
+      initCalculators();
     }
   }
 
@@ -177,7 +181,7 @@ function initRouter() {
 }
 
 function navigateTo(pageKey) {
-  trackPageView(pageKey);
+  try { trackPageView(pageKey); } catch (e) {}
   const contentEl = document.getElementById('app-content');
   if (!contentEl) return;
 
@@ -382,21 +386,21 @@ function renderHomePage() {
     <section class="section section-bg-light">
       <div class="container">
         <div class="section-header-box">
-          <h2 class="section-title">أكاديمية أزولا مصر (12 برنامجاً معتمداً)</h2>
-          <p class="section-desc">تأهيل الكوادر الزراعية والمربين بالشراكة مع مركز التدريب البيئي وحاضنة المرأة.</p>
+          <h2 class="section-title">${t('academyHeaderTitle', 'أكاديمية أزولا مصر (12 برنامجاً معتمداً)')}</h2>
+          <p class="section-desc">${t('academyHeaderLead', 'تأهيل الكوادر الزراعية والمربين بالشراكة مع مركز التدريب البيئي وحاضنة المرأة.')}</p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
           ${courses.map(c => `
             <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);">
               <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span style="font-size: 0.75rem; font-weight: 700; background: var(--color-gold-50); color: var(--color-gold-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${c.duration}</span>
-                <span style="font-size: 0.75rem; font-weight: 700; background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${c.type}</span>
+                <span style="font-size: 0.75rem; font-weight: 700; background: var(--color-gold-50); color: var(--color-gold-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${t('course_' + c.id + '_duration', c.duration)}</span>
+                <span style="font-size: 0.75rem; font-weight: 700; background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${t('course_' + c.id + '_type', c.type)}</span>
               </div>
-              <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">${c.title}</h3>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem;">${c.desc}</p>
-              <button class="btn btn-primary btn-block btn-sm" onclick="openCourseModal('${c.title}')">
-                <i class="fa-solid fa-ticket"></i> حجز مقعد بالبرنامج
+              <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">${t('course_' + c.id + '_title', c.title)}</h3>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 1rem;">${t('course_' + c.id + '_desc', c.desc)}</p>
+              <button class="btn btn-primary btn-block btn-sm" onclick="openCourseModal('${t('course_' + c.id + '_title', c.title)}')">
+                <i class="fa-solid fa-ticket"></i> ${t('courseBookBtn', 'حجز مقعد بالبرنامج')}
               </button>
             </div>
           `).join('')}
@@ -411,8 +415,8 @@ function renderHomePage() {
     <section class="section section-bg-white">
       <div class="container">
         <div class="section-header-box" style="margin-bottom: 2.5rem;">
-          <h2 class="section-title">شبكة الشركاء والجهات والتعاون المؤسسي</h2>
-          <p class="section-desc">نعتز بالتعاون المشترك مع المنظمات الدولية والمحلية والشركاء التكنولوجيين والتدريبيين.</p>
+          <h2 class="section-title">${t('partnersWallTitle', 'شبكة الشركاء والجهات والتعاون المؤسسي')}</h2>
+          <p class="section-desc">${t('partnersWallDesc', 'نعتز بالتعاون المشترك مع المنظمات الدولية والمحلية والشركاء التكنولوجيين والتدريبيين.')}</p>
         </div>
 
         <div class="partners-logo-wall">
@@ -432,8 +436,8 @@ function renderHomePage() {
     <section class="section section-bg-light">
       <div class="container">
         <div class="section-header-box">
-          <h2 class="section-title">معرض التوثيق الميداني الحي</h2>
-          <p class="section-desc">مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان وجلسات التوعية الحقلية.</p>
+          <h2 class="section-title">${t('mediaSectionTitle', 'معرض التوثيق الميداني الحي')}</h2>
+          <p class="section-desc">${t('mediaSectionDesc', 'مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان وجلسات التوعية الحقلية.')}</p>
         </div>
 
         <div class="gallery-grid" style="margin-bottom: 2.5rem;">
@@ -1029,15 +1033,15 @@ function renderAcademyPage() {
           ${courses.map(c => `
             <div style="background: var(--color-surface-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
-                <span style="font-size: 0.78rem; font-weight: 700; background: var(--color-gold-50); color: var(--color-gold-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${c.duration}</span>
-                <span style="font-size: 0.78rem; font-weight: 700; background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${c.type}</span>
+                <span style="font-size: 0.78rem; font-weight: 700; background: var(--color-gold-50); color: var(--color-gold-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${t('course_' + c.id + '_duration', c.duration)}</span>
+                <span style="font-size: 0.78rem; font-weight: 700; background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">${t('course_' + c.id + '_type', c.type)}</span>
               </div>
-              <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">${c.id}. ${c.title}</h3>
-              <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 1rem; flex: 1;">${c.desc}</p>
+              <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">${c.id}. ${t('course_' + c.id + '_title', c.title)}</h3>
+              <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 1rem; flex: 1;">${t('course_' + c.id + '_desc', c.desc)}</p>
               <div style="font-size: 0.8rem; background: var(--color-bg); padding: 0.5rem; border-radius: var(--radius-sm); margin-bottom: 1rem;">
-                <strong>${t('courseTargetLabel', 'المستهدف:')}</strong> ${c.target}
+                <strong>${t('courseTargetLabel', 'المستهدف:')}</strong> ${t('course_' + c.id + '_target', c.target)}
               </div>
-              <button class="btn btn-primary btn-block" onclick="openCourseModal('${c.title}')">
+              <button class="btn btn-primary btn-block" onclick="openCourseModal('${t('course_' + c.id + '_title', c.title)}')">
                 <i class="fa-solid fa-ticket"></i> ${t('courseBookBtn', 'حجز مقعد بالبرنامج')}
               </button>
             </div>
@@ -1334,35 +1338,39 @@ window.currentNewsCategory = 'all';
 window.currentNewsSearchQuery = '';
 
 function renderNewsPage() {
+  const t = window.t || ((k, d) => d || k);
   const articles = window.AZOLLA_DATA.newsArticles || [];
   const featured = articles.find(a => a.featured) || articles[0];
+
+  const featuredTitle = featured ? t('news_' + featured.id + '_title', featured.title) : '';
+  const featuredSummary = featured ? t('news_' + featured.id + '_summary', featured.summary) : '';
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 2.5rem; background: linear-gradient(135deg, #064E3B 0%, #0F172A 100%);">
       <div class="container">
         <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.2); color: #A7F3D0; padding: 0.35rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; margin-bottom: 1rem; border: 1px solid rgba(16, 185, 129, 0.3);">
-          <i class="fa-solid fa-newspaper"></i> المركز الإعلامي والمدونة الرسمية 2026
+          <i class="fa-solid fa-newspaper"></i> ${t('newsBadge', 'المركز الإعلامي والمدونة الرسمية 2026')}
         </div>
-        <h1 class="hero-main-title" style="font-size: 2.35rem; margin-bottom: 0.75rem;">أخبار ومستجدات المنظومة</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem; margin-bottom: 0.75rem;">${t('newsHeaderTitle', 'أخبار ومستجدات المنظومة')}</h1>
         <p class="hero-lead-text" style="max-width: 850px; margin-bottom: 1.5rem;">
-          متابعة ميدانية حية لافتتاح الأحواض الإنتاجية، ورش العمل التطبيقية، بحوث صون المياه والأعلاف البديلة، وقصص نجاح المزارعين والمربين لمشروع <strong>تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong>.
+          ${t('newsHeaderLead', 'متابعة ميدانية حية لافتتاح الأحواض الإنتاجية، ورش العمل التطبيقية، بحوث صون المياه والأعلاف البديلة، وقصص نجاح المزارعين والمربين لمشروع <strong>تكنولوجيا الأعلاف البديلة .. أزولا مصر</strong>.')}
         </p>
 
         <!-- Search & Filter Controls -->
         <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; flex-direction: column; gap: 1rem;">
           <!-- Search Bar -->
           <div style="position: relative;">
-            <input type="text" id="news-search-input" oninput="handleNewsSearch(this.value)" placeholder="ابحث في الأخبار والتقارير الميدانية بالكلمات الدلالية..." style="width: 100%; padding: 0.85rem 3rem 0.85rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.95); color: #0F172A; font-size: 1rem; outline: none;">
+            <input type="text" id="news-search-input" oninput="handleNewsSearch(this.value)" placeholder="${t('newsSearchPlaceholder', 'ابحث في الأخبار والتقارير الميدانية بالكلمات الدلالية...')}" style="width: 100%; padding: 0.85rem 3rem 0.85rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.95); color: #0F172A; font-size: 1rem; outline: none;">
             <i class="fa-solid fa-magnifying-glass" style="position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); color: var(--color-primary); font-size: 1.1rem;"></i>
           </div>
 
           <!-- Category Pills -->
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="news-category-pills">
-            <button class="btn btn-sm btn-gold active" onclick="filterNewsCategory('all', this)"><i class="fa-solid fa-border-all"></i> كافة الأخبار</button>
-            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('farms', this)"><i class="fa-solid fa-water"></i> أخبار المزارع والحصاد</button>
-            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('academy', this)"><i class="fa-solid fa-graduation-cap"></i> فعاليات الأكاديمية</button>
-            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('environment', this)"><i class="fa-solid fa-droplet"></i> صون المياه والبيئة</button>
-            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('partners', this)"><i class="fa-solid fa-handshake"></i> الشراكات والتمكين</button>
+            <button class="btn btn-sm btn-gold active" onclick="filterNewsCategory('all', this)"><i class="fa-solid fa-border-all"></i> ${t('newsCatAll', 'كافة الأخبار')}</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('farms', this)"><i class="fa-solid fa-water"></i> ${t('newsCatFarms', 'أخبار المزارع والحصاد')}</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('academy', this)"><i class="fa-solid fa-graduation-cap"></i> ${t('newsCatAcademy', 'فعاليات الأكاديمية')}</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('environment', this)"><i class="fa-solid fa-droplet"></i> ${t('newsCatEnvironment', 'صون المياه والبيئة')}</button>
+            <button class="btn btn-sm btn-outline-white" onclick="filterNewsCategory('partners', this)"><i class="fa-solid fa-handshake"></i> ${t('newsCatPartners', 'الشراكات والتمكين')}</button>
           </div>
         </div>
       </div>
@@ -1375,9 +1383,9 @@ function renderNewsPage() {
         ${featured ? `
           <div id="news-featured-card" style="margin-bottom: 3rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0;">
             <div style="position: relative; overflow: hidden; min-height: 280px; max-height: 380px;">
-              <img src="${featured.image || './assets/images/gallery_aswan_basin.jpg'}" alt="${featured.title}" style="width: 100%; height: 100%; object-fit: cover;">
+              <img src="${featured.image || './assets/images/field_farm_large.jpg'}" alt="${featuredTitle}" onerror="this.onerror=null;this.src='./assets/images/field_farm_large.jpg'" style="width: 100%; height: 100%; object-fit: cover;">
               <span style="position: absolute; top: 1rem; right: 1rem; background: var(--color-gold); color: #0F172A; font-weight: 800; font-size: 0.8rem; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                <i class="fa-solid fa-star"></i> تقرير مميز
+                <i class="fa-solid fa-star"></i> ${t('newsFeaturedBadge', 'تقرير مميز')}
               </span>
             </div>
             <div style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
@@ -1390,15 +1398,15 @@ function renderNewsPage() {
                   <span style="font-size: 0.8rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock"></i> ${featured.readTime || '3 دقائق'}</span>
                 </div>
                 <h2 style="font-size: 1.45rem; font-weight: 900; margin-bottom: 1rem; color: var(--color-primary-dark); line-height: 1.4;">
-                  ${featured.title}
+                  ${featuredTitle}
                 </h2>
                 <p style="font-size: 0.95rem; color: var(--color-text-main); line-height: 1.7; margin-bottom: 1.5rem;">
-                  ${featured.summary}
+                  ${featuredSummary}
                 </p>
               </div>
               <div>
                 <button class="btn btn-primary" onclick="openArticleModal('${featured.id}')">
-                  <i class="fa-solid fa-book-open-reader"></i> قراءة التقرير كاملاً
+                  <i class="fa-solid fa-book-open-reader"></i> ${t('newsReadFeatured', 'قراءة التقرير كاملاً')}
                 </button>
               </div>
             </div>
@@ -1408,7 +1416,7 @@ function renderNewsPage() {
         <!-- Articles Grid -->
         <div style="margin-bottom: 2rem;">
           <h3 style="font-size: 1.35rem; font-weight: 900; color: var(--color-primary-dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;">
-            <i class="fa-solid fa-list-check text-gold"></i> كافة الأخبار والتقارير الميدانية
+            <i class="fa-solid fa-list-check text-gold"></i> ${t('newsAllHeading', 'كافة الأخبار والتقارير الميدانية')}
           </h3>
           <div id="news-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem;">
             <!-- Populated by renderNewsCards() -->
@@ -1421,6 +1429,7 @@ function renderNewsPage() {
 }
 
 function renderNewsCards() {
+  const t = window.t || ((k, d) => d || k);
   const container = document.getElementById('news-grid');
   if (!container) return;
 
@@ -1444,8 +1453,8 @@ function renderNewsCards() {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: var(--color-bg); border-radius: var(--radius-md); border: 1px dashed var(--color-border);">
         <i class="fa-solid fa-newspaper text-emerald" style="font-size: 2.5rem; margin-bottom: 1rem;"></i>
-        <h4 style="font-weight: 800; margin-bottom: 0.5rem;">لا توجد مقالات مطابقة لمعايير البحث</h4>
-        <p style="font-size: 0.9rem; color: var(--color-text-muted);">يرجى اختيار تصنيف آخر أو إعادة ضبط كلمات البحث.</p>
+        <h4 style="font-weight: 800; margin-bottom: 0.5rem;">${t('newsNoResultsTitle', 'لا توجد مقالات مطابقة لمعايير البحث')}</h4>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted);">${t('newsNoResultsDesc', 'يرجى اختيار تصنيف آخر أو إعادة ضبط كلمات البحث.')}</p>
       </div>
     `;
     return;
@@ -1454,7 +1463,7 @@ function renderNewsCards() {
   container.innerHTML = filtered.map(a => `
     <article style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
       <div style="position: relative; height: 200px; overflow: hidden;">
-        <img src="${a.image || './assets/images/gallery_training_session.jpg'}" alt="${a.title}" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="${a.image || './assets/images/field_farm_large.jpg'}" alt="${t('news_' + a.id + '_title', a.title)}" onerror="this.onerror=null;this.src='./assets/images/field_farm_large.jpg'" style="width: 100%; height: 100%; object-fit: cover;">
         <span style="position: absolute; top: 0.75rem; right: 0.75rem; background: var(--color-primary-dark); color: #FFF; font-size: 0.72rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
           ${a.categoryLabel || a.category}
         </span>
@@ -1467,14 +1476,14 @@ function renderNewsCards() {
             <span><i class="fa-regular fa-clock"></i> ${a.readTime || '3 دقائق'}</span>
           </div>
           <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; color: var(--color-text-main); line-height: 1.45;">
-            ${a.title}
+            ${t('news_' + a.id + '_title', a.title)}
           </h3>
           <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.65; margin-bottom: 1.25rem;">
-            ${a.summary}
+            ${t('news_' + a.id + '_summary', a.summary)}
           </p>
         </div>
         <button class="btn btn-outline-primary btn-sm btn-block" onclick="openArticleModal('${a.id}')">
-          <i class="fa-solid fa-arrow-left"></i> قراءة المقال كاملاً
+          <i class="fa-solid fa-arrow-left"></i> ${t('newsReadMore', 'قراءة المقال كاملاً')}
         </button>
       </div>
     </article>
@@ -1512,13 +1521,17 @@ function openArticleModal(id) {
   const imgEl = document.getElementById('art-view-img');
   const bodyEl = document.getElementById('art-view-body');
 
-  if (titleEl) titleEl.innerText = a.title;
+  const t = window.t || ((k, d) => d || k);
+  if (titleEl) titleEl.innerText = t('news_' + a.id + '_title', a.title);
   if (catEl) catEl.innerText = a.categoryLabel || a.category;
   if (dateEl) dateEl.innerText = a.date;
   if (authorEl) authorEl.innerText = a.author || 'اللجنة الفنية للمشروع';
   if (readEl) readEl.innerText = a.readTime || '3 دقائق';
-  if (imgEl) imgEl.src = a.image || './assets/images/gallery_aswan_basin.jpg';
-  if (bodyEl) bodyEl.innerHTML = a.content || `<p>${a.summary}</p>`;
+  if (imgEl) {
+    imgEl.src = a.image || './assets/images/field_farm_large.jpg';
+    imgEl.onerror = function() { this.src = './assets/images/field_farm_large.jpg'; };
+  }
+  if (bodyEl) bodyEl.innerHTML = a.content || `<p>${t('news_' + a.id + '_summary', a.summary)}</p>`;
 
   openModal('modal-article-view');
 }
@@ -2406,55 +2419,64 @@ function initAnalytics() {
 }
 
 function recordPageDuration() {
-  if (!window.PAGE_ENTER_TIME || !window.AZOLLA_DATA || !window.AZOLLA_DATA.analytics) return;
-  const durSec = Math.round((Date.now() - window.PAGE_ENTER_TIME) / 1000);
-  if (durSec >= 1 && durSec <= 1800) {
-    const a = window.AZOLLA_DATA.analytics;
-    a.totalSecondsOnSite = (a.totalSecondsOnSite || 0) + durSec;
-    const views = a.totalViews || 1;
-    a.avgTimeOnPage = +(a.totalSecondsOnSite / views).toFixed(1);
-    window.saveAzollaState(window.AZOLLA_DATA);
-  }
+  try {
+    if (!window.PAGE_ENTER_TIME || !window.AZOLLA_DATA || !window.AZOLLA_DATA.analytics) return;
+    const durSec = Math.round((Date.now() - window.PAGE_ENTER_TIME) / 1000);
+    if (durSec >= 1 && durSec <= 1800) {
+      const a = window.AZOLLA_DATA.analytics;
+      a.totalSecondsOnSite = (a.totalSecondsOnSite || 0) + durSec;
+      const views = a.totalViews || 1;
+      a.avgTimeOnPage = +(a.totalSecondsOnSite / views).toFixed(1);
+      if (typeof window.saveAzollaState === 'function') window.saveAzollaState(window.AZOLLA_DATA);
+    }
+  } catch (e) {}
 }
 
 function trackPageView(pageKey) {
-  if (!window.AZOLLA_DATA || !window.AZOLLA_DATA.analytics) return;
-  const a = window.AZOLLA_DATA.analytics;
+  try {
+    if (!window.AZOLLA_DATA || !window.AZOLLA_DATA.analytics) return;
+    const a = window.AZOLLA_DATA.analytics;
 
-  recordPageDuration();
-  window.PAGE_ENTER_TIME = Date.now();
+    recordPageDuration();
+    window.PAGE_ENTER_TIME = Date.now();
 
-  a.totalViews = (a.totalViews || 0) + 1;
+    a.totalViews = (a.totalViews || 0) + 1;
 
-  // Session pages count
-  let pagesCount = parseInt(sessionStorage.getItem('AZOLLA_SESSION_PAGES') || '0', 10) + 1;
-  sessionStorage.setItem('AZOLLA_SESSION_PAGES', pagesCount.toString());
+    // Session pages count (safe storage)
+    let pagesCount = 1;
+    try {
+      if (typeof sessionStorage !== 'undefined') {
+        pagesCount = parseInt(sessionStorage.getItem('AZOLLA_SESSION_PAGES') || '0', 10) + 1;
+        sessionStorage.setItem('AZOLLA_SESSION_PAGES', pagesCount.toString());
+      }
+    } catch (e) {}
 
-  // Real Bounce rate calculation
-  if (pagesCount > 1) {
-    a.bouncePct = +(100 / pagesCount).toFixed(1);
-    a.pageExitPct = +(100 / (pagesCount * 1.5)).toFixed(1);
-  } else {
-    a.bouncePct = 0;
-    a.pageExitPct = 0;
-  }
+    // Real Bounce rate calculation
+    if (pagesCount > 1) {
+      a.bouncePct = +(100 / pagesCount).toFixed(1);
+      a.pageExitPct = +(100 / (pagesCount * 1.5)).toFixed(1);
+    } else {
+      a.bouncePct = 0;
+      a.pageExitPct = 0;
+    }
 
-  // Update current month in timeline
-  const now = new Date();
-  const currentMonthIdx = now.getMonth();
-  if (!a.timeline || !a.timeline.sessionsMonth) {
-    a.timeline = {
-      months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-      sessionsMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      sessionsYear: [0, 0, 0, 0],
-      years: ['2023', '2024', '2025', '2026']
-    };
-  }
-  a.timeline.sessionsMonth[currentMonthIdx] = (a.timeline.sessionsMonth[currentMonthIdx] || 0) + 1;
-  const yearIdx = now.getFullYear() - 2023;
-  if (yearIdx >= 0 && yearIdx < a.timeline.sessionsYear.length) {
-    a.timeline.sessionsYear[yearIdx] = (a.timeline.sessionsYear[yearIdx] || 0) + 1;
-  }
+    // Update current month in timeline
+    const now = new Date();
+    const currentMonthIdx = now.getMonth();
+    if (!a.timeline || !a.timeline.sessionsMonth) {
+      a.timeline = {
+        months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+        sessionsMonth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        sessionsYear: [0, 0, 0, 0],
+        years: ['2023', '2024', '2025', '2026']
+      };
+    }
+    a.timeline.sessionsMonth[currentMonthIdx] = (a.timeline.sessionsMonth[currentMonthIdx] || 0) + 1;
+    const yearIdx = now.getFullYear() - 2023;
+    if (yearIdx >= 0 && yearIdx < a.timeline.sessionsYear.length) {
+      a.timeline.sessionsYear[yearIdx] = (a.timeline.sessionsYear[yearIdx] || 0) + 1;
+    }
+  } catch (err) {}
 
   const pageNames = {
     home: 'الرئيسية',
@@ -3306,7 +3328,7 @@ function renderCmsNewsList() {
   container.innerHTML = news.map((item) => `
     <div class="cms-news-item-card" style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--color-bg); border-radius: var(--radius-sm); border: 1px solid var(--color-border); gap: 1rem;">
       <div style="display: flex; align-items: center; gap: 0.85rem; flex: 1; min-width: 0;">
-        <img src="${item.image || './assets/images/gallery_aswan_basin.jpg'}" alt="${item.title}" style="width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); flex-shrink: 0; border: 1px solid var(--color-border);">
+        <img src="${item.image || './assets/images/field_farm_large.jpg'}" alt="${item.title}" style="width: 56px; height: 56px; object-fit: cover; border-radius: var(--radius-sm); flex-shrink: 0; border: 1px solid var(--color-border);">
         <div style="min-width: 0;">
           <div style="font-weight: 800; font-size: 0.92rem; color: var(--color-text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
             ${item.featured ? '<span style="color: var(--color-gold); margin-left: 4px;">★</span>' : ''}${item.title}
@@ -3370,7 +3392,7 @@ function openNewsEditForm(id) {
   document.getElementById('news-form-img-base64').value = item.image && item.image.startsWith('data:') ? item.image : '';
   document.getElementById('news-form-img-url').value = item.image && !item.image.startsWith('data:') ? item.image : '';
   document.getElementById('news-form-featured').checked = !!item.featured;
-  document.getElementById('news-img-preview').innerHTML = `<img src="${item.image || './assets/images/gallery_aswan_basin.jpg'}" style="height: 60px; border-radius: 4px; border: 1px solid var(--color-border); object-fit: cover;">`;
+  document.getElementById('news-img-preview').innerHTML = `<img src="${item.image || './assets/images/field_farm_large.jpg'}" style="height: 60px; border-radius: 4px; border: 1px solid var(--color-border); object-fit: cover;">`;
   document.getElementById('news-form-title-label').innerText = 'تعديل المقال والصورة';
   document.getElementById('news-form-submit-btn').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> حفظ تعديلات المقال';
 }
@@ -3402,7 +3424,7 @@ function saveCmsNewsArticle() {
   const imgUrl = document.getElementById('news-form-img-url').value.trim();
   const featured = document.getElementById('news-form-featured').checked;
 
-  const image = imgBase64 || imgUrl || './assets/images/gallery_aswan_basin.jpg';
+  const image = imgBase64 || imgUrl || './assets/images/field_farm_large.jpg';
 
   if (!title || !summary) {
     alert('يرجى ملء عنوان المقال والموجز الإخباري!');
@@ -3514,7 +3536,7 @@ function saveNewGalleryPhoto() {
   const imgBase64 = document.getElementById('new-gal-img-base64')?.value;
   const imgUrl = document.getElementById('new-gal-img-url')?.value?.trim();
 
-  const src = imgBase64 || imgUrl || './assets/images/gallery_aswan_basin.jpg';
+  const src = imgBase64 || imgUrl || './assets/images/field_farm_large.jpg';
 
   if (!title) {
     alert('يرجى إدخال عنوان الصورة!');
