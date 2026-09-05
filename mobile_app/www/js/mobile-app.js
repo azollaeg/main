@@ -28,10 +28,42 @@ const MobileState = {
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileTheme();
+  initMobileLanguage();
   initMobileRouter();
   initNetworkMonitor();
   initCalculators();
 });
+
+/* 1. LANGUAGE & I18N CONTROLLER */
+function initMobileLanguage() {
+  const savedLang = (typeof localStorage !== 'undefined' ? localStorage.getItem('AZOLLA_LANG') : null) || 'ar';
+  setMobileLanguage(savedLang);
+}
+
+function setMobileLanguage(langCode) {
+  const supported = ['ar', 'en', 'fr', 'de'];
+  if (!supported.includes(langCode)) langCode = 'ar';
+  if (typeof localStorage !== 'undefined') localStorage.setItem('AZOLLA_LANG', langCode);
+  window.AZOLLA_CURRENT_LANG = langCode;
+
+  document.documentElement.setAttribute('lang', langCode);
+  document.documentElement.setAttribute('dir', langCode === 'ar' ? 'rtl' : 'ltr');
+  document.body.style.direction = langCode === 'ar' ? 'rtl' : 'ltr';
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (key && window.t) {
+      const trans = window.t(key);
+      if (trans) el.innerHTML = trans;
+    }
+  });
+
+  if (typeof runFeedCalc === 'function') runFeedCalc();
+  if (typeof runWaterCalc === 'function') runWaterCalc();
+  if (typeof runBasinCalc === 'function') runBasinCalc();
+  if (typeof runCarbonCalc === 'function') runCarbonCalc();
+}
+window.setMobileLanguage = setMobileLanguage;
 
 /* 1. THEME CONTROLLER */
 function initMobileTheme() {
@@ -171,8 +203,8 @@ function runFeedCalc() {
   const animalType = document.getElementById('calc-feed-animal')?.value || 'cattle';
   const headCount = parseFloat(document.getElementById('calc-feed-heads')?.value) || 10;
   const feedPricePerKg = parseFloat(document.getElementById('calc-feed-price')?.value) || 22;
+  const t = window.t || ((k, d) => d || k);
 
-  // Daily concentrate consumption kg per head
   const intakeMap = { cattle: 8, sheep: 1.5, poultry: 0.12, fish: 0.08 };
   const replaceRateMap = { cattle: 0.35, sheep: 0.40, poultry: 0.25, fish: 0.30 };
 
@@ -185,14 +217,14 @@ function runFeedCalc() {
 
   const outMoney = document.getElementById('res-feed-money');
   const outTons = document.getElementById('res-feed-tons');
-  if (outMoney) outMoney.textContent = Math.round(monthlyMoneySavedEgp).toLocaleString('ar-EG') + ' ج.م';
-  if (outTons) outTons.textContent = (monthlyConcentrateSavedKg / 1000).toFixed(2) + ' طن/شهر';
+  if (outMoney) outMoney.textContent = Math.round(monthlyMoneySavedEgp).toLocaleString() + ' ' + t('unitEgp', 'ج.م');
+  if (outTons) outTons.textContent = (monthlyConcentrateSavedKg / 1000).toFixed(2) + ' ' + (t('unitMonth', 'شهر') === 'month' ? 'tons/mo' : (t('unitMonth', 'شهر') === 'mois' ? 'tonnes/mois' : (t('unitMonth', 'شهر') === 'Monat' ? 'Tonnen/Monat' : 'طن/شهر')));
 }
 
 // 2. Water Conservation Calculator
 function runWaterCalc() {
   const feddanCount = parseFloat(document.getElementById('calc-water-feddan')?.value) || 2;
-  // Traditional clover/alfalfa uses ~5000 m3/feddan/season vs Azolla ~600 m3
+  const t = window.t || ((k, d) => d || k);
   const traditionalWaterM3 = feddanCount * 5200;
   const azollaWaterM3 = feddanCount * 620;
   const waterSavedM3 = traditionalWaterM3 - azollaWaterM3;
@@ -200,36 +232,34 @@ function runWaterCalc() {
 
   const outSaved = document.getElementById('res-water-saved');
   const outPct = document.getElementById('res-water-pct');
-  if (outSaved) outSaved.textContent = Math.round(waterSavedM3).toLocaleString('ar-EG') + ' م³';
-  if (outPct) outPct.textContent = savingsPct + '% وفر مائي';
+  if (outSaved) outSaved.textContent = Math.round(waterSavedM3).toLocaleString() + ' ' + t('unitM3', 'م³');
+  if (outPct) outPct.textContent = savingsPct + '% ' + t('waterSaved', 'وفر مائي');
 }
 
 // 3. Basin Production & Cost Calculator
 function runBasinCalc() {
   const areaM2 = parseFloat(document.getElementById('calc-basin-area')?.value) || 30;
-  // Average daily yield 0.45 kg fresh azolla / m2
+  const t = window.t || ((k, d) => d || k);
   const dailyYieldKg = areaM2 * 0.45;
-  const monthlyYieldKg = dailyYieldKg * 30;
-  // Estimated construction cost: 110 EGP / m2 for wooden/brick lined basins
   const estimatedCostEgp = areaM2 * 110;
 
   const outYield = document.getElementById('res-basin-yield');
   const outCost = document.getElementById('res-basin-cost');
-  if (outYield) outYield.textContent = dailyYieldKg.toFixed(1) + ' كجم/يوم';
-  if (outCost) outCost.textContent = Math.round(estimatedCostEgp).toLocaleString('ar-EG') + ' ج.م';
+  if (outYield) outYield.textContent = dailyYieldKg.toFixed(1) + ' ' + t('unitKgDay', 'كجم/يوم');
+  if (outCost) outCost.textContent = Math.round(estimatedCostEgp).toLocaleString() + ' ' + t('unitEgp', 'ج.م');
 }
 
 // 4. Carbon Footprint Reduction Calculator
 function runCarbonCalc() {
   const annualTons = parseFloat(document.getElementById('calc-carbon-tons')?.value) || 12;
-  // Each ton of azolla biomass produced replaces ~0.09 tons of CO2e vs imported soybean meal
+  const t = window.t || ((k, d) => d || k);
   const co2AvoidedTons = annualTons * 0.092;
   const equivalentTrees = Math.round(co2AvoidedTons * 45);
 
   const outCo2 = document.getElementById('res-carbon-co2');
   const outTrees = document.getElementById('res-carbon-trees');
-  if (outCo2) outCo2.textContent = co2AvoidedTons.toFixed(2) + ' طن كربون';
-  if (outTrees) outTrees.textContent = equivalentTrees.toLocaleString('ar-EG') + ' شجرة مكافئة';
+  if (outCo2) outCo2.textContent = co2AvoidedTons.toFixed(2) + ' ' + t('unitTonsCo2', 'طن كربون');
+  if (outTrees) outTrees.textContent = equivalentTrees.toLocaleString() + ' ' + t('unitTrees', 'شجرة مكافئة');
 }
 
 /* 6. FORMS SUBMISSION VIA GOOGLE SHEETS WEBHOOK & OFFLINE RESILIENCE */

@@ -140,6 +140,24 @@ function applyStaticTranslations() {
       }
     }
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (key && window.t) {
+      const translated = window.t(key);
+      if (translated) {
+        el.setAttribute('placeholder', translated);
+      }
+    }
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    if (key && window.t) {
+      const translated = window.t(key);
+      if (translated) {
+        el.setAttribute('title', translated);
+      }
+    }
+  });
 }
 
 /* ==========================================================================
@@ -165,6 +183,7 @@ function navigateTo(pageKey) {
 
   const renderFn = routes[pageKey] || routes['home'];
   contentEl.innerHTML = renderFn();
+  applyStaticTranslations();
 
   document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-dropdown-item').forEach(link => {
     if (link.getAttribute('data-page') === pageKey) {
@@ -384,7 +403,7 @@ function renderHomePage() {
         </div>
 
         <div style="text-align: center;">
-          <a href="#academy" class="btn btn-outline-primary"><i class="fa-solid fa-graduation-cap"></i> استعرض كافة البرامج الـ 12 للأكاديمية</a>
+          <a href="#academy" class="btn btn-outline-primary"><i class="fa-solid fa-graduation-cap"></i> ${t('viewAllAcademyBtn', 'استعرض كافة البرامج الـ 12 للأكاديمية')}</a>
         </div>
       </div>
     </section>
@@ -405,7 +424,7 @@ function renderHomePage() {
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
-          <a href="#partners" class="btn btn-outline-primary"><i class="fa-solid fa-handshake"></i> صفحة الشركاء وتفاصيل الأدوار</a>
+          <a href="#partners" class="btn btn-outline-primary"><i class="fa-solid fa-handshake"></i> ${t('viewAllPartnersBtn', 'صفحة الشركاء وتفاصيل الأدوار')}</a>
         </div>
       </div>
     </section>
@@ -436,7 +455,7 @@ function renderHomePage() {
         </div>
 
         <div style="text-align: center;">
-          <a href="#media" class="btn btn-primary"><i class="fa-solid fa-images"></i> استعراض كافة الصور بالمعرض الميداني</a>
+          <a href="#media" class="btn btn-primary"><i class="fa-solid fa-images"></i> ${t('viewAllMediaBtn', 'استعراض كافة الصور بالمعرض الميداني')}</a>
         </div>
       </div>
     </section>
@@ -445,18 +464,18 @@ function renderHomePage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
           <div>
-            <h2 class="section-title">دراسة تطبيقية: نموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى الاقتصادية</h2>
+            <h2 class="section-title">${t('homeStudyTitle', 'دراسة تطبيقية: نموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى الاقتصادية')}</h2>
             <p class="section-desc" style="margin-bottom: 1.25rem;">
-              يوضح النموذج التطبيقي لوحدات إنتاج الأزولا المنزلية بكفر الدوار (بمساحة 30 م²) إمكانية تحقيق إنتاجية يومية تتراوح بين 12 إلى 15 كجم من الأزولا الخضراء عالية البروتين، مما يساهم في خفض تكاليف الأعلاف بنسبة تصل إلى 55% وتحقيق وفر مالي مباشر يقارب 3,800 ج.م شهرياً ضمن مسار تعزيز الأمن الغذائي والتمكين الاقتصادي للأسر الريفية وصغار المربين.
+              ${t('homeStudyDesc', 'يوضح النموذج التطبيقي لوحدات إنتاج الأزولا المنزلية بكفر الدوار (بمساحة 30 م²) إمكانية تحقيق إنتاجية يومية تتراوح بين 12 إلى 15 كجم من الأزولا الخضراء عالية البروتين، مما يساهم في خفض تكاليف الأعلاف بنسبة تصل إلى 55% وتحقيق وفر مالي مباشر يقارب 3,800 ج.م شهرياً ضمن مسار تعزيز الأمن الغذائي والتمكين الاقتصادي للأسر الريفية وصغار المربين.')}
             </p>
-            <a href="#impact" class="btn btn-gold"><i class="fa-solid fa-arrow-left"></i> استعراض تقرير الأثر والجدوى الاقتصادية</a>
+            <a href="#impact" class="btn btn-gold"><i class="fa-solid fa-arrow-left"></i> ${t('homeStudyBtn', 'استعراض تقرير الأثر والجدوى الاقتصادية')}</a>
           </div>
 
           <div>
             <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
               <img src="./assets/images/field_rooftop_basin.jpg" alt="نموذج تطبيقي لوحدة إنتاج أزولا منزلية" style="width: 100%; height: 320px; object-fit: cover;">
               <div style="padding: 1rem; background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);">
-                <i class="fa-solid fa-house-chimney text-gold"></i> نموذج تطبيقي حقيقي لوحدة إنتاجية منزلية – كفر الدوار (البحيرة)
+                <i class="fa-solid fa-house-chimney text-gold"></i> ${t('homeStudyCaption', 'نموذج تطبيقي حقيقي لوحدة إنتاجية منزلية – كفر الدوار (البحيرة)')}
               </div>
             </div>
           </div>
@@ -476,14 +495,14 @@ function renderHomePage() {
                 <i class="fa-solid fa-map-location-dot"></i>
               </div>
               <h3 style="font-size: 1.45rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem;">
-                لديك أرض زراعية؟ شاركنا في تكنولوجيا الأعلاف البديلة
+                ${t('landPartnerTitle', 'لديك أرض زراعية؟ شاركنا في تكنولوجيا الأعلاف البديلة')}
               </h3>
               <p style="font-size: 0.95rem; color: #E2ECE9; line-height: 1.7; margin-bottom: 1.5rem;">
-                نفتح باب الشراكة مع أصحاب وملاك الأراضي الزراعية في كافة المحافظات لإنشاء أحواض إنتاجية ومزارع أزولا كبرى بإشراف ودعم فني وتشغيلي متكامل من <strong>جمعية الخدمات المتكاملة</strong>.
+                ${t('landPartnerDesc', 'نفتح باب الشراكة مع أصحاب وملاك الأراضي الزراعية في كافة المحافظات لإنشاء أحواض إنتاجية ومزارع أزولا كبرى بإشراف ودعم فني وتشغيلي متكامل من <strong>جمعية الخدمات المتكاملة</strong>.')}
               </p>
             </div>
             <button class="btn btn-gold btn-lg btn-block" onclick="openModal('modal-land-partner')" style="background: #10B981; border-color: #10B981; font-weight: 900;">
-              <i class="fa-solid fa-handshake"></i> قدّم أرضك للشراكة الآن
+              <i class="fa-solid fa-handshake"></i> ${t('landPartnerBtn', 'قدّم أرضك للشراكة الآن')}
             </button>
           </div>
 
@@ -494,14 +513,14 @@ function renderHomePage() {
                 <i class="fa-solid fa-hand-holding-heart"></i>
               </div>
               <h3 style="font-size: 1.45rem; font-weight: 900; color: #FEF3C7; margin-bottom: 0.75rem;">
-                انضم لسفراء البيئة وفريق المتطوعين (GCT)
+                ${t('volunteerTitle', 'انضم لسفراء البيئة وفريق المتطوعين (GCT)')}
               </h3>
               <p style="font-size: 0.95rem; color: #FEF3C7; line-height: 1.7; margin-bottom: 1.5rem;">
-                شارك معنا في حملات التوعية الحقلية، تدريب المزارعين، التوثيق وصناعة المحتوى الأخضر مع مبادرة <strong>Green Cap Team (GCT)</strong> واكتسب خبرة ميدانية معتمدة.
+                ${t('volunteerDesc', 'شارك معنا في حملات التوعية الحقلية، تدريب المزارعين، التوثيق وصناعة المحتوى الأخضر مع مبادرة <strong>Green Cap Team (GCT)</strong> واكتسب خبرة ميدانية معتمدة.')}
               </p>
             </div>
             <button class="btn btn-gold btn-lg btn-block" onclick="openModal('modal-volunteer')" style="background: #F59E0B; border-color: #F59E0B; color: #1E293B; font-weight: 900;">
-              <i class="fa-solid fa-user-plus"></i> سجّل كمتطوع وسفير بيئي
+              <i class="fa-solid fa-user-plus"></i> ${t('volunteerBtn', 'سجّل كمتطوع وسفير بيئي')}
             </button>
           </div>
 
@@ -515,13 +534,14 @@ function renderHomePage() {
    ========================================================================== */
 function renderAboutPage() {
   const pillars = window.AZOLLA_DATA.pillars;
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">عن مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('aboutHeaderTitle', 'عن مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر')}</h1>
         <p class="hero-lead-text">
-          منظومة تنموية زراعية مستدامة تنطلق من كفر الدوار بالبحيرة ومزارع أسوان التكاملية، لبناء نموذج زراعي بيئي مستدام يحقق الأمن الغذائي والمناخي.
+          ${t('aboutHeaderLead', 'منظومة تنموية زراعية مستدامة تنطلق من كفر الدوار بالبحيرة ومزارع أسوان التكاملية، لبناء نموذج زراعي بيئي مستدام يحقق الأمن الغذائي والمناخي.')}
         </p>
       </div>
     </header>
@@ -530,30 +550,30 @@ function renderAboutPage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3.5rem;">
           <div style="background: var(--color-emerald-50); border: 1px solid var(--color-emerald-200); border-radius: var(--radius-lg); padding: 2rem;">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-eye text-emerald"></i> الرؤية الاستراتيجية 2035</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-eye text-emerald"></i> ${t('strategicVisionTitle', 'الرؤية الاستراتيجية 2035')}</h3>
             <p style="color: var(--color-text-main); font-size: 0.95rem; line-height: 1.8;">
-              أن تصبح مصر مركزاً إقليمياً ورائداً في إنتاج وتطوير تقنيات الأزولا، وتوفير عليقة علفية مكملة ومستدامة، ودعم خصوبة التربة وتحقيق الأمن الغذائي والمناخي بحلول عام 2035.
+              ${t('strategicVisionDesc', 'أن تصبح مصر مركزاً إقليمياً ورائداً في إنتاج وتطوير تقنيات الأزولا، وتوفير عليقة علفية مكملة ومستدامة، ودعم خصوبة التربة وتحقيق الأمن الغذائي والمناخي بحلول عام 2035.')}
             </p>
           </div>
 
           <div style="background: var(--color-gold-50); border: 1px solid var(--color-gold-200); border-radius: var(--radius-lg); padding: 2rem;">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-gold-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-bullseye text-gold"></i> رسالة المشروع</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-gold-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-bullseye text-gold"></i> ${t('missionTitle', 'رسالة المشروع')}</h3>
             <p style="color: var(--color-text-main); font-size: 0.95rem; line-height: 1.8;">
-              نشر المعرفة وتوطين تكنولوجيا استزراع الأزولا، وتقديم خدمات التصميم، والتدريب العملي، والدعم الفني الميداني، وبناء نماذج زراعية خضراء واعدة تعزز دخل الأسر الريفية وتحمي البيئة.
+              ${t('missionDesc', 'نشر المعرفة وتوطين تكنولوجيا استزراع الأزولا، وتقديم خدمات التصميم، والتدريب العملي، والدعم الفني الميداني، وبناء نماذج زراعية خضراء واعدة تعزز دخل الأسر الريفية وتحمي البيئة.')}
             </p>
           </div>
 
           <div style="background: var(--color-azure-50); border: 1px solid var(--color-azure-100); border-radius: var(--radius-lg); padding: 2rem;">
-            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-azure-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-building-flag text-azure"></i> الجهة التنفيذية الرسمية</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-azure-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-building-flag text-azure"></i> ${t('execEntityTitle', 'الجهة التنفيذية الرسمية')}</h3>
             <p style="color: var(--color-text-main); font-size: 0.95rem; line-height: 1.8;">
-              <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> (مشهرة برقم 1997/752) ومزارع فرع أسوان التكاملية، المعتمدة لإدارة وتطوير المنظومة الميدانية.
+              ${t('execEntityDesc', '<strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> (مشهرة برقم 1997/752) ومزارع فرع أسوان التكاملية، المعتمدة لإدارة وتطوير المنظومة الميدانية.')}
             </p>
           </div>
         </div>
 
         <div class="section-header-box">
-          <h2 class="section-title">المحاور السبعة لمنظومة أزولا مصر</h2>
-          <p class="section-desc">تكامل شامل بين الإنتاج، الهندسة، التدريب، الجودة، البحث، الاستثمار، والمسؤولية المجتمعية.</p>
+          <h2 class="section-title">${t('sevenPillarsTitle', 'المحاور السبعة لمنظومة أزولا مصر')}</h2>
+          <p class="section-desc">${t('sevenPillarsDesc', 'تكامل شامل بين الإنتاج، الهندسة، التدريب، الجودة، البحث، الاستثمار، والمسؤولية المجتمعية.')}</p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
@@ -576,12 +596,14 @@ function renderAboutPage() {
 }
 
 function renderSciencePage() {
+  const t = window.t || ((k, d) => d || k);
+
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">الأزولا: الخصائص النباتية والتركيب الغذائي</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('scienceHeaderTitle', 'الأزولا: الخصائص النباتية والتركيب الغذائي')}</h1>
         <p class="hero-lead-text">
-          تعرف على سرخس الأزولا الطافي، قدرته الفائقة على تثبيت النيتروجين، محتواه البروتيني المرتفع (20% - 35%)، ومقارنته بالأعلاف التقليدية.
+          ${t('scienceHeaderLead', 'تعرف على سرخس الأزولا الطافي، قدرته الفائقة على تثبيت النيتروجين، محتواه البروتيني المرتفع (20% - 35%)، ومقارنته بالأعلاف التقليدية.')}
         </p>
       </div>
     </header>
@@ -590,15 +612,15 @@ function renderSciencePage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 4rem;">
           <div>
-            <h2 class="section-title">سرخس مائي عائم بتكافل حيوي فريد</h2>
+            <h2 class="section-title">${t('symbiosisTitle', 'سرخس مائي عائم بتكافل حيوي فريد')}</h2>
             <p class="section-desc" style="margin-bottom: 1rem;">
-              الأزولا (<i>Azolla</i>) سرخس مائي طافٍ يرتبط بعلاقة تكافلية مستمرة مع الطحلب الأزرق المخضر (<i>Anabaena azollae</i>)، الذي يقوم بامتصاص نيتروجين الهواء الجوي وتثبيته مباشرة، محولاً إياه إلى كتلة نباتية غنية بالبروتين الخام والأحماض الأمينية.
+              ${t('symbiosisDesc', 'الأزولا (<i>Azolla</i>) سرخس مائي طافٍ يرتبط بعلاقة تكافلية مستمرة مع الطحلب الأزرق المخضر (<i>Anabaena azollae</i>)، الذي يقوم بامتصاص نيتروجين الهواء الجوي وتثبيته مباشرة، محولاً إياه إلى كتلة نباتية غنية بالبروتين الخام والأحماض الأمينية.')}
             </p>
             <div style="background: var(--color-emerald-50); border: 1px solid var(--color-emerald-200); padding: 1.25rem; border-radius: var(--radius-md);">
-              <h4 style="font-weight: 800; color: var(--color-primary-dark); margin-bottom: 0.35rem;"><i class="fa-solid fa-check text-emerald"></i> السلالات المعتمدة بمصر</h4>
+              <h4 style="font-weight: 800; color: var(--color-primary-dark); margin-bottom: 0.35rem;"><i class="fa-solid fa-check text-emerald"></i> ${t('certifiedStrainsTitle', 'السلالات المعتمدة بمصر')}</h4>
               <p style="font-size: 0.88rem; color: var(--color-text-main); margin: 0;">
-                <strong>Azolla pinnata:</strong> الأكثر تحملاً للحرارة صيفاً وتأقلماً في محافظات الدلتا والصعيد.<br>
-                <strong>Azolla filiculoides:</strong> سلالة ممتازة ذات بروتين مرتفع وتحمل للطقس البارد.
+                <strong>Azolla pinnata:</strong> ${t('strainPinnata', 'الأكثر تحملاً للحرارة صيفاً وتأقلماً في محافظات الدلتا والصعيد.')}<br>
+                <strong>Azolla filiculoides:</strong> ${t('strainFiliculoides', 'سلالة ممتازة ذات بروتين مرتفع وتحمل للطقس البارد.')}
               </p>
             </div>
           </div>
@@ -607,40 +629,40 @@ function renderSciencePage() {
             <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
               <img src="./assets/images/field_macro_azolla.jpg" alt="صورة ماكرو للأزولا" style="width: 100%; height: 340px; object-fit: cover;">
               <div style="padding: 1rem; background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);">
-                <i class="fa-solid fa-camera text-gold"></i> فحص معملي ماكرو يوضح نسيج الأزولا النقي الخالي من الشوائب والآفات
+                <i class="fa-solid fa-camera text-gold"></i> ${t('macroPhotoDesc', 'فحص معملي ماكرو يوضح نسيج الأزولا النقي الخالي من الشوائب والآفات')}
               </div>
             </div>
           </div>
         </div>
 
         <div style="overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
-          <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.95rem;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
             <thead>
               <tr style="background: var(--color-primary-dark); color: #FFFFFF;">
-                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">المعيار والمؤشر</th>
-                <th style="padding: 1.1rem 1.25rem; font-weight: 800; color: #FDE68A;">الأزولا (Azolla Egypt)</th>
-                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">البرسيم (Alfalfa)</th>
-                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">كسب فول الصويا (Soybean)</th>
+                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">${t('tableHeaderCriteria', 'المعيار والمؤشر')}</th>
+                <th style="padding: 1.1rem 1.25rem; font-weight: 800; color: #FDE68A;">${t('tableHeaderAzolla', 'الأزولا (Azolla Egypt)')}</th>
+                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">${t('tableHeaderAlfalfa', 'البرسيم (Alfalfa)')}</th>
+                <th style="padding: 1.1rem 1.25rem; font-weight: 800;">${t('tableHeaderSoy', 'كسب فول الصويا (Soybean)')}</th>
               </tr>
             </thead>
             <tbody>
               <tr style="border-bottom: 1px solid var(--color-border); background: var(--color-emerald-50);">
-                <td style="padding: 1rem 1.25rem; font-weight: 800;">البروتين الخام (مادة جافة)</td>
-                <td style="padding: 1rem 1.25rem; font-weight: 900; color: var(--color-primary);">20% – 35% (معدل 28.4%)</td>
-                <td style="padding: 1rem 1.25rem;">15% – 22%</td>
-                <td style="padding: 1rem 1.25rem;">44% – 48%</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 800;">${t('tableCrudeProtein', 'البروتين الخام (مادة جافة)')}</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 900; color: var(--color-primary);">${t('tableCrudeProteinAzolla', '20% – 35% (معدل 28.4%)')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableCrudeProteinAlfalfa', '15% – 22%')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableCrudeProteinSoy', '44% – 48%')}</td>
               </tr>
               <tr style="border-bottom: 1px solid var(--color-border);">
-                <td style="padding: 1rem 1.25rem; font-weight: 800;">دورة الحصاد والإنتاج</td>
-                <td style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-primary);">سريعة جداً (حصاد كل 3-5 أيام)</td>
-                <td style="padding: 1rem 1.25rem;">حشات دورية (كل 30 يوماً)</td>
-                <td style="padding: 1rem 1.25rem;">محصول كامل (4-5 أشهر)</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 800;">${t('tableHarvestCycle', 'دورة الحصاد والإنتاج')}</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-primary);">${t('tableHarvestCycleAzolla', 'سريعة جداً (حصاد كل 3-5 أيام)')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableHarvestCycleAlfalfa', 'حشات دورية (كل 30 يوماً)')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableHarvestCycleSoy', 'محصول كامل (4-5 أشهر)')}</td>
               </tr>
               <tr>
-                <td style="padding: 1rem 1.25rem; font-weight: 800;">استهلاك المياه والأرض</td>
-                <td style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-primary);">أحواض مغلقة وتدوير مياه كامل</td>
-                <td style="padding: 1rem 1.25rem;">أراضٍ زراعية صالحة للحرث</td>
-                <td style="padding: 1rem 1.25rem;">مساحات شاسعة وتسميد كثيف</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 800;">${t('tableWaterLand', 'استهلاك المياه والأرض')}</td>
+                <td style="padding: 1rem 1.25rem; font-weight: 700; color: var(--color-primary);">${t('tableWaterLandAzolla', 'أحواض مغلقة وتدوير مياه كامل')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableWaterLandAlfalfa', 'أراضٍ زراعية صالحة للحرث')}</td>
+                <td style="padding: 1rem 1.25rem;">${t('tableWaterLandSoy', 'مساحات شاسعة وتسميد كثيف')}</td>
               </tr>
             </tbody>
           </table>
@@ -651,19 +673,21 @@ function renderSciencePage() {
 }
 
 function renderCalculatorsSection(isHome = false) {
+  const t = window.t || ((k, d) => d || k);
+
   return `
     <section class="section section-bg-white" id="interactive-calculators">
       <div class="container">
         <div class="smart-hub-header-card">
           <div>
             <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); color: #FDE68A; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 0.75rem;">
-              <i class="fa-solid fa-microchip"></i> بوابة الحاسبات الزراعية الذكية 2026
+              <i class="fa-solid fa-microchip"></i> ${t('calcHubBadge', 'بوابة الحاسبات الزراعية الذكية 2026')}
             </div>
             <h2 style="font-size: 1.85rem; font-weight: 900; color: #FFFFFF; margin-bottom: 0.5rem;">
-              حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)
+              ${t('calcHubTitle', 'حاسبات أزولا مصر الذكية (الأعلاف، صون المياه، وتصميم الأحواض)')}
             </h2>
             <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 650px;">
-              طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.
+              ${t('calcHubDesc', 'طُوّرت هذه المنظومة بالتعاون الاستراتيجي مع <strong>منصة NGO HUB</strong> لتمكين المزارعين والمربين من حساب مساحات الأحواض، توفير المياه بنسبة 90%، خلطات الأعلاف، وحساب الوفر المالي لحظياً.')}
             </p>
           </div>
 
@@ -678,63 +702,63 @@ function renderCalculatorsSection(isHome = false) {
 
         <div class="calc-nav-tabs">
           <button class="calc-tab-btn active" onclick="switchCalcTab('tab-basin', this)">
-            <i class="fa-solid fa-compass-drafting"></i> 1. تصميم الأحواض والإنتاج
+            <i class="fa-solid fa-compass-drafting"></i> ${t('calcTabBasin', '1. تصميم الأحواض والإنتاج')}
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-feed', this)">
-            <i class="fa-solid fa-cow"></i> 2. خلط عليقة الأعلاف
+            <i class="fa-solid fa-cow"></i> ${t('calcTabFeed', '2. خلط عليقة الأعلاف')}
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-water', this)">
-            <i class="fa-solid fa-droplet text-azure"></i> 3. صون وتوفير المياه
+            <i class="fa-solid fa-droplet text-azure"></i> ${t('calcTabWater', '3. صون وتوفير المياه')}
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-carbon', this)">
-            <i class="fa-solid fa-leaf"></i> 4. خفض الانبعاثات
+            <i class="fa-solid fa-leaf"></i> ${t('calcTabCarbon', '4. خفض الانبعاثات')}
           </button>
           <button class="calc-tab-btn" onclick="switchCalcTab('tab-roi', this)">
-            <i class="fa-solid fa-chart-pie"></i> 5. العائد الاستثماري (ROI)
+            <i class="fa-solid fa-chart-pie"></i> ${t('calcTabRoi', '5. العائد الاستثماري (ROI)')}
           </button>
         </div>
 
         <!-- 1. BASIN CALC -->
         <div id="tab-basin" class="calculator-box">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-water text-azure"></i> حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي
+            <i class="fa-solid fa-water text-azure"></i> ${t('basinCalcTitle', 'حاسبة مساحات الأحواض والتقاوي والإنتاج اليومي')}
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">طول الحوض المتاح (متر) *</label>
+                <label class="form-label">${t('basinLengthLabel', 'طول الحوض المتاح (متر) *')}</label>
                 <input type="number" id="calc-basin-length" class="form-control" value="10" min="1" oninput="runBasinCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">عرض الحوض المتاح (متر) *</label>
+                <label class="form-label">${t('basinWidthLabel', 'عرض الحوض المتاح (متر) *')}</label>
                 <input type="number" id="calc-basin-width" class="form-control" value="5" min="1" oninput="runBasinCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">عمق المياه المستهدف (سم)</label>
+                <label class="form-label">${t('basinDepthLabel', 'عمق المياه المستهدف (سم)')}</label>
                 <input type="number" class="form-control" value="15" readonly style="background: var(--color-surface-hover);">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي المساحة المائية:</span>
-                <span class="result-value" id="res-basin-area">50 م²</span>
+                <span class="result-label">${t('resBasinArea', 'إجمالي المساحة المائية:')}</span>
+                <span class="result-value" id="res-basin-area">50 ${t('unitM2', 'م²')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label">احتياج التقاوي الأولية:</span>
-                <span class="result-value" id="res-basin-seed">25 كجم</span>
+                <span class="result-label">${t('resBasinSeed', 'احتياج التقاوي الأولية:')}</span>
+                <span class="result-value" id="res-basin-seed">25 ${t('unitKg', 'كجم')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الإنتاج اليومي صيفاً:</span>
-                <span class="result-value" id="res-basin-yield-summer">22.5 كجم / يوم</span>
+                <span class="result-label">${t('resBasinYieldSummer', 'الإنتاج اليومي صيفاً:')}</span>
+                <span class="result-value" id="res-basin-yield-summer">22.5 ${t('unitKgDay', 'كجم / يوم')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الإنتاج اليومي شتاءً:</span>
-                <span class="result-value" id="res-basin-yield-winter">15.0 كجم / يوم</span>
+                <span class="result-label">${t('resBasinYieldWinter', 'الإنتاج اليومي شتاءً:')}</span>
+                <span class="result-value" id="res-basin-yield-winter">15.0 ${t('unitKgDay', 'كجم / يوم')}</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">الوفر المالي الشهري:</span>
-                <span class="result-value text-gold" id="res-basin-savings">3,375 ج.م / شهر</span>
+                <span class="result-label">${t('resBasinSavings', 'الوفر المالي الشهري:')}</span>
+                <span class="result-value text-gold" id="res-basin-savings">3,375 ${t('unitEgpMonth', 'ج.م / شهر')}</span>
               </div>
             </div>
           </div>
@@ -743,46 +767,46 @@ function renderCalculatorsSection(isHome = false) {
         <!-- 2. FEED CALC -->
         <div id="tab-feed" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-wheat-awn text-gold"></i> حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك
+            <i class="fa-solid fa-wheat-awn text-gold"></i> ${t('feedCalcTitle', 'حاسبة خلط عليقة الأعلاف المركبة للأبقار والدواجن والأسماك')}
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">نوع القطيع أو الحيوانات *</label>
+                <label class="form-label">${t('feedTypeLabel', 'نوع القطيع أو الحيوانات *')}</label>
                 <select id="calc-feed-type" class="form-control" onchange="runFeedCalc()">
-                  <option value="cattle_dairy">أبقار وجاموس حلاب</option>
-                  <option value="cattle_beef" selected>أبقار وجاموس تسمين</option>
-                  <option value="sheep_goat">أغنام وماعز</option>
-                  <option value="poultry_ducks">دواجن وبط ورومي</option>
-                  <option value="fish_farm">أسماك مزارع</option>
+                  <option value="cattle_dairy">${t('cattleDairyOption', 'أبقار وجاموس حلاب')}</option>
+                  <option value="cattle_beef" selected>${t('cattleBeefOption', 'أبقار وجاموس تسمين')}</option>
+                  <option value="sheep_goat">${t('sheepGoatOption', 'أغنام وماعز')}</option>
+                  <option value="poultry_ducks">${t('poultryDucksOption', 'دواجن وبط ورومي')}</option>
+                  <option value="fish_farm">${t('fishFarmOption', 'أسماك مزارع')}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">عدد الرؤوس بالقطيع *</label>
+                <label class="form-label">${t('feedHeadsLabel', 'عدد الرؤوس بالقطيع *')}</label>
                 <input type="number" id="calc-feed-heads" class="form-control" value="10" min="1" oninput="runFeedCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">سعر كيلو العلف الجاف (جنيه) *</label>
+                <label class="form-label">${t('feedPriceLabel', 'سعر كيلو العلف الجاف (جنيه) *')}</label>
                 <input type="number" id="calc-feed-price" class="form-control" value="22" min="5" oninput="runFeedCalc()">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي العلف الجاف:</span>
-                <span class="result-value" id="res-feed-total-dry">120 كجم / يوم</span>
+                <span class="result-label">${t('resFeedTotalDry', 'إجمالي العلف الجاف:')}</span>
+                <span class="result-value" id="res-feed-total-dry">120 ${t('unitKgDay', 'كجم / يوم')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label">العلف الجاف الموفر يومياً:</span>
-                <span class="result-value text-emerald" id="res-feed-saved-dry">24 كجم / يوم</span>
+                <span class="result-label">${t('resFeedSavedDry', 'العلف الجاف الموفر يومياً:')}</span>
+                <span class="result-value text-emerald" id="res-feed-saved-dry">24 ${t('unitKgDay', 'كجم / يوم')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label">الأزولا الطازجة الواجب خلطها:</span>
-                <span class="result-value" id="res-feed-azolla-needed">96 كجم / يوم</span>
+                <span class="result-label">${t('resFeedAzollaNeeded', 'الأزولا الطازجة الواجب خلطها:')}</span>
+                <span class="result-value" id="res-feed-azolla-needed">96 ${t('unitKgDay', 'كجم / يوم')}</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">الوفر المالي الشهري:</span>
-                <span class="result-value text-gold" id="res-feed-monthly-saved">15,840 ج.م / شهر</span>
+                <span class="result-label">${t('resFeedMonthlySaved', 'الوفر المالي الشهري:')}</span>
+                <span class="result-value text-gold" id="res-feed-monthly-saved">15,840 ${t('unitEgpMonth', 'ج.م / شهر')}</span>
               </div>
             </div>
           </div>
@@ -792,74 +816,74 @@ function renderCalculatorsSection(isHome = false) {
         <div id="tab-water" class="calculator-box" style="display: none;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin: 0;">
-              <i class="fa-solid fa-droplet text-azure"></i> حاسبة صون وكفاءة استهلاك وتوفير المياه (Water Conservation)
+              <i class="fa-solid fa-droplet text-azure"></i> ${t('waterCalcTitle', 'حاسبة صون وكفاءة استهلاك وتوفير المياه (Water Conservation)')}
             </h3>
             <span style="background: var(--color-azure-50); color: var(--color-azure-dark); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); font-weight: 800; font-size: 0.85rem; border: 1px solid var(--color-azure-100);">
-              <i class="fa-solid fa-gauge-high text-azure"></i> وفر مائي يصل إلى 90%
+              <i class="fa-solid fa-gauge-high text-azure"></i> ${t('waterCutBadge', 'وفر مائي يصل إلى 90%')}
             </span>
           </div>
 
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-ruler-combined text-azure"></i> مساحة الأحواض المائية (م²) *</label>
+                <label class="form-label"><i class="fa-solid fa-ruler-combined text-azure"></i> ${t('waterAreaLabel', 'مساحة الأحواض المائية (م²) *')}</label>
                 <input type="number" id="calc-water-area" class="form-control" value="100" min="10" step="10" oninput="runWaterCalc()">
-                <small style="color: var(--color-text-muted); font-size: 0.78rem;">(مثال: 100 م² = حوض متوسط، 4200 م² = فدان كامل)</small>
+                <small style="color: var(--color-text-muted); font-size: 0.78rem;">${t('waterAreaExample', '(مثال: 100 م² = حوض متوسط، 4200 م² = فدان كامل)')}</small>
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-seedling text-emerald"></i> المحصول العلفي المقارن *</label>
+                <label class="form-label"><i class="fa-solid fa-seedling text-emerald"></i> ${t('waterCropLabel', 'المحصول العلفي المقارن *')}</label>
                 <select id="calc-water-crop" class="form-control" onchange="runWaterCalc()">
-                  <option value="alfalfa" selected>البرسيم الحجازي (Alfalfa - 1,850 م³/طن جاف)</option>
-                  <option value="berseem">البرسيم المصري (Berseem - 1,450 م³/طن جاف)</option>
-                  <option value="corn_silage">سيلاج الذرة (Corn Silage - 1,200 م³/طن جاف)</option>
-                  <option value="soybean">كسب فول الصويا (Soybean - 2,400 م³/طن جاف)</option>
+                  <option value="alfalfa" selected>${t('fodderAlfalfa', 'البرسيم الحجازي (Alfalfa - 1,850 م³/طن جاف)')}</option>
+                  <option value="berseem">${t('fodderBerseem', 'البرسيم المصري (Berseem - 1,450 م³/طن جاف)')}</option>
+                  <option value="corn_silage">${t('fodderSilage', 'سيلاج الذرة (Corn Silage - 1,200 م³/طن جاف)')}</option>
+                  <option value="soybean">${t('fodderSoy', 'كسب فول الصويا (Soybean - 2,400 م³/طن جاف)')}</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-solar-panel text-gold"></i> تقنية الري وتدوير المياه *</label>
+                <label class="form-label"><i class="fa-solid fa-solar-panel text-gold"></i> ${t('waterTechLabel', 'تقنية الري وتدوير المياه *')}</label>
                 <select id="calc-water-tech" class="form-control" onchange="runWaterCalc()">
-                  <option value="closed_solar_shade" selected>أحواض مغلقة + ضخ شمسي + تظليل سيرام 50% (أعلى كفاءة وفر 90%)</option>
-                  <option value="closed_solar_open">أحواض مغلقة مع تدوير بالطاقة الشمسية بدون تظليل (وفر 82%)</option>
-                  <option value="rooftop_basin">وحدة أسطح منزلية معزولة (وفر 88%)</option>
-                  <option value="earth_basin_recycle">أحواض ترابية مبطنة مشمع مع إعادة تدوير (وفر 78%)</option>
+                  <option value="closed_solar_shade" selected>${t('techClosedSolarShade', 'أحواض مغلقة + ضخ شمسي + تظليل سيرام 50% (أعلى كفاءة وفر 90%)')}</option>
+                  <option value="closed_solar_open">${t('techClosedSolarOpen', 'أحواض مغلقة مع تدوير بالطاقة الشمسية بدون تظليل (وفر 82%)')}</option>
+                  <option value="rooftop_basin">${t('techRooftop', 'وحدة أسطح منزلية معزولة (وفر 88%)')}</option>
+                  <option value="earth_basin_recycle">${t('techEarthBasin', 'أحواض ترابية مبطنة مشمع مع إعادة تدوير (وفر 78%)')}</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-calendar-days text-primary"></i> فترة الحساب والتشغيل *</label>
+                <label class="form-label"><i class="fa-solid fa-calendar-days text-primary"></i> ${t('waterPeriodLabel', 'فترة الحساب والتشغيل *')}</label>
                 <select id="calc-water-period" class="form-control" onchange="runWaterCalc()">
-                  <option value="year" selected>سنة كاملة (365 يوماً إنتاجي)</option>
-                  <option value="month">شهر واحد (30 يوماً)</option>
+                  <option value="year" selected>${t('periodYear', 'سنة كاملة (365 يوماً إنتاجي)')}</option>
+                  <option value="month">${t('periodMonth', 'شهر واحد (30 يوماً)')}</option>
                 </select>
               </div>
             </div>
 
             <div class="calc-result-panel" style="background: linear-gradient(135deg, rgba(240, 249, 255, 0.8) 0%, rgba(209, 250, 229, 0.8) 100%); border: 2px solid var(--color-azure-100);">
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-faucet-drip text-azure"></i> استهلاك منظومة الأزولا:</span>
-                <span class="result-value text-azure" id="res-water-azolla-consumed">128 م³</span>
+                <span class="result-label"><i class="fa-solid fa-faucet-drip text-azure"></i> ${t('resWaterAzollaConsumed', 'استهلاك منظومة الأزولا:')}</span>
+                <span class="result-value text-azure" id="res-water-azolla-consumed">128 ${t('unitM3', 'م³')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-shower text-gold"></i> استهلاك الزراعة التقليدية:</span>
-                <span class="result-value" id="res-water-conventional-consumed">1,120 م³</span>
+                <span class="result-label"><i class="fa-solid fa-shower text-gold"></i> ${t('resWaterConventionalConsumed', 'استهلاك الزراعة التقليدية:')}</span>
+                <span class="result-value" id="res-water-conventional-consumed">1,120 ${t('unitM3', 'م³')}</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-emerald-200);">
-                <span class="result-label" style="font-weight: 900; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-heart text-emerald"></i> صافي الوفر المائي المحقق:</span>
-                <span class="result-value text-emerald" id="res-water-saved-m3" style="font-size: 1.35rem; font-weight: 900;">992 م³ موفرة</span>
+                <span class="result-label" style="font-weight: 900; color: var(--color-primary-dark);"><i class="fa-solid fa-shield-heart text-emerald"></i> ${t('resWaterSavedM3Label', 'صافي الوفر المائي المحقق:')}</span>
+                <span class="result-value text-emerald" id="res-water-saved-m3" style="font-size: 1.35rem; font-weight: 900;">992 ${t('unitM3Saved', 'م³ موفرة')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-percent text-emerald"></i> نسبة صون وتوفير المياه:</span>
+                <span class="result-label"><i class="fa-solid fa-percent text-emerald"></i> ${t('resWaterSavedPct', 'نسبة صون وتوفير المياه:')}</span>
                 <span class="result-value text-emerald" id="res-water-saved-pct">88.6%</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-users text-azure"></i> مكافئ مياه شرب منزلية:</span>
-                <span class="result-value text-azure" id="res-water-household-equiv">18 فرد / سنة</span>
+                <span class="result-label"><i class="fa-solid fa-users text-azure"></i> ${t('resHouseholdEquiv', 'مكافئ مياه شرب منزلية:')}</span>
+                <span class="result-value text-azure" id="res-water-household-equiv">18 ${t('unitPersons', 'فرد')} / ${t('unitYear', 'سنة')}</span>
               </div>
               <div class="result-row">
-                <span class="result-label"><i class="fa-solid fa-dna text-gold"></i> كفاءة إنتاج البروتين المائي:</span>
-                <span class="result-value text-gold" id="res-water-protein-efficiency">0.82 كجم بروتين / م³</span>
+                <span class="result-label"><i class="fa-solid fa-dna text-gold"></i> ${t('resProteinEfficiency', 'كفاءة إنتاج البروتين المائي:')}</span>
+                <span class="result-value text-gold" id="res-water-protein-efficiency">0.82 ${t('unitProteinPerM3', 'كجم بروتين / م³')}</span>
               </div>
             </div>
           </div>
@@ -867,17 +891,17 @@ function renderCalculatorsSection(isHome = false) {
           <!-- Comparison Progress Bar -->
           <div style="margin-top: 1.5rem; background: var(--color-bg); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
             <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; margin-bottom: 0.5rem;">
-              <span><i class="fa-solid fa-chart-simple text-azure"></i> مقارنة الاستهلاك المائي المباشر (متر مكعب):</span>
-              <span id="res-water-bar-label" style="color: var(--color-primary); font-weight: 900;">وفر مائي حاسم 88.6%</span>
+              <span><i class="fa-solid fa-chart-simple text-azure"></i> ${t('waterCompBarTitle', 'مقارنة الاستهلاك المائي المباشر (متر مكعب):')}</span>
+              <span id="res-water-bar-label" style="color: var(--color-primary); font-weight: 900;">${t('waterBarLabelPrefix', 'وفر مائي وصون موارد بنسبة')} 88.6%</span>
             </div>
             <div style="height: 24px; border-radius: var(--radius-full); background: #EF4444; overflow: hidden; display: flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
-              <div id="res-water-bar-azolla" style="width: 11.4%; background: #059669; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="استهلاك أزولا مصر">أزولا (11.4%)</div>
-              <div id="res-water-bar-saved" style="width: 88.6%; background: #0284C7; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="المياه الموفرة المصانة">مياه مصانة وموفرة (88.6%)</div>
+              <div id="res-water-bar-azolla" style="width: 11.4%; background: #059669; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="${t('waterAzolla', 'أزولا')}">${t('waterAzolla', 'أزولا')} (11.4%)</div>
+              <div id="res-water-bar-saved" style="width: 88.6%; background: #0284C7; color: #FFF; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;" title="${t('waterSaved', 'مياه مصانة وموفرة')}">${t('waterSaved', 'مياه مصانة وموفرة')} (88.6%)</div>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.4rem;">
-              <span><i class="fa-solid fa-circle" style="color: #059669;"></i> استهلاك الأزولا الفعلي</span>
-              <span><i class="fa-solid fa-circle" style="color: #0284C7;"></i> حجم المياه الموفرة (Water Conservation)</span>
-              <span><i class="fa-solid fa-circle" style="color: #EF4444;"></i> هدر المحاصيل التقليدية</span>
+              <span><i class="fa-solid fa-circle" style="color: #059669;"></i> ${t('legendAzolla', 'استهلاك الأزولا الفعلي')}</span>
+              <span><i class="fa-solid fa-circle" style="color: #0284C7;"></i> ${t('legendSaved', 'حجم المياه الموفرة (Water Conservation)')}</span>
+              <span><i class="fa-solid fa-circle" style="color: #EF4444;"></i> ${t('legendWaste', 'هدر المحاصيل التقليدية')}</span>
             </div>
           </div>
         </div>
@@ -885,28 +909,28 @@ function renderCalculatorsSection(isHome = false) {
         <!-- 4. CARBON CALC -->
         <div id="tab-carbon" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-leaf text-emerald"></i> حاسبة البصمة البيئية وخفض الانبعاثات
+            <i class="fa-solid fa-leaf text-emerald"></i> ${t('carbonCalcTitle', 'حاسبة البصمة البيئية وخفض الانبعاثات')}
           </h3>
           <div class="calc-grid-layout">
             <div>
               <div class="form-group">
-                <label class="form-label">إنتاج الأزولا السنوي التقديري (طن) *</label>
+                <label class="form-label">${t('annualAzollaTonsLabel', 'إنتاج الأزولا السنوي التقديري (طن) *')}</label>
                 <input type="number" id="calc-carbon-tons" class="form-control" value="20" min="1" oninput="runCarbonCalc()">
               </div>
               <div class="form-group">
-                <label class="form-label">السولار الموفر بفضل الطاقة الشمسية (لتر/سنة) *</label>
+                <label class="form-label">${t('dieselSavedLabel', 'السولار الموفر بفضل الطاقة الشمسية (لتر/سنة) *')}</label>
                 <input type="number" id="calc-carbon-diesel" class="form-control" value="10000" min="0" oninput="runCarbonCalc()">
               </div>
             </div>
 
             <div class="calc-result-panel">
               <div class="result-row">
-                <span class="result-label">إجمالي الكربون المتجنب سنوياً:</span>
-                <span class="result-value text-emerald" id="res-carbon-total">37.3 طن CO₂e</span>
+                <span class="result-label">${t('resCarbonTotal', 'إجمالي الكربون المتجنب سنوياً:')}</span>
+                <span class="result-value text-emerald" id="res-carbon-total">37.3 ${t('unitTonsCo2', 'طن CO₂e')}</span>
               </div>
               <div class="result-row" style="background: var(--color-surface); padding: 0.75rem; border-radius: var(--radius-sm);">
-                <span class="result-label">ما يعادل زراعة أشجار:</span>
-                <span class="result-value text-gold" id="res-carbon-trees">1,678 شجرة</span>
+                <span class="result-label">${t('resCarbonTrees', 'ما يعادل زراعة أشجار:')}</span>
+                <span class="result-value text-gold" id="res-carbon-trees">1,678 ${t('unitTrees', 'شجرة')}</span>
               </div>
             </div>
           </div>
@@ -915,33 +939,33 @@ function renderCalculatorsSection(isHome = false) {
         <!-- 5. ROI CALC -->
         <div id="tab-roi" class="calculator-box" style="display: none;">
           <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-chart-line text-azure"></i> حاسبة العائد الاستثماري ونماذج المزارع (ROI)
+            <i class="fa-solid fa-chart-line text-azure"></i> ${t('roiCalcTitle', 'حاسبة العائد الاستثماري ونماذج المزارع (ROI)')}
           </h3>
           <div style="text-align: center; margin-bottom: 2rem;">
             <button class="btn btn-gold btn-lg" onclick="openModal('modal-land-partner')" style="background: var(--color-primary); color: #FFF; border-color: var(--color-primary); font-weight: 800;">
-              <i class="fa-solid fa-map-location-dot"></i> هل تمتلك أرضاً زراعية؟ قدّمها للشراكة الاستثمارية مع المشروع
+              <i class="fa-solid fa-map-location-dot"></i> ${t('roiPartnerCta', 'هل تمتلك أرضاً زراعية؟ قدّمها للشراكة الاستثمارية مع المشروع')}
             </button>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
             <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
-              <h4 style="font-weight: 800; color: var(--color-primary);">وحدة منزلية (30 م²)</h4>
-              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">25,000 ج.م</div>
-              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 3.5 طن/سنة</div>
-              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 8 – 10 أشهر</div>
+              <h4 style="font-weight: 800; color: var(--color-primary);">${t('roiModel1Title', 'وحدة منزلية (30 م²)')}</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">${t('roiModel1Cost', '25,000 ج.م')}</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">${t('roiModel1Yield', 'إنتاج: 3.5 طن/سنة')}</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">${t('roiModel1Payback', 'استرداد: 8 – 10 أشهر')}</div>
             </div>
 
             <div style="background: var(--color-emerald-50); border: 2px solid var(--color-primary); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
-              <h4 style="font-weight: 800; color: var(--color-primary);">مزرعة تجارية (0.5 فدان)</h4>
-              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">120,000 ج.م</div>
-              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 18 طن/سنة</div>
-              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 12 – 16 شهراً</div>
+              <h4 style="font-weight: 800; color: var(--color-primary);">${t('roiModel2Title', 'مزرعة تجارية (0.5 فدان)')}</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">${t('roiModel2Cost', '120,000 ج.م')}</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">${t('roiModel2Yield', 'إنتاج: 18 طن/سنة')}</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">${t('roiModel2Payback', 'استرداد: 12 – 16 شهراً')}</div>
             </div>
 
             <div style="background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
-              <h4 style="font-weight: 800; color: var(--color-primary);">مشروع تجاري كبير (2 فدان)</h4>
-              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">480,000 ج.م</div>
-              <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 75 طن/سنة</div>
-              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 14 – 18 شهراً</div>
+              <h4 style="font-weight: 800; color: var(--color-primary);">${t('roiModel3Title', 'مشروع تجاري كبير (2 فدان)')}</h4>
+              <div style="font-size: 1.25rem; font-weight: 900; color: var(--color-gold); margin: 0.5rem 0;">${t('roiModel3Cost', '480,000 ج.م')}</div>
+              <div style="font-size: 0.85rem; color: var(--color-text-muted);">${t('roiModel3Yield', 'إنتاج: 75 طن/سنة')}</div>
+              <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">${t('roiModel3Payback', 'استرداد: 14 – 18 شهراً')}</div>
             </div>
           </div>
         </div>
@@ -952,12 +976,14 @@ function renderCalculatorsSection(isHome = false) {
 }
 
 function renderServicesPage() {
+  const t = window.t || ((k, d) => d || k);
+
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">الخدمات الفنية والحاسبات الزراعية الذكية</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('servicesHeaderTitle', 'الخدمات الفنية والحاسبات الزراعية الذكية')}</h1>
         <p class="hero-lead-text">
-          خدمات إنشاء المزارع، توفير التقاوي، الإشراف الفني، والحاسبات التفاعلية المبرمجة بالتعاون مع <strong>NGO HUB</strong>.
+          ${t('servicesHeaderLead', 'خدمات إنشاء المزارع، توفير التقاوي، الإشراف الفني، والحاسبات التفاعلية المبرمجة بالتعاون مع <strong>NGO HUB</strong>.')}
         </p>
       </div>
     </header>
@@ -968,13 +994,14 @@ function renderServicesPage() {
 
 function renderAcademyPage() {
   const courses = window.AZOLLA_DATA.courses;
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">أكاديمية أزولا مصر (12 برنامجاً معتمداً)</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('academyHeaderTitle', 'أكاديمية أزولا مصر (12 برنامجاً معتمداً)')}</h1>
         <p class="hero-lead-text">
-          برامج تدريبية تطبيقية ومعملية بالتعاون مع <strong>مركز التدريب البيئي</strong> و<strong>حاضنة الأعمال البيئية للمرأة المصرية</strong>.
+          ${t('academyHeaderLead', 'برامج تدريبية تطبيقية ومعملية بالتعاون مع <strong>مركز التدريب البيئي</strong> و<strong>حاضنة الأعمال البيئية للمرأة المصرية</strong>.')}
         </p>
       </div>
     </header>
@@ -985,15 +1012,15 @@ function renderAcademyPage() {
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <img src="./assets/images/logo_training_center.png" alt="مركز التدريب البيئي" style="height: 44px; border-radius: 4px;">
             <div>
-              <div style="font-weight: 800; font-size: 0.95rem;">مركز التدريب البيئي</div>
-              <div style="font-size: 0.78rem; color: var(--color-text-muted);">الاعتماد والتدريب الميداني</div>
+              <div style="font-weight: 800; font-size: 0.95rem;">${t('trainingCenterName', 'مركز التدريب البيئي')}</div>
+              <div style="font-size: 0.78rem; color: var(--color-text-muted);">${t('trainingCenterRole', 'الاعتماد والتدريب الميداني')}</div>
             </div>
           </div>
           <div style="display: flex; align-items: center; gap: 0.75rem;">
             <img src="./assets/images/logo_women_incubator.png" alt="حاضنة الأعمال البيئية للمرأة المصرية" style="height: 44px; border-radius: 4px;">
             <div>
-              <div style="font-weight: 800; font-size: 0.95rem;">حاضنة الأعمال البيئية للمرأة</div>
-              <div style="font-size: 0.78rem; color: var(--color-text-muted);">برنامج المرأة الخضراء المنتجة</div>
+              <div style="font-weight: 800; font-size: 0.95rem;">${t('womenIncubatorName', 'حاضنة الأعمال البيئية للمرأة')}</div>
+              <div style="font-size: 0.78rem; color: var(--color-text-muted);">${t('womenIncubatorRole', 'برنامج المرأة الخضراء المنتجة')}</div>
             </div>
           </div>
         </div>
@@ -1008,10 +1035,10 @@ function renderAcademyPage() {
               <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">${c.id}. ${c.title}</h3>
               <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 1rem; flex: 1;">${c.desc}</p>
               <div style="font-size: 0.8rem; background: var(--color-bg); padding: 0.5rem; border-radius: var(--radius-sm); margin-bottom: 1rem;">
-                <strong>المستهدف:</strong> ${c.target}
+                <strong>${t('courseTargetLabel', 'المستهدف:')}</strong> ${c.target}
               </div>
               <button class="btn btn-primary btn-block" onclick="openCourseModal('${c.title}')">
-                <i class="fa-solid fa-ticket"></i> حجز مقعد بالبرنامج
+                <i class="fa-solid fa-ticket"></i> ${t('courseBookBtn', 'حجز مقعد بالبرنامج')}
               </button>
             </div>
           `).join('')}
@@ -1024,12 +1051,14 @@ function renderAcademyPage() {
    6. SUB-PAGES: IMPACT, PARTNERS, MEDIA, CONTACT
    ========================================================================== */
 function renderImpactPage() {
+  const t = window.t || ((k, d) => d || k);
+
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">الأثر، التمكين، والاستدامة (ESG & UN SDGs)</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('impactHeaderTitle', 'الأثر، التمكين، والاستدامة (ESG & UN SDGs)')}</h1>
         <p class="hero-lead-text">
-          تقارير وإحصائيات موثقة حول التمكين الاقتصادي للمرأة الريفية، وخفض الانبعاثات، والري بالطاقة الشمسية مع متطوعي Green Cap Team.
+          ${t('impactHeaderLead', 'تقارير وإحصائيات موثقة حول التمكين الاقتصادي للمرأة الريفية، وخفض الانبعاثات، والري بالطاقة الشمسية مع متطوعي Green Cap Team.')}
         </p>
       </div>
     </header>
@@ -1038,19 +1067,19 @@ function renderImpactPage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; align-items: center; margin-bottom: 4rem;">
           <div>
-            <h2 class="section-title">62% من مستفيدي المنظومة من المرأة الريفية</h2>
+            <h2 class="section-title">${t('womenEmpowerTitle', '62% من مستفيدي المنظومة من المرأة الريفية')}</h2>
             <p class="section-desc" style="margin-bottom: 1.25rem;">
-              يركز مشروع أزولا مصر على تمكين السيدات المعيلات والأسر الأكثر احتياجاً من خلال تدريبهن على إنشاء وحدات الأسطح المنزلية، وتوفير التقاوي النقية بالتعاون مع <strong>حاضنة الأعمال البيئية للمرأة المصرية</strong>.
+              ${t('womenEmpowerDesc', 'يركز مشروع أزولا مصر على تمكين السيدات المعيلات والأسر الأكثر احتياجاً من خلال تدريبهن على إنشاء وحدات الأسطح المنزلية، وتوفير التقاوي النقية بالتعاون مع <strong>حاضنة الأعمال البيئية للمرأة المصرية</strong>.')}
             </p>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
               <li style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
-                <i class="fa-solid fa-circle-check text-emerald"></i> 80% نسبة التعافي من خط الفقر المدقع للأسر المستفيدة.
+                <i class="fa-solid fa-circle-check text-emerald"></i> ${t('povertyRecoveryStat', '80% نسبة التعافي من خط الفقر المدقع للأسر المستفيدة.')}
               </li>
               <li style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
-                <i class="fa-solid fa-circle-check text-emerald"></i> 3,800 جنيه مصري متوسط الزيادة في الدخل الشهري.
+                <i class="fa-solid fa-circle-check text-emerald"></i> ${t('incomeIncreaseStat', '3,800 جنيه مصري متوسط الزيادة في الدخل الشهري.')}
               </li>
               <li style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
-                <i class="fa-solid fa-circle-check text-emerald"></i> 55% وفر مباشر في شراء أعلاف الطيور والمواشي.
+                <i class="fa-solid fa-circle-check text-emerald"></i> ${t('statFeedDesc', '55% وفر مباشر في شراء أعلاف الطيور والمواشي.')}
               </li>
             </ul>
           </div>
@@ -1059,7 +1088,7 @@ function renderImpactPage() {
             <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
               <img src="./assets/images/field_rooftop_basin.jpg" alt="نموذج تطبيقي لوحدة إنتاج أزولا منزلية" style="width: 100%; height: 320px; object-fit: cover;">
               <div style="padding: 1rem; background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);">
-                النموذج التطبيقي لإنتاج الأعلاف البديلة بالوحدات المنزلية – كفر الدوار
+                ${t('homeStudyCaption', 'النموذج التطبيقي لإنتاج الأعلاف البديلة بالوحدات المنزلية – كفر الدوار')}
               </div>
             </div>
           </div>
@@ -1076,12 +1105,12 @@ function renderImpactPage() {
           </div>
 
           <div>
-            <h2 class="section-title">مبادرة GCT (Green Cap Team): شباب البيئة يصنع بيئة شابة</h2>
+            <h2 class="section-title">${t('volunteerGctTitle', 'مبادرة GCT (Green Cap Team): شباب البيئة يصنع بيئة شابة')}</h2>
             <p class="section-desc" style="margin-bottom: 1.5rem;">
-              مبادرة شبابية تطوعية رائدة شاركت بفعالية في تنظيم حملات التوعية الحقلية وورش العمل للمزارعين والسيدات أمام أحواض الأزولا بالقرى والمزارع النموذجية.
+              ${t('volunteerGctDesc', 'مبادرة شبابية تطوعية رائدة شاركت بفعالية في تنظيم حملات التوعية الحقلية وورش العمل للمزارعين والسيدات أمام أحواض الأزولا بالقرى والمزارع النموذجية.')}
             </p>
             <button class="btn btn-primary" onclick="openModal('modal-volunteer')">
-              <i class="fa-solid fa-hand-holding-heart"></i> انضم كمتطوع في مبادرة GCT
+              <i class="fa-solid fa-hand-holding-heart"></i> ${t('joinGctBtn', 'انضم كمتطوع في مبادرة GCT')}
             </button>
           </div>
         </div>
@@ -1092,23 +1121,24 @@ function renderImpactPage() {
 
 function renderPartnersPage() {
   const partners = window.AZOLLA_DATA.partners;
+  const t = window.t || ((k, d) => d || k);
 
   const categories = [
-    { key: "international", title: "الجهات المانحة والرعاة الدوليون (Institutional Donors)", icon: "fa-earth-americas" },
-    { key: "executing", title: "الجهة التنفيذية والميدانية الرئيسية (Executing Entity)", icon: "fa-building-flag" },
-    { key: "tech", title: "الشريك التكنولوجي وبناء المنصة الرقمية (Technology Partner)", icon: "fa-laptop-code" },
-    { key: "women", title: "التمكين الاقتصادي والريادة للمرأة (Women Empowerment)", icon: "fa-venus" },
-    { key: "training", title: "التدريب وبناء القدرات (Capacity Building)", icon: "fa-graduation-cap" },
-    { key: "volunteer", title: "المبادرات الشبابية والتطوع الميداني (Youth Volunteers)", icon: "fa-hand-holding-heart" },
-    { key: "consulting", title: "الاستشارات وتطوير التدريب (Consulting Solutions)", icon: "fa-briefcase" }
+    { key: "international", title: t('partnerCatDonors', 'الجهات المانحة والرعاة الدوليون (Institutional Donors)'), icon: "fa-earth-americas" },
+    { key: "executing", title: t('partnerCatExec', 'الجهة التنفيذية والميدانية الرئيسية (Executing Entity)'), icon: "fa-building-flag" },
+    { key: "tech", title: t('partnerCatTech', 'الشريك التكنولوجي وبناء المنصة الرقمية (Technology Partner)'), icon: "fa-laptop-code" },
+    { key: "women", title: t('partnerCatWomen', 'التمكين الاقتصادي والريادة للمرأة (Women Empowerment)'), icon: "fa-venus" },
+    { key: "training", title: t('partnerCatTraining', 'التدريب وبناء القدرات (Capacity Building)'), icon: "fa-graduation-cap" },
+    { key: "volunteer", title: t('partnerCatVolunteer', 'المبادرات الشبابية والتطوع الميداني (Youth Volunteers)'), icon: "fa-hand-holding-heart" },
+    { key: "consulting", title: t('partnerCatConsulting', 'الاستشارات وتطوير التدريب (Consulting Solutions)'), icon: "fa-briefcase" }
   ];
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">الشركاء، الرعاة، والجهات التنفيذية</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('partnersHeaderTitle', 'الشركاء، الرعاة، والجهات التنفيذية')}</h1>
         <p class="hero-lead-text">
-          نعتز بالتعاون المشترك مع المنظمات الدولية، والجمعيات الأهلية، والشركاء التكنولوجيين، والمبادرات الشبابية لتحقيق أهداف التنمية الزراعية المستدامة.
+          ${t('partnersHeaderLead', 'نعتز بالتعاون المشترك مع المنظمات الدولية، والجمعيات الأهلية، والشركاء التكنولوجيين، والمبادرات الشبابية لتحقيق أهداف التنمية الزراعية المستدامة.')}
         </p>
       </div>
     </header>
@@ -1151,13 +1181,14 @@ function renderPartnersPage() {
 
 function renderMediaPage() {
   const gallery = window.AZOLLA_DATA.realGallery;
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">معرض الصور الميدانية الحية</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('mediaHeaderTitle', 'معرض الصور الميدانية الحية')}</h1>
         <p class="hero-lead-text">
-          مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان، وأحواض الأسطح المنزلية، وجلسات تدريب وتوعية الفلاحين.
+          ${t('mediaHeaderLead', 'مشاهد حقيقية وموثقة من مزارع كفر الدوار وأسوان، وأحواض الأسطح المنزلية، وجلسات تدريب وتوعية الفلاحين.')}
         </p>
       </div>
     </header>
@@ -1189,13 +1220,14 @@ function renderMediaPage() {
 function renderContactPage() {
   const project = window.AZOLLA_DATA.projectInfo;
   const faq = window.AZOLLA_DATA.faqData;
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <header class="home-hero-section" style="padding: 3.5rem 0 3rem;">
       <div class="container">
-        <h1 class="hero-main-title" style="font-size: 2.35rem;">تواصل معنا واستفسر عن المنظومة</h1>
+        <h1 class="hero-main-title" style="font-size: 2.35rem;">${t('contactHeaderTitle', 'تواصل معنا واستفسر عن المنظومة')}</h1>
         <p class="hero-lead-text">
-          فريقنا الفني والميداني جاهز للرد على كافة استفسارات المزارعين والمربين والمستثمرين فوراً.
+          ${t('contactHeaderLead', 'فريقنا الفني والميداني جاهز للرد على كافة استفسارات المزارعين والمربين والمستثمرين فوراً.')}
         </p>
       </div>
     </header>
@@ -1204,70 +1236,70 @@ function renderContactPage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; margin-bottom: 4rem;">
           <div>
-            <h2 class="section-title" style="font-size: 1.75rem; margin-bottom: 0.5rem;">أرسل استفسارك أو طلبك الميداني</h2>
-            <p class="section-desc" style="margin-bottom: 1.75rem;">املأ البيانات وسيتواصل معك المهندس المختص خلال ساعات عمل رسمية.</p>
+            <h2 class="section-title" style="font-size: 1.75rem; margin-bottom: 0.5rem;">${t('contactFormTitle', 'أرسل استفسارك أو طلبك الميداني')}</h2>
+            <p class="section-desc" style="margin-bottom: 1.75rem;">${t('contactFormSubtitle', 'املأ البيانات وسيتواصل معك المهندس المختص خلال ساعات عمل رسمية.')}</p>
 
             <form onsubmit="handleUniversalFormSubmit(event, 'استفسار تواصل ومزارع')">
               <div class="form-group">
-                <label class="form-label">الاسم بالكامل *</label>
-                <input type="text" name="name" class="form-control" required placeholder="اسمك الكريم">
+                <label class="form-label">${t('contactFormName', 'الاسم بالكامل *')}</label>
+                <input type="text" name="name" class="form-control" required placeholder="${t('contactFormName', 'اسمك الكريم')}">
               </div>
               <div class="form-group">
-                <label class="form-label">رقم الهاتف والواتساب *</label>
+                <label class="form-label">${t('contactFormPhone', 'رقم الهاتف والواتساب *')}</label>
                 <input type="tel" name="phone" class="form-control" required placeholder="010XXXXXXXX">
               </div>
               <div class="form-group">
-                <label class="form-label">الموضوع أو الخدمة المطلوبة *</label>
+                <label class="form-label">${t('contactFormTopic', 'الموضوع أو الخدمة المطلوبة *')}</label>
                 <select name="purpose" class="form-control" required>
-                  <option value="شراء تقاوي نقية">طلب تقاوي أزولا نقية</option>
-                  <option value="إنشاء حوض أو مزرعة">طلب إنشاء حوض / مزرعة أزولا</option>
-                  <option value="استشارة تغذية حيوانية">استشارة خلط علائق وتغذية حيوانات</option>
-                  <option value="حجز تدريب أكاديمية">استفسار عن تدريب أكاديمية أزولا</option>
-                  <option value="شراكة واستثمار">استفسار عام وشراكة واستثمار</option>
+                  <option value="شراء تقاوي نقية">${t('contactTopicSeeds', 'طلب تقاوي أزولا نقية')}</option>
+                  <option value="إنشاء حوض أو مزرعة">${t('contactTopicFarm', 'طلب إنشاء حوض / مزرعة أزولا')}</option>
+                  <option value="استشارة تغذية حيوانية">${t('contactTopicFeed', 'استشارة خلط علائق وتغذية حيوانات')}</option>
+                  <option value="حجز تدريب أكاديمية">${t('contactTopicTraining', 'استفسار عن تدريب أكاديمية أزولا')}</option>
+                  <option value="شراكة واستثمار">${t('contactTopicPartnership', 'استفسار عام وشراكة واستثمار')}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">تفاصيل الاستفسار أو الرسالة *</label>
-                <textarea name="message" class="form-control" rows="4" required placeholder="اكتب تفاصيل طلبك أو مساحة موقعك..."></textarea>
+                <label class="form-label">${t('contactFormMessage', 'تفاصيل الاستفسار أو الرسالة *')}</label>
+                <textarea name="message" class="form-control" rows="4" required placeholder="${t('contactFormMessage', 'اكتب تفاصيل طلبك أو مساحة موقعك...')}"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa-solid fa-paper-plane"></i> إرسال الاستفسار فوراً</button>
+              <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa-solid fa-paper-plane"></i> ${t('contactSubmitBtn', 'إرسال الاستفسار فوراً')}</button>
             </form>
           </div>
 
           <div>
             <div style="background: var(--color-emerald-50); border: 2px solid var(--color-emerald-200); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem;">
               <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1rem;">
-                <i class="fa-brands fa-whatsapp text-emerald" style="font-size: 1.75rem;"></i> محادثة واتساب فورية مباشرة
+                <i class="fa-brands fa-whatsapp text-emerald" style="font-size: 1.75rem;"></i> ${t('contactWaTitle', 'محادثة واتساب فورية مباشرة')}
               </h3>
               <p style="font-size: 0.92rem; margin-bottom: 1.25rem; line-height: 1.7;">
-                اضغط على الزر التالي لبدء محادثة واتساب فورية مع منسق المشروع برقمنا المعتمد <strong>01011526504</strong> مع رسالة مجهزة تلقائياً.
+                ${t('contactWaDesc', 'اضغط على الزر التالي لبدء محادثة واتساب فورية مع منسق المشروع برقمنا المعتمد 01011526504 مع رسالة مجهزة تلقائياً.')}
               </p>
               <a href="${project.whatsappLink}" target="_blank" rel="noopener" class="btn btn-emerald btn-block btn-lg" style="background: #25D366; border-color: #25D366;">
-                <i class="fa-brands fa-whatsapp"></i> تحدث معنا عبر واتساب (${project.whatsappPhone || '01011526504'})
+                <i class="fa-brands fa-whatsapp"></i> ${t('contactWaBtn', 'تحدث معنا عبر واتساب')} (${project.whatsappPhone || '01011526504'})
               </a>
             </div>
 
             <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-sm);">
               <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--color-primary); margin-bottom: 1rem;">
-                <i class="fa-solid fa-building-circle-check text-gold"></i> المقرات وقنوات التواصل الرسمية
+                <i class="fa-solid fa-building-circle-check text-gold"></i> ${t('contactHeadquartersTitle', 'المقرات وقنوات التواصل الرسمية')}
               </h4>
               <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem;">
-                <div><i class="fa-solid fa-location-dot text-gold"></i> <strong>المقر الرئيسي:</strong> مركز كفر الدوار – محافظة البحيرة، ومزارع فرع أسوان التكاملية.</div>
+                <div><i class="fa-solid fa-location-dot text-gold"></i> <strong>${t('contactMainOffice', 'المقر الرئيسي: مركز كفر الدوار – محافظة البحيرة، ومزارع فرع أسوان التكاملية.')}</strong></div>
                 <div>
-                  <i class="fa-solid fa-phone text-gold"></i> <strong>الاتصال الهاتفي:</strong> 
+                  <i class="fa-solid fa-phone text-gold"></i> <strong>${t('contactPhoneLabel', 'الاتصال الهاتفي:')}</strong> 
                   <a href="tel:01553335579" style="color: var(--color-primary-dark); font-weight: 800;">01553335579</a> / 
                   <a href="tel:0452182834" style="color: var(--color-primary-dark); font-weight: 800;">0452182834</a>
-                  <span style="display: block; font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.2rem;">(تواصل تليفون فقط علي هذه الأرقام)</span>
+                  <span style="display: block; font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.2rem;">${t('contactPhoneOnlyNote', '(تواصل تليفون فقط علي هذه الأرقام)')}</span>
                 </div>
                 <div>
-                  <i class="fa-brands fa-whatsapp text-emerald"></i> <strong>واتساب المعتمد:</strong> 
+                  <i class="fa-brands fa-whatsapp text-emerald"></i> <strong>${t('contactWaLabel', 'واتساب المعتمد:')}</strong> 
                   <a href="${project.whatsappLink}" target="_blank" rel="noopener" style="color: #059669; font-weight: 800;">01011526504</a>
                 </div>
                 <div>
-                  <i class="fa-solid fa-envelope text-gold"></i> <strong>البريد الرسمي:</strong> 
+                  <i class="fa-solid fa-envelope text-gold"></i> <strong>${t('contactEmailLabel', 'البريد الرسمي:')}</strong> 
                   <a href="mailto:${project.officialEmail || 'protic1613@gmail.com'}" style="color: var(--color-primary); font-weight: 700;">${project.officialEmail || 'protic1613@gmail.com'}</a>
                 </div>
-                <div><i class="fa-solid fa-certificate text-gold"></i> <strong>الجهة المنفذة:</strong> جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752).</div>
+                <div><i class="fa-solid fa-certificate text-gold"></i> <strong>${t('contactExecEntityLabel', 'الجهة المنفذة:')}</strong> ${t('contactExecEntityVal', 'جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752).')}</div>
               </div>
             </div>
           </div>
@@ -1515,13 +1547,13 @@ function renderPrivacyPage() {
         <!-- Actions Toolbar -->
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
           <button onclick="window.print()" class="btn btn-gold btn-sm" style="background: #F59E0B; border-color: #F59E0B; color: #0F172A; font-weight: 800;">
-            <i class="fa-solid fa-print"></i> طباعة الوثيقة الرسمية (PDF)
+            <i class="fa-solid fa-print"></i> ${t('privacyPrintBtn', 'طباعة الوثيقة الرسمية (PDF)')}
           </button>
           <button onclick="openModal('modal-grievance')" class="btn btn-outline-white btn-sm">
-            <i class="fa-solid fa-envelope-shield"></i> تقديم بلاغ أو شكوى سرية
+            <i class="fa-solid fa-envelope-shield"></i> ${t('privacyGrievanceBtn', 'تقديم بلاغ أو شكوى سرية')}
           </button>
           <a href="#contact" class="btn btn-outline-white btn-sm">
-            <i class="fa-solid fa-headset"></i> الدعم الميداني المباشر
+            <i class="fa-solid fa-headset"></i> ${t('privacySupportBtn', 'الدعم الميداني المباشر')}
           </a>
         </div>
       </div>
@@ -1833,6 +1865,7 @@ function initCalculators() {
 
 function runBasinCalc(isUserAction = true) {
   if (isUserAction && typeof trackCalculatorUsage === 'function') trackCalculatorUsage('basin');
+  const t = window.t || ((k, d) => d || k);
   const len = parseFloat(document.getElementById('calc-basin-length')?.value) || 10;
   const wid = parseFloat(document.getElementById('calc-basin-width')?.value) || 5;
   const area = len * wid;
@@ -1841,15 +1874,16 @@ function runBasinCalc(isUserAction = true) {
   const winterYield = (area * 300) / 1000;
   const monthlySavings = summerYield * 30 * 5.0;
 
-  if (document.getElementById('res-basin-area')) document.getElementById('res-basin-area').innerText = `${area.toFixed(1)} م²`;
-  if (document.getElementById('res-basin-seed')) document.getElementById('res-basin-seed').innerText = `${seed.toFixed(1)} كجم`;
-  if (document.getElementById('res-basin-yield-summer')) document.getElementById('res-basin-yield-summer').innerText = `${summerYield.toFixed(1)} كجم / يوم`;
-  if (document.getElementById('res-basin-yield-winter')) document.getElementById('res-basin-yield-winter').innerText = `${winterYield.toFixed(1)} كجم / يوم`;
-  if (document.getElementById('res-basin-savings')) document.getElementById('res-basin-savings').innerText = `${monthlySavings.toLocaleString()} ج.م / شهر`;
+  if (document.getElementById('res-basin-area')) document.getElementById('res-basin-area').innerText = `${area.toFixed(1)} ${t('unitM2', 'م²')}`;
+  if (document.getElementById('res-basin-seed')) document.getElementById('res-basin-seed').innerText = `${seed.toFixed(1)} ${t('unitKg', 'كجم')}`;
+  if (document.getElementById('res-basin-yield-summer')) document.getElementById('res-basin-yield-summer').innerText = `${summerYield.toFixed(1)} ${t('unitKgDay', 'كجم / يوم')}`;
+  if (document.getElementById('res-basin-yield-winter')) document.getElementById('res-basin-yield-winter').innerText = `${winterYield.toFixed(1)} ${t('unitKgDay', 'كجم / يوم')}`;
+  if (document.getElementById('res-basin-savings')) document.getElementById('res-basin-savings').innerText = `${monthlySavings.toLocaleString()} ${t('unitEgpMonth', 'ج.م / شهر')}`;
 }
 
 function runFeedCalc(isUserAction = true) {
   if (isUserAction && typeof trackCalculatorUsage === 'function') trackCalculatorUsage('feed');
+  const t = window.t || ((k, d) => d || k);
   const typeKey = document.getElementById('calc-feed-type')?.value || 'cattle_beef';
   const heads = parseFloat(document.getElementById('calc-feed-heads')?.value) || 10;
   const priceKg = parseFloat(document.getElementById('calc-feed-price')?.value) || 22;
@@ -1860,14 +1894,15 @@ function runFeedCalc(isUserAction = true) {
   const azollaNeededPerDay = savedDryPerDay * data.azollaToConcentrateRatio;
   const monthlySavings = savedDryPerDay * 30 * priceKg;
 
-  if (document.getElementById('res-feed-total-dry')) document.getElementById('res-feed-total-dry').innerText = `${totalDryPerDay.toFixed(1)} كجم / يوم`;
-  if (document.getElementById('res-feed-saved-dry')) document.getElementById('res-feed-saved-dry').innerText = `${savedDryPerDay.toFixed(1)} كجم / يوم`;
-  if (document.getElementById('res-feed-azolla-needed')) document.getElementById('res-feed-azolla-needed').innerText = `${azollaNeededPerDay.toFixed(1)} كجم / يوم`;
-  if (document.getElementById('res-feed-monthly-saved')) document.getElementById('res-feed-monthly-saved').innerText = `${Math.round(monthlySavings).toLocaleString()} ج.م / شهر`;
+  if (document.getElementById('res-feed-total-dry')) document.getElementById('res-feed-total-dry').innerText = `${totalDryPerDay.toFixed(1)} ${t('unitKgDay', 'كجم / يوم')}`;
+  if (document.getElementById('res-feed-saved-dry')) document.getElementById('res-feed-saved-dry').innerText = `${savedDryPerDay.toFixed(1)} ${t('unitKgDay', 'كجم / يوم')}`;
+  if (document.getElementById('res-feed-azolla-needed')) document.getElementById('res-feed-azolla-needed').innerText = `${azollaNeededPerDay.toFixed(1)} ${t('unitKgDay', 'كجم / يوم')}`;
+  if (document.getElementById('res-feed-monthly-saved')) document.getElementById('res-feed-monthly-saved').innerText = `${Math.round(monthlySavings).toLocaleString()} ${t('unitEgpMonth', 'ج.م / شهر')}`;
 }
 
 function runWaterCalc(isUserAction = true) {
   if (isUserAction && typeof trackCalculatorUsage === 'function') trackCalculatorUsage('water');
+  const t = window.t || ((k, d) => d || k);
   const area = parseFloat(document.getElementById('calc-water-area')?.value) || 100;
   const cropKey = document.getElementById('calc-water-crop')?.value || 'alfalfa';
   const techKey = document.getElementById('calc-water-tech')?.value || 'closed_solar_shade';
@@ -1880,7 +1915,7 @@ function runWaterCalc(isUserAction = true) {
   let baseSavingsFactor = 0.886;
 
   if (techKey === 'closed_solar_shade') {
-    dailyEvapLitersM2 = 2.16; // 35% reduction from saran net
+    dailyEvapLitersM2 = 2.16;
     baseSavingsFactor = 0.902;
   } else if (techKey === 'closed_solar_open') {
     dailyEvapLitersM2 = 3.33;
@@ -1893,14 +1928,14 @@ function runWaterCalc(isUserAction = true) {
     baseSavingsFactor = 0.785;
   }
 
-  // Azolla water consumption: initial filling (15 cm depth = 150 L/m2, replaced/topped up once a year) + daily evap with 90% recycling
+  // Azolla water consumption
   const initialFillM3 = (area * 0.15);
   const dailyEvapM3 = (area * dailyEvapLitersM2) / 1000;
   const totalAzollaWaterM3 = ((initialFillM3 * 0.2) + (dailyEvapM3 * days)) * factor;
 
   // Azolla dry matter yield: avg 400g/m2/day fresh => 25g dry/m2/day => 9.125 kg dry/m2/year
   const azollaDryKgYear = (area * 0.025 * days);
-  const azollaProteinKg = azollaDryKgYear * 0.284; // 28.4% crude protein
+  const azollaProteinKg = azollaDryKgYear * 0.284;
 
   // Crop comparison
   const cropsDB = window.AZOLLA_DATA?.waterConservationData?.crops || {};
@@ -1916,41 +1951,44 @@ function runWaterCalc(isUserAction = true) {
   const householdEquiv = Math.round((netSavedM3 * 1000) / (150 * days));
   const proteinEfficiency = totalAzollaWaterM3 > 0 ? (azollaProteinKg / totalAzollaWaterM3) : 0.82;
 
+  const unitPeriodStr = period === 'year' ? t('unitYear', 'سنة') : t('unitMonth', 'شهر');
+
   if (document.getElementById('res-water-azolla-consumed')) {
-    document.getElementById('res-water-azolla-consumed').innerText = `${Math.round(totalAzollaWaterM3).toLocaleString()} م³`;
+    document.getElementById('res-water-azolla-consumed').innerText = `${Math.round(totalAzollaWaterM3).toLocaleString()} ${t('unitM3', 'م³')}`;
   }
   if (document.getElementById('res-water-conventional-consumed')) {
-    document.getElementById('res-water-conventional-consumed').innerText = `${Math.round(conventionalWaterM3).toLocaleString()} م³`;
+    document.getElementById('res-water-conventional-consumed').innerText = `${Math.round(conventionalWaterM3).toLocaleString()} ${t('unitM3', 'م³')}`;
   }
   if (document.getElementById('res-water-saved-m3')) {
-    document.getElementById('res-water-saved-m3').innerText = `${Math.round(netSavedM3).toLocaleString()} م³ موفرة`;
+    document.getElementById('res-water-saved-m3').innerText = `${Math.round(netSavedM3).toLocaleString()} ${t('unitM3Saved', 'م³ موفرة')}`;
   }
   if (document.getElementById('res-water-saved-pct')) {
     document.getElementById('res-water-saved-pct').innerText = `${realSavingsPct.toFixed(1)}%`;
   }
   if (document.getElementById('res-water-household-equiv')) {
-    document.getElementById('res-water-household-equiv').innerText = `${householdEquiv.toLocaleString()} فرد / ${period === 'year' ? 'سنة' : 'شهر'}`;
+    document.getElementById('res-water-household-equiv').innerText = `${householdEquiv.toLocaleString()} ${t('unitPersons', 'فرد')} / ${unitPeriodStr}`;
   }
   if (document.getElementById('res-water-protein-efficiency')) {
-    document.getElementById('res-water-protein-efficiency').innerText = `${proteinEfficiency.toFixed(2)} كجم بروتين / م³`;
+    document.getElementById('res-water-protein-efficiency').innerText = `${proteinEfficiency.toFixed(2)} ${t('unitProteinPerM3', 'كجم بروتين / م³')}`;
   }
   if (document.getElementById('res-water-bar-label')) {
-    document.getElementById('res-water-bar-label').innerText = `وفر مائي وصون موارد بنسبة ${realSavingsPct.toFixed(1)}%`;
+    document.getElementById('res-water-bar-label').innerText = `${t('waterBarLabelPrefix', 'وفر مائي وصون موارد بنسبة')} ${realSavingsPct.toFixed(1)}%`;
   }
   if (document.getElementById('res-water-bar-azolla')) {
     const azollaBarPct = Math.max(5, Math.min(35, (100 - realSavingsPct)));
     document.getElementById('res-water-bar-azolla').style.width = `${azollaBarPct.toFixed(1)}%`;
-    document.getElementById('res-water-bar-azolla').innerText = `أزولا (${azollaBarPct.toFixed(1)}%)`;
+    document.getElementById('res-water-bar-azolla').innerText = `${t('waterAzolla', 'أزولا')} (${azollaBarPct.toFixed(1)}%)`;
   }
   if (document.getElementById('res-water-bar-saved')) {
     const savedBarPct = Math.max(65, Math.min(95, realSavingsPct));
     document.getElementById('res-water-bar-saved').style.width = `${savedBarPct.toFixed(1)}%`;
-    document.getElementById('res-water-bar-saved').innerText = `مياه موفرة ومصانة (${savedBarPct.toFixed(1)}%)`;
+    document.getElementById('res-water-bar-saved').innerText = `${t('waterSaved', 'مياه مصانة وموفرة')} (${savedBarPct.toFixed(1)}%)`;
   }
 }
 
 function runCarbonCalc(isUserAction = true) {
   if (isUserAction && typeof trackCalculatorUsage === 'function') trackCalculatorUsage('carbon');
+  const t = window.t || ((k, d) => d || k);
   const tons = parseFloat(document.getElementById('calc-carbon-tons')?.value) || 20;
   const diesel = parseFloat(document.getElementById('calc-carbon-diesel')?.value) || 10000;
 
@@ -1959,8 +1997,8 @@ function runCarbonCalc(isUserAction = true) {
   const totalCo2 = feedCo2 + dieselCo2;
   const trees = Math.round(totalCo2 * 45);
 
-  if (document.getElementById('res-carbon-total')) document.getElementById('res-carbon-total').innerText = `${totalCo2.toFixed(1)} طن CO₂e`;
-  if (document.getElementById('res-carbon-trees')) document.getElementById('res-carbon-trees').innerText = `${trees.toLocaleString()} شجرة`;
+  if (document.getElementById('res-carbon-total')) document.getElementById('res-carbon-total').innerText = `${totalCo2.toFixed(1)} ${t('unitTonsCo2', 'طن CO₂e')}`;
+  if (document.getElementById('res-carbon-trees')) document.getElementById('res-carbon-trees').innerText = `${trees.toLocaleString()} ${t('unitTrees', 'شجرة')}`;
 }
 
 function animateCounters() {

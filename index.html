@@ -883,7 +883,7 @@
   <div class="modal-overlay" id="modal-farm">
     <div class="modal-box">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-seedling"></i> طلب إنشاء حوض / مزرعة أزولا</h3>
+        <h3><i class="fa-solid fa-seedling"></i> <span data-i18n="modalFarmTitle">طلب إنشاء حوض / مزرعة أزولا</span></h3>
         <button class="modal-close-btn" onclick="closeModal('modal-farm')">&times;</button>
       </div>
       <div class="modal-body">
@@ -924,7 +924,7 @@
   <div class="modal-overlay" id="modal-academy">
     <div class="modal-box">
       <div class="modal-header" style="background: var(--color-gold-dark);">
-        <h3><i class="fa-solid fa-graduation-cap"></i> التسجيل في أكاديمية أزولا مصر</h3>
+        <h3><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="modalCourseTitle">التسجيل في أكاديمية أزولا مصر</span></h3>
         <button class="modal-close-btn" onclick="closeModal('modal-academy')">&times;</button>
       </div>
       <div class="modal-body">
@@ -964,7 +964,7 @@
   <div class="modal-overlay" id="modal-volunteer">
     <div class="modal-box">
       <div class="modal-header" style="background: var(--color-primary);">
-        <h3><i class="fa-solid fa-hand-holding-heart"></i> استمارة التطوع وسفراء البيئة (GCT & Azolla)</h3>
+        <h3><i class="fa-solid fa-hand-holding-heart"></i> <span data-i18n="modalVolunteerTitle">استمارة التطوع وسفراء البيئة (GCT & Azolla)</span></h3>
         <button class="modal-close-btn" onclick="closeModal('modal-volunteer')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1014,7 +1014,7 @@
   <div class="modal-overlay" id="modal-land-partner">
     <div class="modal-box">
       <div class="modal-header" style="background: linear-gradient(135deg, #064E3B 0%, #92400E 100%);">
-        <h3><i class="fa-solid fa-map-location-dot"></i> التقديم على مشاركة أرض لمشروع أزولا مصر</h3>
+        <h3><i class="fa-solid fa-map-location-dot"></i> <span data-i18n="modalLandTitle">التقديم على مشاركة أرض لمشروع أزولا مصر</span></h3>
         <button class="modal-close-btn" onclick="closeModal('modal-land-partner')">&times;</button>
       </div>
       <div class="modal-body">
@@ -1794,26 +1794,26 @@
           <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; color: #A7F3D0; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 800; margin-bottom: 1rem;">
             <i class="fa-solid fa-mobile-screen text-emerald"></i> تطبيق الهواتف الذكية المعتمد (Standalone PWA & Native APK)
           </div>
-          <h2 style="font-size: 1.75rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem; line-height: 1.3;">
+          <h2 style="font-size: 1.75rem; font-weight: 900; color: #FDE68A; margin-bottom: 0.75rem; line-height: 1.3;" data-i18n="appBannerTitle">
             حاسبات أزولا مصر الحقلية بين يديك… حتى دون إنترنت!
           </h2>
-          <p style="font-size: 0.95rem; color: #E2ECE9; line-height: 1.7; margin-bottom: 1.5rem; max-width: 580px;">
+          <p style="font-size: 0.95rem; color: #E2ECE9; line-height: 1.7; margin-bottom: 1.5rem; max-width: 580px;" data-i18n="appBannerDesc">
             احصل على تطبيق أزولا مصر على هاتفك الذكي للوصول المباشر إلى حاسبات خفض تكاليف الأعلاف، صون المياه، مؤشرات الأحواض، والاستشارات الحقلية الفورية. يعمل بنسبة <strong>100% دون إنترنت</strong>، ومزود بقائمة أقسام ذكية وسريعة.
           </p>
 
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
             <a href="simulator.html" class="btn btn-gold btn-lg" style="background: #10B981; border-color: #10B981; font-weight: 900; padding: 0.85rem 1.75rem;">
-              <i class="fa-solid fa-mobile-screen"></i> تجربة محاكي التطبيق (Live Simulator)
+              <i class="fa-solid fa-mobile-screen"></i> <span data-i18n="appLiveSimBtn">تجربة محاكي التطبيق (Live Simulator)</span>
             </a>
             <a href="azolla_egypt.apk" class="btn btn-outline-white btn-lg" download style="font-weight: 900; padding: 0.85rem 1.5rem;" title="النسخة المعتمدة الرسمية (تطبيق أندرويد)">
-              <i class="fa-brands fa-android text-emerald"></i> تحميل تطبيق أندرويد (APK)
+              <i class="fa-brands fa-android text-emerald"></i> <span data-i18n="appDownloadApkBtn">تحميل تطبيق أندرويد (APK)</span>
             </a>
           </div>
 
           <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; color: #A7F3D0;">
-            <span><i class="fa-solid fa-circle-check"></i> تشغيل أوفلاين 100%</span>
-            <span><i class="fa-solid fa-circle-check"></i> شريط تنقل سفلي تفاعلي</span>
-            <span><i class="fa-solid fa-circle-check"></i> آمن وخالٍ من الإنذارات (Zero-False-Positive)</span>
+            <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="appFeatureOffline">تشغيل أوفلاين 100%</span></span>
+            <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="appFeatureNav">شريط تنقل سفلي تفاعلي</span></span>
+            <span><i class="fa-solid fa-circle-check"></i> <span data-i18n="appFeatureSafe">آمن وخالٍ من الإنذارات (Zero-False-Positive)</span></span>
           </div>
         </div>
 

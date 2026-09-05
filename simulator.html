@@ -409,9 +409,128 @@
         text-align: center;
       }
     }
+  
+    /* Simulator Top Header & Language Dropdown */
+    .sim-top-nav {
+      width: 100%;
+      max-width: 1240px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--sim-border);
+    }
+    .sim-brand-back {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #FFFFFF;
+    }
+    .sim-lang-dropdown {
+      position: relative;
+    }
+    .sim-lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--sim-border);
+      color: #FFFFFF;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sim-lang-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--sim-emerald);
+    }
+    .sim-lang-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #0B1E16;
+      border: 1px solid var(--sim-border);
+      border-radius: 12px;
+      padding: 0.4rem;
+      min-width: 150px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    html[dir="ltr"] .sim-lang-menu {
+      right: auto;
+      left: 0;
+    }
+    .sim-lang-menu.open {
+      display: block;
+    }
+    .sim-lang-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: 100%;
+      background: none;
+      border: none;
+      color: #E2E8F0;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: right;
+      transition: background 0.15s ease;
+    }
+    html[dir="ltr"] .sim-lang-item {
+      text-align: left;
+    }
+    .sim-lang-item:hover, .sim-lang-item.active {
+      background: rgba(16, 185, 129, 0.25);
+      color: #A7F3D0;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Top Navigation Header with Language Dropdown -->
+  <header class="sim-top-nav">
+    <a href="index.html" class="sim-brand-back">
+      <img src="./assets/images/logo_azolla.png" alt="أزولا مصر" style="height: 34px;">
+      <div>
+        <span style="font-weight: 900; color: #FFFFFF; font-size: 1rem; display: block; line-height: 1.2;" data-i18n="brandTitle">أزولا مصر</span>
+        <span style="font-size: 0.75rem; color: #A7F3D0;" data-i18n="brandSubtitle">تكنولوجيا الأعلاف البديلة</span>
+      </div>
+    </a>
+
+    <div class="sim-lang-dropdown" id="sim-lang-dropdown">
+      <button type="button" class="sim-lang-btn" id="sim-lang-btn" onclick="toggleSimLangMenu(event)">
+        <i class="fa-solid fa-globe" style="color: #10B981;"></i>
+        <span id="sim-current-lang-code">AR</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
+      </button>
+      <div class="sim-lang-menu" id="sim-lang-menu" role="menu">
+        <button type="button" class="sim-lang-item" onclick="setSimLanguage('ar')" data-lang="ar">
+          <span>🇪🇬</span> <span>العربية</span>
+        </button>
+        <button type="button" class="sim-lang-item" onclick="setSimLanguage('en')" data-lang="en">
+          <span>🇬🇧</span> <span>English</span>
+        </button>
+        <button type="button" class="sim-lang-item" onclick="setSimLanguage('fr')" data-lang="fr">
+          <span>🇫🇷</span> <span>Français</span>
+        </button>
+        <button type="button" class="sim-lang-item" onclick="setSimLanguage('de')" data-lang="de">
+          <span>🇩🇪</span> <span>Deutsch</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <main class="sim-container">
 
@@ -448,16 +567,16 @@
       <!-- Badge -->
       <div class="badge-pill">
         <i class="fa-solid fa-mobile-screen"></i>
-        <span>الإصدار الأصلي 2026</span>
+        <span data-i18n="simBadge">الإصدار الأصلي 2026</span>
       </div>
 
       <!-- Main Title -->
       <h1 class="sim-main-title">
-        تطبيق <span class="highlight-brand">أزولا مصر</span> الذكي
+        <span data-i18n="simHeaderTitle">تطبيق <span class="highlight-brand">أزولا مصر</span> الذكي</span>
       </h1>
 
       <!-- Subtitle Description -->
-      <p class="sim-main-desc">
+      <p class="sim-main-desc" data-i18n="simHeaderSubtitle">
         تطبيق الهاتف المتكامل لتكنولوجيا الأعلاف البديلة والحاسبات الحقلية لمشروع أزولا مصر. يقدم كافة أدوات التحول الأخضر، حاسبة وفر الأعلاف، صون المياه، وخفض الانبعاثات، مع إمكانية التثبيت المباشر بصيغة APK.
       </p>
 
@@ -465,23 +584,23 @@
       <ul class="sim-checklist">
         <li>
           <i class="fa-solid fa-circle-check"></i>
-          <span>شريط تنقل سفلي لمسي مع الحاسبات في المنتصف</span>
+          <span data-i18n="simChecklist1">شريط تنقل سفلي لمسي مع الحاسبات في المنتصف</span>
         </li>
         <li>
           <i class="fa-solid fa-circle-check"></i>
-          <span>حاسبات علمية وحقلية فورية لخفض تكاليف الأعلاف وصون المياه</span>
+          <span data-i18n="simChecklist2">حاسبات علمية وحقلية فورية لخفض تكاليف الأعلاف وصون المياه</span>
         </li>
         <li>
           <i class="fa-solid fa-circle-check"></i>
-          <span>دراسة تطبيقية لنموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى</span>
+          <span data-i18n="simChecklist3">دراسة تطبيقية لنموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى</span>
         </li>
         <li>
           <i class="fa-solid fa-circle-check"></i>
-          <span>يعمل بنسبة 100% بدون إنترنت (PWA Offline)</span>
+          <span data-i18n="simChecklist4">يعمل بنسبة 100% بدون إنترنت (PWA Offline)</span>
         </li>
         <li>
           <i class="fa-solid fa-circle-check"></i>
-          <span>أمان مشدد معتمد (Zero Dangerous Permissions)</span>
+          <span data-i18n="simChecklist5">أمان مشدد معتمد (Zero Dangerous Permissions)</span>
         </li>
       </ul>
 
@@ -490,19 +609,19 @@
         <!-- 1. Official Release APK Button -->
         <a href="azolla_egypt.apk" class="sim-btn-action sim-btn-primary-green" download>
           <i class="fa-solid fa-download"></i>
-          <span>تحميل تطبيق أندرويد المعتمد (azolla_egypt.apk)</span>
+          <span data-i18n="simActionDownload">تحميل تطبيق أندرويد المعتمد (azolla_egypt.apk)</span>
         </a>
 
         <!-- 2. Fullscreen Web App -->
         <a href="./mobile_app/www/index.html" target="_blank" rel="noopener" class="sim-btn-action sim-btn-outline-glass">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          <span>فتح تطبيق الويب بملء الشاشة</span>
+          <span data-i18n="simActionFullscreen">فتح تطبيق الويب بملء الشاشة</span>
         </a>
 
         <!-- 3. Return to Main Site -->
         <a href="index.html" class="sim-btn-action sim-btn-return">
           <i class="fa-solid fa-arrow-left"></i>
-          <span>العودة لموقع أزولا مصر الرئيسي</span>
+          <span data-i18n="simActionReturn">العودة لموقع أزولا مصر الرئيسي</span>
         </a>
       </div>
 
@@ -514,9 +633,9 @@
         <div class="sim-qr-text">
           <div class="sim-qr-title">
             <i class="fa-solid fa-camera"></i>
-            <span>امسح الكود بكاميرا هاتفك</span>
+            <span data-i18n="simQrTitle">امسح الكود بكاميرا هاتفك</span>
           </div>
-          <div class="sim-qr-desc">
+          <div class="sim-qr-desc" data-i18n="simQrDesc">
             امسح الكود من كاميرا الهاتف لفتح المحاكي وتجربة التطبيق الفوري وتثبيته مباشرة.
           </div>
         </div>
@@ -526,5 +645,81 @@
 
   </main>
 
+
+  <!-- Translations Engine -->
+  <script src="./assets/js/translations.js"></script>
+  <script>
+    function initSimLanguage() {
+      const savedLang = localStorage.getItem('AZOLLA_LANG') || 'ar';
+      setSimLanguage(savedLang, false);
+
+      document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('sim-lang-dropdown');
+        if (dropdown && !dropdown.contains(e.target)) {
+          document.getElementById('sim-lang-menu')?.classList.remove('open');
+        }
+      });
+    }
+
+    function toggleSimLangMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('sim-lang-menu');
+      if (menu) menu.classList.toggle('open');
+    }
+
+    function setSimLanguage(langCode, syncIframe = true) {
+      const supported = ['ar', 'en', 'fr', 'de'];
+      if (!supported.includes(langCode)) langCode = 'ar';
+
+      window.AZOLLA_CURRENT_LANG = langCode;
+      localStorage.setItem('AZOLLA_LANG', langCode);
+
+      document.documentElement.setAttribute('lang', langCode);
+      document.documentElement.setAttribute('dir', langCode === 'ar' ? 'rtl' : 'ltr');
+      document.body.style.direction = langCode === 'ar' ? 'rtl' : 'ltr';
+      document.body.style.textAlign = langCode === 'ar' ? 'right' : 'left';
+
+      const codeBadge = document.getElementById('sim-current-lang-code');
+      if (codeBadge) codeBadge.textContent = langCode.toUpperCase();
+
+      document.querySelectorAll('.sim-lang-item').forEach(item => {
+        if (item.getAttribute('data-lang') === langCode) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      document.getElementById('sim-lang-menu')?.classList.remove('open');
+
+      // Translate all data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key && window.t) {
+          const trans = window.t(key);
+          if (trans) el.innerHTML = trans;
+        }
+      });
+
+      // Update page title
+      if (window.t) {
+        document.title = window.t('simPageTitle', 'تطبيق أزولا مصر الذكي | محاكي الهاتف المعتمد');
+      }
+
+      // Sync with inner iframe if loaded
+      if (syncIframe) {
+        try {
+          const iframe = document.getElementById('sim-iframe');
+          if (iframe && iframe.contentWindow && typeof iframe.contentWindow.setMobileLanguage === 'function') {
+            iframe.contentWindow.setMobileLanguage(langCode);
+          }
+        } catch (e) {
+          // Cross-origin if any
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initSimLanguage);
+  </script>
 </body>
 </html>
