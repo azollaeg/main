@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initLanguage();
   initRouter();
   initMobileDrawer();
   initAnalytics();
@@ -29,7 +30,8 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('AZOLLA_THEME', next);
   updateThemeIcon(next);
-  showToast(`تم التبديل إلى ${next === 'dark' ? 'الوضع الليلي' : 'الوضع النهاري'}`);
+  const msg = next === 'dark' ? (window.t ? window.t('toastThemeDark') : 'تم التبديل إلى الوضع الليلي') : (window.t ? window.t('toastThemeLight') : 'تم التبديل إلى الوضع النهاري');
+  showToast(msg);
 }
 
 function updateThemeIcon(theme) {
@@ -42,6 +44,102 @@ function updateThemeIcon(theme) {
     icon.className = 'fa-solid fa-moon';
     icon.style.color = '';
   }
+}
+
+/* ==========================================================================
+   1.1 MULTILINGUAL & I18N ENGINE (AR / EN / FR / DE)
+   ========================================================================== */
+function initLanguage() {
+  const savedLang = localStorage.getItem('AZOLLA_LANG') || 'ar';
+  setLanguage(savedLang, false);
+
+  // Close language dropdown on outside click
+  document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('lang-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+      const btn = document.getElementById('lang-toggle-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+function toggleLangMenu(event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('lang-dropdown');
+  if (!dropdown) return;
+  const isOpen = dropdown.classList.toggle('open');
+  const btn = document.getElementById('lang-toggle-btn');
+  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function setLanguage(langCode, notify = true) {
+  const supported = ['ar', 'en', 'fr', 'de'];
+  if (!supported.includes(langCode)) langCode = 'ar';
+
+  window.AZOLLA_CURRENT_LANG = langCode;
+  localStorage.setItem('AZOLLA_LANG', langCode);
+
+  // Update HTML element attributes
+  document.documentElement.setAttribute('lang', langCode);
+  document.documentElement.setAttribute('dir', langCode === 'ar' ? 'rtl' : 'ltr');
+
+  // Update header button label & aria
+  const codeBadge = document.getElementById('current-lang-code');
+  if (codeBadge) {
+    codeBadge.textContent = langCode.toUpperCase();
+  }
+
+  // Update active state in desktop dropdown items
+  document.querySelectorAll('.lang-menu-item').forEach(item => {
+    if (item.getAttribute('data-lang') === langCode) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // Update active state in mobile drawer items
+  document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+    if (btn.getAttribute('data-mobile-lang') === langCode) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Close dropdown menu if open
+  const dropdown = document.getElementById('lang-dropdown');
+  if (dropdown) dropdown.classList.remove('open');
+
+  // Apply static translations to all elements with data-i18n
+  applyStaticTranslations();
+
+  // Re-render the active SPA page so content reflects the selected language
+  if (typeof window.location !== 'undefined') {
+    let hash = window.location.hash.replace('#', '').trim() || 'home';
+    if (typeof routes !== 'undefined' && routes[hash]) {
+      navigateTo(hash);
+    }
+  }
+
+  // Show user toast
+  if (notify && typeof showToast === 'function') {
+    const toastMsg = (window.t && window.t('toastLangSwitched')) || `Language set to ${langCode.toUpperCase()}`;
+    showToast(toastMsg);
+  }
+}
+
+function applyStaticTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (key && window.t) {
+      const translated = window.t(key);
+      if (translated) {
+        el.innerHTML = translated;
+      }
+    }
+  });
 }
 
 /* ==========================================================================
@@ -129,9 +227,12 @@ function renderHomePage() {
 
   const homeSecs = (window.AZOLLA_DATA.sitePages && window.AZOLLA_DATA.sitePages.home && window.AZOLLA_DATA.sitePages.home.sections) || [];
   const heroSec = homeSecs[0] || {};
-  const heroTitle = heroSec.title || 'أزولا مصر… <br><span class="hero-highlight">تكنولوجيا الأعلاف البديلة</span>';
-  const heroLead = heroSec.lead || 'المنظومة الوطنية الرائدة لإنتاج سرخس الأزولا الطافي وتخفيض تكاليف الأعلاف بنسبة تصل إلى <strong>60%</strong>، بدعم تنموي من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.';
+  const isAr = (window.AZOLLA_CURRENT_LANG || 'ar') === 'ar';
+  const heroTitle = !isAr && window.t ? `${window.t('heroTitle')} <br><span class="hero-highlight">${window.t('heroHighlight')}</span>` : (heroSec.title || 'أزولا مصر… <br><span class="hero-highlight">تكنولوجيا الأعلاف البديلة</span>');
+  const heroLead = !isAr && window.t ? window.t('heroLead') : (heroSec.lead || 'المنظومة الوطنية الرائدة لإنتاج سرخس الأزولا الطافي وتخفيض تكاليف الأعلاف بنسبة تصل إلى <strong>60%</strong>، بدعم تنموي من برنامج المنح الصغيرة (SGP/GEF/UNDP) وتنفيذ جمعية الخدمات المتكاملة بكفر الدوار ومزارع أسوان التكاملية.');
   const heroImg = heroSec.image || './assets/images/field_farm_large.jpg';
+
+  const t = window.t || ((k, d) => d || k);
 
   return `
     <section class="home-hero-section">
@@ -147,22 +248,22 @@ function renderHomePage() {
 
             <div class="hero-cta-row">
               <button class="btn btn-emerald btn-lg" onclick="openModal('modal-farm')">
-                <i class="fa-solid fa-seedling"></i> ابدأ حوضك / مزرعتك الآن
+                <i class="fa-solid fa-seedling"></i> ${t('ctaStartFarm', 'ابدأ حوضك / مزرعتك الآن')}
               </button>
               <a href="${project.whatsappLink}" target="_blank" rel="noopener" class="btn btn-gold btn-lg" style="background: #25D366; border-color: #25D366;">
-                <i class="fa-brands fa-whatsapp"></i> تواصل واتساب: 01026847508
+                <i class="fa-brands fa-whatsapp"></i> ${t('ctaContact', 'تواصل')}: ${project.whatsappPhone || '01011526504'}
               </a>
               <a href="#about" class="btn btn-outline-white btn-lg">
-                <i class="fa-solid fa-circle-info"></i> اكتشف المنظومة
+                <i class="fa-solid fa-circle-info"></i> ${t('ctaDiscover', 'اكتشف المنظومة')}
               </a>
             </div>
 
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; color: #D1FAE5;">
-              <span><i class="fa-solid fa-solar-panel text-gold"></i> 3 محطات طاقة شمسية (25 kW)</span>
+              <span><i class="fa-solid fa-solar-panel text-gold"></i> ${t('heroStatSolar', '3 محطات طاقة شمسية (25 kW)')}</span>
               <span>•</span>
-              <span><i class="fa-solid fa-users text-gold"></i> 512 خريجاً (62% إناث)</span>
+              <span><i class="fa-solid fa-users text-gold"></i> ${t('heroStatGraduates', '512 خريجاً (62% إناث)')}</span>
               <span>•</span>
-              <span><i class="fa-solid fa-certificate text-gold"></i> إشهار جمعية الخدمات: 1997/752</span>
+              <span><i class="fa-solid fa-certificate text-gold"></i> ${t('heroStatReg', 'إشهار جمعية الخدمات: 1997/752')}</span>
             </div>
           </div>
 
@@ -170,10 +271,10 @@ function renderHomePage() {
             <img src="${heroImg}" alt="مزرعة أزولا مصر الحقلية" class="hero-media-img">
             <div class="hero-floating-tag">
               <div style="font-weight: 800; color: #FDE68A; margin-bottom: 0.2rem;">
-                <i class="fa-solid fa-location-dot"></i> مزرعة أزولا المفتوحة بكفر الدوار – محافظة البحيرة
+                <i class="fa-solid fa-location-dot"></i> ${t('heroTagLoc', 'مزرعة أزولا المفتوحة بكفر الدوار – محافظة البحيرة')}
               </div>
               <div style="font-size: 0.8rem; color: #E2E8F0;">
-                إنتاج يومي للكتلة الحيوية وضخ مياه بالطاقة الشمسية النظيفة بنسبة >90%
+                ${t('heroTagDesc', 'إنتاج يومي للكتلة الحيوية وضخ مياه بالطاقة الشمسية النظيفة بنسبة >90%')}
               </div>
             </div>
           </div>
@@ -184,45 +285,45 @@ function renderHomePage() {
     <section class="section section-bg-white" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
       <div class="container">
         <div class="section-header-box" style="margin-bottom: 2.5rem;">
-          <h2 class="section-title">إحصائيات وإنجازات موثقة على أرض الواقع</h2>
-          <p class="section-desc">مؤشرات الأداء المعتمدة رسمياً من الجهات المانحة الدولية والإدارة الميدانية بكفر الدوار وأسوان.</p>
+          <h2 class="section-title">${t('statsTitle', 'إحصائيات وإنجازات موثقة على أرض الواقع')}</h2>
+          <p class="section-desc">${t('statsDesc', 'مؤشرات الأداء المعتمدة رسمياً من الجهات المانحة الدولية والإدارة الميدانية بكفر الدوار وأسوان.')}</p>
         </div>
 
         <div class="stats-dashboard-grid">
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.solarStationsCount}">0</div>
-            <div class="stat-card-title">محطات طاقة شمسية</div>
-            <div class="stat-card-desc">بقدرة 25 kW لتشغيل 90% من الضخ النظيف</div>
+            <div class="stat-card-title">${t('statSolarTitle', 'محطات طاقة شمسية')}</div>
+            <div class="stat-card-desc">${t('statSolarDesc', 'بقدرة 25 kW لتشغيل 90% من الضخ النظيف')}</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.dailyWaterPumpingM3}">0</div>
-            <div class="stat-card-title">م³/يوم سعة ضخ المياه</div>
-            <div class="stat-card-desc">خدمة 66 فدان نباتي و8 أفدنة سمكية</div>
+            <div class="stat-card-title">${t('statWaterTitle', 'م³/يوم سعة ضخ المياه')}</div>
+            <div class="stat-card-desc">${t('statWaterDesc', 'خدمة 66 فدان نباتي و8 أفدنة سمكية')}</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.directTrainees}">0</div>
-            <div class="stat-card-title">متدرب مباشر معتمد</div>
-            <div class="stat-card-desc">62% إناث | 25% شباب | 10% ذوو همم</div>
+            <div class="stat-card-title">${t('statTraineesTitle', 'متدرب مباشر معتمد')}</div>
+            <div class="stat-card-desc">${t('statTraineesDesc', '62% إناث | 25% شباب | 10% ذوو همم')}</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.feedCostReductionPct}">0</div>
-            <div class="stat-card-title">% خفض تكلفة الأعلاف</div>
-            <div class="stat-card-desc">في علائق الماشية والدواجن والأسماك</div>
+            <div class="stat-card-title">${t('statFeedTitle', '% خفض تكلفة الأعلاف')}</div>
+            <div class="stat-card-desc">${t('statFeedDesc', 'في علائق الماشية والدواجن والأسماك')}</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.avgIncomeIncreaseEgp}">0</div>
-            <div class="stat-card-title">ج.م زيادة متوسط الدخل</div>
-            <div class="stat-card-desc">شهرياً مع 80% تعافي من الفقر المدقع</div>
+            <div class="stat-card-title">${t('statIncomeTitle', 'ج.م زيادة متوسط الدخل')}</div>
+            <div class="stat-card-desc">${t('statIncomeDesc', 'شهرياً مع 80% تعافي من الفقر المدقع')}</div>
           </div>
 
           <div class="stat-card">
             <div class="stat-number-box counter-val" data-target="${stats.annualCo2SavedTons}">0</div>
-            <div class="stat-card-title">طن CO₂e خفض كربون سنوياً</div>
-            <div class="stat-card-desc">مع توفير 10,200 لتر سولار سنوياً</div>
+            <div class="stat-card-title">${t('statCo2Title', 'طن CO₂e خفض كربون سنوياً')}</div>
+            <div class="stat-card-desc">${t('statCo2Desc', 'مع توفير 10,200 لتر سولار سنوياً')}</div>
           </div>
         </div>
       </div>
@@ -232,14 +333,14 @@ function renderHomePage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
           <div>
-            <h2 class="section-title">سرخس الأزولا: القيمة الغذائية والتحليل المعملي</h2>
+            <h2 class="section-title">${t('scienceTitle', 'سرخس الأزولا: القيمة الغذائية والتحليل المعملي')}</h2>
             <p class="section-desc" style="margin-bottom: 1.25rem;">
-              يتميز سرخس الأزولا بمحتوى بروتيني خام يصل إلى <strong>28.4%</strong> في المتوسط المعملي، مع وفرة في الأحماض الأمينية الأساسية والمعادن، مما يجعله بديلاً واعداً لتخفيض استهلاك الأعلاف المركبة.
+              ${t('scienceDesc', 'يتميز سرخس الأزولا بمحتوى بروتيني خام يصل إلى 28.4% في المتوسط المعملي، مع وفرة في الأحماض الأمينية الأساسية والمعادن.')}
             </p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-              <a href="#science" class="btn btn-primary"><i class="fa-solid fa-flask"></i> التركيب العلمي والمقارنات</a>
-              <button class="btn btn-outline-primary" onclick="openLightbox('./assets/images/field_macro_azolla.jpg', 'صورة ماكرو للأزولا', 'فحص معملي ماكرو يوضح نسيج سرخس الأزولا النقي')">
-                <i class="fa-solid fa-magnifying-glass"></i> فحص الماكرو المعملي
+              <a href="#science" class="btn btn-primary"><i class="fa-solid fa-flask"></i> ${t('scienceBtnCompare', 'التركيب العلمي والمقارنات')}</a>
+              <button class="btn btn-outline-primary" onclick="openLightbox('./assets/images/field_macro_azolla.jpg', '${t('scienceBtnMacro', 'فحص الماكرو المعملي')}', '${t('scienceMacroCaption', 'فحص معملي ماكرو يوضح نسيج سرخس الأزولا النقي')}')">
+                <i class="fa-solid fa-magnifying-glass"></i> ${t('scienceBtnMacro', 'فحص الماكرو المعملي')}
               </button>
             </div>
           </div>
@@ -344,18 +445,18 @@ function renderHomePage() {
       <div class="container">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
           <div>
-            <h2 class="section-title">قصة نجاح وحدة «أم أحمد»: من حوض سطح إلى الاستقلال المالي</h2>
+            <h2 class="section-title">دراسة تطبيقية: نموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى الاقتصادية</h2>
             <p class="section-desc" style="margin-bottom: 1.25rem;">
-              أنشأت السيدة سحر (أم أحمد) بكفر الدوار وحدة أسطح منزلية بمساحة 30 م² تنتج يومياً 12-15 كجم أزولا خضراء، مما خفّض فاتورة علف طيورها بنسبة 55% ووفر لأسرتها 3,800 ج.م شهرياً بالتعاون مع حاضنة الأعمال البيئية للمرأة المصرية.
+              يوضح النموذج التطبيقي لوحدات إنتاج الأزولا المنزلية بكفر الدوار (بمساحة 30 م²) إمكانية تحقيق إنتاجية يومية تتراوح بين 12 إلى 15 كجم من الأزولا الخضراء عالية البروتين، مما يساهم في خفض تكاليف الأعلاف بنسبة تصل إلى 55% وتحقيق وفر مالي مباشر يقارب 3,800 ج.م شهرياً ضمن مسار تعزيز الأمن الغذائي والتمكين الاقتصادي للأسر الريفية وصغار المربين.
             </p>
-            <a href="#impact" class="btn btn-gold"><i class="fa-solid fa-arrow-left"></i> اقرأ تقرير الأثر وتمكين المرأة</a>
+            <a href="#impact" class="btn btn-gold"><i class="fa-solid fa-arrow-left"></i> استعراض تقرير الأثر والجدوى الاقتصادية</a>
           </div>
 
           <div>
             <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
-              <img src="./assets/images/field_rooftop_basin.jpg" alt="حوض أزولا فوق السطح" style="width: 100%; height: 320px; object-fit: cover;">
+              <img src="./assets/images/field_rooftop_basin.jpg" alt="نموذج تطبيقي لوحدة إنتاج أزولا منزلية" style="width: 100%; height: 320px; object-fit: cover;">
               <div style="padding: 1rem; background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);">
-                <i class="fa-solid fa-house-chimney text-gold"></i> حوض الأسطح المنزلي الحقيقي – كفر الدوار (البحيرة)
+                <i class="fa-solid fa-house-chimney text-gold"></i> نموذج تطبيقي حقيقي لوحدة إنتاجية منزلية – كفر الدوار (البحيرة)
               </div>
             </div>
           </div>
@@ -956,9 +1057,9 @@ function renderImpactPage() {
 
           <div>
             <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border);">
-              <img src="./assets/images/field_rooftop_basin.jpg" alt="وحدة أم أحمد فوق السطح" style="width: 100%; height: 320px; object-fit: cover;">
+              <img src="./assets/images/field_rooftop_basin.jpg" alt="نموذج تطبيقي لوحدة إنتاج أزولا منزلية" style="width: 100%; height: 320px; object-fit: cover;">
               <div style="padding: 1rem; background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);">
-                حاضنة الأعمال البيئية للمرأة المصرية – وحدة كفر الدوار
+                النموذج التطبيقي لإنتاج الأعلاف البديلة بالوحدات المنزلية – كفر الدوار
               </div>
             </div>
           </div>
@@ -1139,21 +1240,33 @@ function renderContactPage() {
                 <i class="fa-brands fa-whatsapp text-emerald" style="font-size: 1.75rem;"></i> محادثة واتساب فورية مباشرة
               </h3>
               <p style="font-size: 0.92rem; margin-bottom: 1.25rem; line-height: 1.7;">
-                اضغط على الزر التالي لبدء محادثة واتساب فورية مع منسق المشروع برقمنا المعتمد <strong>+201026847508</strong> مع رسالة مجهزة تلقائياً.
+                اضغط على الزر التالي لبدء محادثة واتساب فورية مع منسق المشروع برقمنا المعتمد <strong>01011526504</strong> مع رسالة مجهزة تلقائياً.
               </p>
               <a href="${project.whatsappLink}" target="_blank" rel="noopener" class="btn btn-emerald btn-block btn-lg" style="background: #25D366; border-color: #25D366;">
-                <i class="fa-brands fa-whatsapp"></i> تحدث معنا عبر واتساب (01026847508)
+                <i class="fa-brands fa-whatsapp"></i> تحدث معنا عبر واتساب (${project.whatsappPhone || '01011526504'})
               </a>
             </div>
 
             <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-sm);">
               <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--color-primary); margin-bottom: 1rem;">
-                <i class="fa-solid fa-building-circle-check text-gold"></i> المقرات والمعلومات الرسمية
+                <i class="fa-solid fa-building-circle-check text-gold"></i> المقرات وقنوات التواصل الرسمية
               </h4>
-              <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
-                <div><i class="fa-solid fa-location-dot text-gold"></i> <strong>المقر الرئيسي:</strong> مركز كفر الدوار – محافظة البحيرة.</div>
-                <div><i class="fa-solid fa-seedling text-gold"></i> <strong>مزارع الجنوب:</strong> مزارع فرع أسوان التكاملية.</div>
-                <div><i class="fa-solid fa-envelope text-gold"></i> <strong>البريد الرسمي:</strong> ${project.officialEmail}</div>
+              <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem;">
+                <div><i class="fa-solid fa-location-dot text-gold"></i> <strong>المقر الرئيسي:</strong> مركز كفر الدوار – محافظة البحيرة، ومزارع فرع أسوان التكاملية.</div>
+                <div>
+                  <i class="fa-solid fa-phone text-gold"></i> <strong>الاتصال الهاتفي:</strong> 
+                  <a href="tel:01553335579" style="color: var(--color-primary-dark); font-weight: 800;">01553335579</a> / 
+                  <a href="tel:0452182834" style="color: var(--color-primary-dark); font-weight: 800;">0452182834</a>
+                  <span style="display: block; font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.2rem;">(تواصل تليفون فقط علي هذه الأرقام)</span>
+                </div>
+                <div>
+                  <i class="fa-brands fa-whatsapp text-emerald"></i> <strong>واتساب المعتمد:</strong> 
+                  <a href="${project.whatsappLink}" target="_blank" rel="noopener" style="color: #059669; font-weight: 800;">01011526504</a>
+                </div>
+                <div>
+                  <i class="fa-solid fa-envelope text-gold"></i> <strong>البريد الرسمي:</strong> 
+                  <a href="mailto:${project.officialEmail || 'protic1613@gmail.com'}" style="color: var(--color-primary); font-weight: 700;">${project.officialEmail || 'protic1613@gmail.com'}</a>
+                </div>
                 <div><i class="fa-solid fa-certificate text-gold"></i> <strong>الجهة المنفذة:</strong> جمعية الخدمات المتكاملة بكفر الدوار (إشهار 1997/752).</div>
               </div>
             </div>

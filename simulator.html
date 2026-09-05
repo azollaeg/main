@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق أزولا مصر الذكي | محاكي الهاتف المعتمد</title>
+
+  <!-- Favicon Standard -->
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/images/favicon.png">
+
+  <!-- Google Fonts: Cairo & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --sim-bg: #06150F;
+      --sim-emerald: #10B981;
+      --sim-emerald-dark: #064E3B;
+      --sim-gold: #F59E0B;
+      --sim-text: #FFFFFF;
+      --sim-text-muted: #94A3B8;
+      --sim-border: rgba(255, 255, 255, 0.12);
+      --sim-btn-green: #10B981;
+      --sim-btn-green-hover: #059669;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--sim-bg);
+      background-image: radial-gradient(circle at 35% 50%, #0D2C20 0%, #06150F 100%);
+      color: var(--sim-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      direction: rtl;
+      text-align: right;
+      overflow-x: hidden;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Outer Wrapper matching Image 3 */
+    .sim-container {
+      flex-direction: row-reverse;
+      width: 100%;
+      max-width: 1240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4.5rem;
+      margin: auto 0;
+    }
+
+    /* LEFT SIDE: Smartphone Frame */
+    .sim-phone-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .smartphone-bezel {
+      width: 375px;
+      height: 770px;
+      background: #0B131D;
+      border-radius: 52px;
+      padding: 11px;
+      box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.85),
+        0 0 0 4px #263342,
+        0 0 0 7px #111923,
+        inset 0 0 8px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* iPhone Hardware Buttons */
+    .phone-btn-volume-up, .phone-btn-volume-down, .phone-btn-power {
+      position: absolute;
+      background: #2D3A4B;
+      border-radius: 3px;
+    }
+
+    .phone-btn-volume-up {
+      left: -9px;
+      top: 140px;
+      width: 4px;
+      height: 48px;
+    }
+
+    .phone-btn-volume-down {
+      left: -9px;
+      top: 200px;
+      width: 4px;
+      height: 48px;
+    }
+
+    .phone-btn-power {
+      right: -9px;
+      top: 170px;
+      width: 4px;
+      height: 64px;
+    }
+
+    /* Dynamic Island */
+    .device-notch {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 112px;
+      height: 28px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      pointer-events: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .device-notch .camera-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #111E2E;
+      border: 2px solid #070B11;
+    }
+
+    .device-notch .sensor-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      opacity: 0.65;
+    }
+
+    /* Screen Display Frame (Iframe) */
+    .device-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 42px;
+      overflow: hidden;
+      background: #FFFFFF;
+      position: relative;
+    }
+
+    .device-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #FFFFFF;
+    }
+
+    /* RIGHT SIDE: Information & Action Panel (Image 3 Spec) */
+    .sim-info-panel {
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* 1. Badge Pill */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--sim-emerald);
+      color: var(--sim-emerald);
+      background: rgba(16, 185, 129, 0.08);
+      border-radius: 9999px;
+      padding: 0.35rem 0.95rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    /* 2. Main Title */
+    .sim-main-title {
+      font-size: 2.35rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.5px;
+    }
+
+    .highlight-brand {
+      color: var(--sim-emerald);
+    }
+
+    /* 3. Description */
+    .sim-main-desc {
+      font-size: 0.95rem;
+      color: var(--sim-text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    /* 4. Checklist with Green Checkmarks */
+    .sim-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    .sim-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #E2ECE9;
+    }
+
+    .sim-checklist li i {
+      color: var(--sim-emerald);
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    /* 5. Three Full-Width Action Buttons */
+    .sim-actions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+      margin-bottom: 1.75rem;
+    }
+
+    .sim-btn-action {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.95rem 1.25rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sim-btn-action:active {
+      transform: scale(0.98);
+    }
+
+    /* Button 1: Primary Emerald */
+    .sim-btn-primary-green {
+      background: var(--sim-btn-green);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+
+    .sim-btn-primary-green:hover {
+      background: var(--sim-btn-green-hover);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+    }
+
+    /* Button 2: Dark Glass / Outline */
+    .sim-btn-outline-glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #FFFFFF;
+    }
+
+    .sim-btn-outline-glass:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Button 3: Return to Main Site */
+    .sim-btn-return {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #CBD5E1;
+    }
+
+    .sim-btn-return:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+    }
+
+    /* 6. Real Camera Scannable QR Code Section */
+    .sim-qr-box {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .sim-qr-img-wrap {
+      background: #FFFFFF;
+      padding: 6px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .sim-qr-img {
+      width: 68px;
+      height: 68px;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .sim-qr-text {
+      flex: 1;
+    }
+
+    .sim-qr-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .sim-qr-title i {
+      color: var(--sim-emerald);
+    }
+
+    .sim-qr-desc {
+      font-size: 0.78rem;
+      color: var(--sim-text-muted);
+      line-height: 1.5;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 991px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+
+      .sim-container {
+      flex-direction: row-reverse;
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+        margin: 0;
+      }
+
+      .sim-info-panel {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+
+      .sim-main-title {
+        font-size: 1.95rem;
+      }
+
+      .sim-checklist {
+        align-items: flex-start;
+        max-width: 480px;
+      }
+
+      .smartphone-bezel {
+        width: 330px;
+        height: 690px;
+        border-radius: 44px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .smartphone-bezel {
+        width: 295px;
+        height: 620px;
+        border-radius: 38px;
+        padding: 9px;
+      }
+
+      .sim-main-title {
+        font-size: 1.7rem;
+      }
+
+      .sim-checklist li {
+        font-size: 0.88rem;
+      }
+
+      .sim-qr-box {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="sim-container">
+
+    <!-- LEFT COLUMN: Realistic Smartphone Mockup -->
+    <div class="sim-phone-wrapper">
+      <div class="smartphone-bezel">
+        <!-- Hardware buttons -->
+        <div class="phone-btn-volume-up"></div>
+        <div class="phone-btn-volume-down"></div>
+        <div class="phone-btn-power"></div>
+
+        <!-- Dynamic Island Pill Cutout -->
+        <div class="device-notch">
+          <div class="camera-dot"></div>
+          <div class="sensor-dot"></div>
+        </div>
+
+        <!-- Live Touch Screen with Light-Theme Mobile App -->
+        <div class="device-screen">
+          <iframe 
+            src="./mobile_app/www/index.html" 
+            class="device-iframe" 
+            id="sim-iframe" 
+            title="تطبيق أزولا مصر الذكي"
+            loading="eager">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Information, Checklist, and 3 Actions (Image 3) -->
+    <section class="sim-info-panel">
+
+      <!-- Badge -->
+      <div class="badge-pill">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <span>الإصدار الأصلي 2026</span>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="sim-main-title">
+        تطبيق <span class="highlight-brand">أزولا مصر</span> الذكي
+      </h1>
+
+      <!-- Subtitle Description -->
+      <p class="sim-main-desc">
+        تطبيق الهاتف المتكامل لتكنولوجيا الأعلاف البديلة والحاسبات الحقلية لمشروع أزولا مصر. يقدم كافة أدوات التحول الأخضر، حاسبة وفر الأعلاف، صون المياه، وخفض الانبعاثات، مع إمكانية التثبيت المباشر بصيغة APK.
+      </p>
+
+      <!-- 5 Checklist Items (Green Checkmarks) -->
+      <ul class="sim-checklist">
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span>شريط تنقل سفلي لمسي مع الحاسبات في المنتصف</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span>حاسبات علمية وحقلية فورية لخفض تكاليف الأعلاف وصون المياه</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span>دراسة تطبيقية لنموذج الحوض المنزلي ومؤشرات الإنتاجية والجدوى</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span>يعمل بنسبة 100% بدون إنترنت (PWA Offline)</span>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <span>أمان مشدد معتمد (Zero Dangerous Permissions)</span>
+        </li>
+      </ul>
+
+      <!-- 3 Full-Width Action Buttons Stacked (Image 3) -->
+      <div class="sim-actions-stack">
+        <!-- 1. Official Release APK Button -->
+        <a href="azolla_egypt.apk" class="sim-btn-action sim-btn-primary-green" download>
+          <i class="fa-solid fa-download"></i>
+          <span>تحميل تطبيق أندرويد المعتمد (azolla_egypt.apk)</span>
+        </a>
+
+        <!-- 2. Fullscreen Web App -->
+        <a href="./mobile_app/www/index.html" target="_blank" rel="noopener" class="sim-btn-action sim-btn-outline-glass">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>فتح تطبيق الويب بملء الشاشة</span>
+        </a>
+
+        <!-- 3. Return to Main Site -->
+        <a href="index.html" class="sim-btn-action sim-btn-return">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>العودة لموقع أزولا مصر الرئيسي</span>
+        </a>
+      </div>
+
+      <!-- Real Scannable QR Code Box -->
+      <div class="sim-qr-box">
+        <div class="sim-qr-img-wrap">
+          <img src="./assets/images/qr_simulator.png" alt="كود QR محاكي وتطبيق أزولا مصر" class="sim-qr-img">
+        </div>
+        <div class="sim-qr-text">
+          <div class="sim-qr-title">
+            <i class="fa-solid fa-camera"></i>
+            <span>امسح الكود بكاميرا هاتفك</span>
+          </div>
+          <div class="sim-qr-desc">
+            امسح الكود من كاميرا الهاتف لفتح المحاكي وتجربة التطبيق الفوري وتثبيته مباشرة.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

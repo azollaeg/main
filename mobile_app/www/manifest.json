@@ -1,0 +1,26 @@
+{
+  "name": "تكنولوجيا الأعلاف البديلة .. أزولا مصر",
+  "short_name": "أزولا مصر",
+  "description": "تطبيق تكنولوجيا الأعلاف البديلة والحاسبات الحقلية الذكية لمشروع أزولا مصر",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#042F24",
+  "theme_color": "#064E3B",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "../../assets/images/logo_azolla.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../../assets/images/logo_azolla.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

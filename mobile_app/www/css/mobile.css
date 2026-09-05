@@ -1,0 +1,589 @@
+/* ==========================================================================
+   AZOLLA EGYPT - Mobile App Dedicated Touch Stylesheet (mobile.css)
+   Compliant with mobile-app-apk-engineer & Zero-False-Positive Architecture
+   ========================================================================== */
+
+:root {
+  --app-primary: #064E3B;
+  --app-primary-dark: #042F24;
+  --app-primary-light: #10B981;
+  --app-accent-gold: #D97706;
+  --app-accent-light: #FEF3C7;
+  --app-bg: #F8FAFC;
+  --app-surface: #FFFFFF;
+  --app-card: #FFFFFF;
+  --app-text: #0F172A;
+  --app-text-muted: #475569;
+  --app-border: #E2E8F0;
+  --bottom-bar-height: 68px;
+  --top-header-height: 58px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --shadow-float: 0 8px 24px rgba(16, 185, 129, 0.35);
+}
+
+[data-theme="dark"] {
+  --app-bg: #0F172A;
+  --app-surface: #1E293B;
+  --app-card: #1E293B;
+  --app-text: #F8FAFC;
+  --app-text-muted: #94A3B8;
+  --app-border: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, textarea, select {
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+body {
+  font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: var(--top-header-height);
+  padding-bottom: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 16px) + 36px);
+  min-height: 100vh;
+}
+
+/* App Header */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--top-header-height);
+  background: var(--app-primary-dark);
+  border-bottom: 1px solid var(--app-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.app-brand img {
+  height: 32px;
+  width: auto;
+  border-radius: var(--radius-sm);
+}
+
+.app-brand-name {
+  font-weight: 900;
+  font-size: 0.98rem;
+  letter-spacing: -0.3px;
+  color: #FFFFFF;
+}
+
+.app-brand-sub {
+  display: block;
+  font-size: 0.65rem;
+  color: #A7F3D0;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.header-icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.header-icon-btn:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* App Views Container */
+.app-view-container {
+  padding: 1rem 1rem 2.5rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.app-view {
+  display: none;
+  animation: viewFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.app-view.active {
+  display: block;
+}
+
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 12px));
+  padding-bottom: env(safe-area-inset-bottom, 12px);
+  background: var(--app-surface);
+  border-top: 1px solid var(--app-border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--app-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.35rem 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.15s ease;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-item:active {
+  transform: scale(0.92);
+}
+
+.nav-item.active {
+  color: var(--app-primary-light);
+}
+
+.nav-item.active i {
+  transform: scale(1.15);
+}
+
+/* Center Calculators Elevated Button */
+.nav-item-calc {
+  position: relative;
+  top: -12px;
+}
+
+.calc-float-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: var(--shadow-float);
+  border: 3px solid var(--app-surface);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.nav-item-calc:active .calc-float-circle {
+  transform: scale(0.9);
+}
+
+.nav-item-calc.active .calc-float-circle {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+}
+
+.calc-float-label {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--app-primary-light);
+  margin-top: 0.15rem;
+}
+
+.nav-item-calc.active .calc-float-label {
+  color: var(--app-accent-gold);
+}
+
+/* Cards & UI Elements */
+.mobile-card {
+  background: var(--app-card);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.mobile-card-gradient {
+  background: linear-gradient(135deg, #064E3B 0%, #042F24 100%);
+  color: #FFFFFF;
+  border: 1px solid #10B981;
+}
+
+.mobile-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.mobile-subtitle {
+  font-size: 0.85rem;
+  color: var(--app-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Action Sheet Modal (Sliding from bottom) */
+.action-sheet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.action-sheet-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.action-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 86vh;
+  background: var(--app-surface);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  padding: 1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 12px));
+  z-index: 2001;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  border-top: 2px solid var(--app-primary-light);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.action-sheet.open {
+  transform: translateY(0);
+}
+
+.action-sheet-pill {
+  width: 44px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--app-border);
+  margin: 0 auto 1.25rem auto;
+}
+
+.action-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--app-border);
+  padding-bottom: 0.75rem;
+}
+
+.action-sheet-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.action-sheet-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--app-text);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-sheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.action-sheet-item {
+  background: var(--app-card);
+  border: 1px solid var(--app-border);
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  color: var(--app-text);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.action-sheet-item:active {
+  transform: scale(0.95);
+  border-color: var(--app-primary-light);
+}
+
+.action-sheet-item i {
+  font-size: 1.4rem;
+  color: var(--app-primary-light);
+}
+
+.action-sheet-item span {
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* Calculator Tabs in Mobile (2x2 Balanced Grid - Zero Clipping) */
+.calc-pill-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.calc-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--app-bg);
+  border: 1.5px solid var(--app-border);
+  color: var(--app-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.calc-pill-btn:active {
+  transform: scale(0.97);
+}
+
+.calc-pill-btn.active {
+  background: #064E3B;
+  border-color: #10B981;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(6, 78, 59, 0.25);
+}
+
+.calc-pill-btn.active i {
+  color: #FDE68A;
+}
+
+/* Touch Input Controls */
+.mobile-input-group {
+  margin-bottom: 1.1rem;
+}
+
+.mobile-input-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.mobile-input-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--app-bg);
+  border: 1.5px solid var(--app-border);
+  color: var(--app-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.mobile-input-control:focus {
+  outline: none;
+  border-color: var(--app-primary-light);
+}
+
+.range-slider-wrapper {
+  margin-top: 0.3rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--app-primary-light);
+  height: 6px;
+  border-radius: 4px;
+}
+
+/* Result Card - High Contrast Crisp Green & Amber */
+.calc-result-box {
+  background: #ECFDF5;
+  border: 2px solid #10B981;
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  margin-top: 1.25rem;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+}
+
+[data-theme="dark"] .calc-result-box {
+  background: #0B291D;
+  border-color: #10B981;
+}
+
+.result-kpi-label {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #064E3B;
+  line-height: 1.4;
+}
+
+[data-theme="dark"] .result-kpi-label {
+  color: #E2ECE9;
+}
+
+.result-kpi-val {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #D97706;
+  line-height: 1.2;
+  margin: 0.4rem 0;
+}
+
+[data-theme="dark"] .result-kpi-val {
+  color: #F59E0B;
+}
+
+.calc-result-box strong {
+  color: #047857;
+  font-weight: 900;
+}
+
+[data-theme="dark"] .calc-result-box strong {
+  color: #34D399;
+}
+
+/* Mobile Buttons */
+.btn-mobile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-mobile:active {
+  transform: scale(0.97);
+}
+
+.btn-mobile-primary {
+  background: var(--app-primary-light);
+  color: #FFFFFF;
+}
+
+.btn-mobile-whatsapp {
+  background: #25D366;
+  color: #FFFFFF;
+}
+
+.btn-mobile-gold {
+  background: var(--app-accent-gold);
+  color: #0F172A;
+}
+
+/* Offline Banner */
+.offline-status-banner {
+  background: #F59E0B;
+  color: #0F172A;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-align: center;
+  display: none;
+}
+
+.offline-status-banner.show {
+  display: block;
+}

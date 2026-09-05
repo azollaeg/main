@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#064E3B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="أزولا مصر">
+  <title>تطبيق أزولا مصر | تكنولوجيا الأعلاف البديلة</title>
+
+  <!-- PWA Manifest & Favicon -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./favicon.png">
+
+  <!-- Google Fonts: Cairo & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Mobile Touch Stylesheet -->
+  <link rel="stylesheet" href="./css/mobile.css">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <a href="#home" class="app-brand" onclick="switchTab('home')">
+      <img src="./assets/images/logo_azolla.png" alt="شعار أزولا مصر">
+      <div>
+        <span class="app-brand-name">أزولا مصر</span>
+        <span class="app-brand-sub">تكنولوجيا الأعلاف البديلة</span>
+      </div>
+    </a>
+    <div class="app-header-actions">
+      <button class="header-icon-btn" onclick="toggleMobileTheme()" aria-label="تبديل المظهر" title="الوضع الليلي / النهاري">
+        <i class="fa-solid fa-sun" id="theme-toggle-icon"></i>
+      </button>
+      <button class="header-icon-btn" onclick="openNavSheet()" aria-label="القائمة الشاملة" title="المزيد من الأقسام">
+        <i class="fa-solid fa-grid-2"></i>
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Offline Status Warning Banner -->
+  <div class="offline-status-banner" id="offline-banner">
+    <i class="fa-solid fa-wifi-slash"></i> وضع العمل دون إنترنت (100% Offline) - كافة الحاسبات والبيانات تعمل بنجاح
+  </div>
+
+  <!-- App Views Container -->
+  <main class="app-view-container">
+
+    <!-- 1. VIEW: HOME -->
+    <section class="app-view active" id="view-home">
+      <!-- Hero Card -->
+      <div class="mobile-card mobile-card-gradient">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <span style="background: rgba(16, 185, 129, 0.25); color: #A7F3D0; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-size: 0.72rem; font-weight: 800;">
+            <i class="fa-solid fa-leaf"></i> منظومة وطنية معتمدة
+          </span>
+          <span style="font-size: 0.72rem; color: #FDE68A;">SGP / GEF / UNDP</span>
+        </div>
+        <h2 class="mobile-title" style="color: #FDE68A;">تكنولوجيا الأعلاف البديلة .. أزولا مصر</h2>
+        <p style="font-size: 0.88rem; color: #E2ECE9; margin-bottom: 1.25rem; line-height: 1.6;">
+          إنتاج سرخس الأزولا الطازج لتخفيض تكاليف تغذية الماشية والطيور والأسماك بنسبة <strong>60%</strong> وصون الموارد المائية بالطاقة الشمسية.
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+          <button class="btn-mobile btn-mobile-gold" onclick="switchTab('calculators')">
+            <i class="fa-solid fa-calculator"></i> الحاسبات الحقلية
+          </button>
+          <button class="btn-mobile btn-mobile-whatsapp" onclick="window.open('https://wa.me/201011526504', '_blank')">
+            <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI 2x2 Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+        <div class="mobile-card" style="margin-bottom: 0; text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: #10B981;">60%</div>
+          <div style="font-size: 0.75rem; color: var(--app-text-muted);">خفض تكاليف العلف</div>
+        </div>
+        <div class="mobile-card" style="margin-bottom: 0; text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: #F59E0B;">3,800 ج.م</div>
+          <div style="font-size: 0.75rem; color: var(--app-text-muted);">وفر شهري للحوض 30م²</div>
+        </div>
+        <div class="mobile-card" style="margin-bottom: 0; text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: #38BDF8;">88%</div>
+          <div style="font-size: 0.75rem; color: var(--app-text-muted);">وفر في مياه الري</div>
+        </div>
+        <div class="mobile-card" style="margin-bottom: 0; text-align: center;">
+          <div style="font-size: 1.5rem; font-weight: 900; color: #A7F3D0;">512</div>
+          <div style="font-size: 0.75rem; color: var(--app-text-muted);">مستفيداً ومتدرباً معتمداً</div>
+        </div>
+      </div>
+
+      <!-- Case Study Card -->
+      <div class="mobile-card">
+        <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--app-primary-light);">
+          <i class="fa-solid fa-house-chimney"></i> دراسة تطبيقية: نموذج الحوض المنزلي
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--app-text-muted); margin-bottom: 1rem; line-height: 1.6;">
+          يوضح النموذج التطبيقي بكفر الدوار (وحدة 30 م²) إمكانية إنتاج 12-15 كجم أزولا يومياً وتحقيق وفر يقارب 3,800 ج.م شهرياً لصغار المربين.
+        </p>
+        <button class="btn-mobile btn-mobile-primary" onclick="switchTab('forms')">
+          <i class="fa-solid fa-seedling"></i> اطلب إنشاء حوضك الآن
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. VIEW: IMPACT & METRICS -->
+    <section class="app-view" id="view-impact">
+      <div class="mobile-card">
+        <h2 class="mobile-title"><i class="fa-solid fa-chart-pie text-emerald"></i> لوحة الأثر والمؤشرات المعتمدة</h2>
+        <p class="mobile-subtitle">مؤشرات الأداء الميدانية الموثقة بالتنسيق مع SGP / GEF / UNDP لعام 2026:</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div style="background: var(--app-bg); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--app-border);">
+            <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+              <span>☀️ محطات الطاقة الشمسية</span>
+              <strong style="color: var(--app-accent-gold);">3 محطات (25 kW)</strong>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--app-text-muted); margin-top: 0.2rem;">تضخ 2350 م³/يوم لخدمة 66 فداناً زراعياً و8 أفدنة سمكية.</p>
+          </div>
+
+          <div style="background: var(--app-bg); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--app-border);">
+            <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+              <span>💧 صون الموارد المائية</span>
+              <strong style="color: #38BDF8;">240,000 م³ سنوياً</strong>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--app-text-muted); margin-top: 0.2rem;">خفض البصمة المائية بنسبة 88% مقارنة بالأعلاف التقليدية.</p>
+          </div>
+
+          <div style="background: var(--app-bg); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--app-border);">
+            <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+              <span>👩‍🌾 تمكين المرأة الريفية</span>
+              <strong style="color: #F472B6;">62% نسبة الإناث</strong>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--app-text-muted); margin-top: 0.2rem;">تدريب وتأسيس وحدات أسطح منزلية مدرة للدخل.</p>
+          </div>
+
+          <div style="background: var(--app-bg); padding: 0.85rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--app-border);">
+            <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+              <span>🌱 خفض الانبعاثات الكربونية</span>
+              <strong style="color: #34D399;">108 طن CO₂e سنوياً</strong>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--app-text-muted); margin-top: 0.2rem;">ما يعادل غرس أكثر من 1,678 شجرة لمكافحة التغير المناخي.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VIEW: CALCULATORS (CORE COMPONENT) -->
+    <section class="app-view" id="view-calculators">
+      <div class="mobile-card">
+        <h2 class="mobile-title" style="color: var(--app-accent-gold);">
+          <i class="fa-solid fa-calculator"></i> الحاسبات الحقلية الذكية
+        </h2>
+        <p class="mobile-subtitle">أدوات حسابية وتشغيلية دقيقة تعمل بنسبة 100% دون الحاجة لاتصال بالإنترنت:</p>
+
+        <!-- Calculator Pill Tabs -->
+        <div class="calc-pill-tabs">
+          <button class="calc-pill-btn active" data-calc="feed" onclick="switchCalcTab('feed')">
+            <i class="fa-solid fa-sack-dollar"></i> وفر الأعلاف
+          </button>
+          <button class="calc-pill-btn" data-calc="water" onclick="switchCalcTab('water')">
+            <i class="fa-solid fa-droplet"></i> صون المياه
+          </button>
+          <button class="calc-pill-btn" data-calc="basin" onclick="switchCalcTab('basin')">
+            <i class="fa-solid fa-water-ladder"></i> إنتاجية الحوض
+          </button>
+          <button class="calc-pill-btn" data-calc="carbon" onclick="switchCalcTab('carbon')">
+            <i class="fa-solid fa-cloud-arrow-down"></i> خفض الكربون
+          </button>
+        </div>
+
+        <!-- Panel 1: Feed Calculator -->
+        <div class="calc-card-panel" id="calc-panel-feed">
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">نوع القطيع أو التربية:</label>
+            <select id="calc-feed-animal" class="mobile-input-control" onchange="runFeedCalc()">
+              <option value="cattle">أبقار وجاموس تسمين / حليب</option>
+              <option value="sheep">أغنام وماعز</option>
+              <option value="poultry">دواجن وبط ورومي</option>
+              <option value="fish">أسماك بلطي وكارب</option>
+            </select>
+          </div>
+          <div class="mobile-input-group">
+            <div class="mobile-input-label">
+              <span>عدد الرؤوس / الطيور:</span>
+              <strong id="val-feed-heads" style="color: var(--app-primary-light);">10</strong>
+            </div>
+            <input type="range" id="calc-feed-heads" min="1" max="100" value="10" oninput="document.getElementById('val-feed-heads').textContent = this.value; runFeedCalc();">
+          </div>
+          <div class="mobile-input-group">
+            <div class="mobile-input-label">
+              <span>سعر كجم العلف الجاهز (ج.م):</span>
+              <strong id="val-feed-price" style="color: var(--app-accent-gold);">22</strong>
+            </div>
+            <input type="range" id="calc-feed-price" min="15" max="35" value="22" oninput="document.getElementById('val-feed-price').textContent = this.value; runFeedCalc();">
+          </div>
+          <div class="calc-result-box">
+            <div class="result-kpi-label">الوفر المالي الشهري المقدر:</div>
+            <div class="result-kpi-val" id="res-feed-money">2,310 ج.م</div>
+            <div class="result-kpi-label">كمية العلف التجاري الموفر: <strong id="res-feed-tons" style="color: #A7F3D0;">0.11 طن/شهر</strong></div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Water Calculator -->
+        <div class="calc-card-panel" id="calc-panel-water" style="display: none;">
+          <div class="mobile-input-group">
+            <div class="mobile-input-label">
+              <span>المساحة المستهدفة (أفدنة):</span>
+              <strong id="val-water-feddan" style="color: #38BDF8;">2</strong>
+            </div>
+            <input type="range" id="calc-water-feddan" min="1" max="25" value="2" oninput="document.getElementById('val-water-feddan').textContent = this.value; runWaterCalc();">
+          </div>
+          <div class="calc-result-box" style="border-color: #38BDF8;">
+            <div class="result-kpi-label">كمية المياه الموفرة سنوياً:</div>
+            <div class="result-kpi-val" id="res-water-saved" style="color: #38BDF8;">9,160 م³</div>
+            <div class="result-kpi-label" id="res-water-pct">88% وفر في مياه الري</div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Basin Calculator -->
+        <div class="calc-card-panel" id="calc-panel-basin" style="display: none;">
+          <div class="mobile-input-group">
+            <div class="mobile-input-label">
+              <span>مساحة الحوض المقترح (م²):</span>
+              <strong id="val-basin-area" style="color: var(--app-primary-light);">30</strong>
+            </div>
+            <input type="range" id="calc-basin-area" min="10" max="200" step="5" value="30" oninput="document.getElementById('val-basin-area').textContent = this.value; runBasinCalc();">
+          </div>
+          <div class="calc-result-box">
+            <div class="result-kpi-label">الإنتاج اليومي المتوقع من الأزولا الخضراء:</div>
+            <div class="result-kpi-val" id="res-basin-yield">13.5 كجم/يوم</div>
+            <div class="result-kpi-label">التكلفة التقديرية للإنشاء: <strong id="res-basin-cost" style="color: var(--app-accent-gold);">3,300 ج.م</strong></div>
+          </div>
+        </div>
+
+        <!-- Panel 4: Carbon Calculator -->
+        <div class="calc-card-panel" id="calc-panel-carbon" style="display: none;">
+          <div class="mobile-input-group">
+            <div class="mobile-input-label">
+              <span>الإنتاج السنوي من الأزولا (طن):</span>
+              <strong id="val-carbon-tons" style="color: #34D399;">12</strong>
+            </div>
+            <input type="range" id="calc-carbon-tons" min="1" max="100" value="12" oninput="document.getElementById('val-carbon-tons').textContent = this.value; runCarbonCalc();">
+          </div>
+          <div class="calc-result-box" style="border-color: #34D399;">
+            <div class="result-kpi-label">الانبعاثات المكافئة المتجنبة:</div>
+            <div class="result-kpi-val" id="res-carbon-co2" style="color: #34D399;">1.10 طن كربون</div>
+            <div class="result-kpi-label">مكافئ امتصاص كربوني لـ: <strong id="res-carbon-trees" style="color: #A7F3D0;">50 شجرة</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. VIEW: FORMS & REGISTRATION -->
+    <section class="app-view" id="view-forms">
+      <div class="mobile-card">
+        <h2 class="mobile-title"><i class="fa-solid fa-file-pen text-emerald"></i> طلب إنشاء حوض / تقاوي</h2>
+        <p class="mobile-subtitle">سجل طلبك وسيتواصل معك الفريق الفني فوراً:</p>
+
+        <form onsubmit="handleMobileFormSubmit(event, 'طلب حوض أو تقاوي')">
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">الاسم الكامل *</label>
+            <input type="text" name="name" class="mobile-input-control" placeholder="أدخل اسمك" required>
+          </div>
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">رقم الهاتف (واتساب) *</label>
+            <input type="tel" name="phone" class="mobile-input-control" placeholder="01xxxxxxxxx" required>
+          </div>
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">المحافظة والمركز *</label>
+            <input type="text" name="location" class="mobile-input-control" placeholder="مثال: كفر الدوار، البحيرة" required>
+          </div>
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">المساحة المتوفرة (م² تقريباً)</label>
+            <input type="text" name="area" class="mobile-input-control" placeholder="مثال: 30 م² سطح أو قيراط أرض">
+          </div>
+          <div class="mobile-input-group">
+            <label class="mobile-input-label">ملاحظات أو نوع التربية</label>
+            <textarea name="notes" class="mobile-input-control" rows="3" placeholder="أدخل نوع الحيوانات أو الطيور..."></textarea>
+          </div>
+          <button type="submit" class="btn-mobile btn-mobile-primary">
+            <i class="fa-solid fa-paper-plane"></i> إرسال الطلب وحفظه في Google Sheets
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 5. VIEW: ACADEMY (12 PROGRAMS COMPREHENSIVE) -->
+    <section class="app-view" id="view-academy">
+      <div class="mobile-card">
+        <h2 class="mobile-title"><i class="fa-solid fa-graduation-cap text-gold"></i> أكاديمية أزولا مصر</h2>
+        <p class="mobile-subtitle">12 برنامجاً تدريبياً معتمداً لنقل الخبرة الحقلية وبناء الكوادر الميدانية:</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">1. دبلومة التأسيس والإنتاج التجاري للأزولا</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">دراسة الجدوى الميدانية، هندسة الأحواض، والتحكم في المياه والتغذية العضوية.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">2. تكنولوجيا مزارع الأسطح والوحدات المنزلية</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">تركيب العوازل الخفيفة وحسابات التغذية للدواجن والطيور للمرأة والشباب.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">3. هندسة خلط العلائق وتغذية الماشية والأسماك</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">نسب الإحلال الآمنة وطرق التجفيف وصناعة السيلاج عالي البروتين.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">4. التغذية الآمنة للدواجن والطيور المائية</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">تحسين جودة البيض واللحوم وخفض تكاليف الأعلاف بنسبة تتجاوز 50%.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">5. استزراع الأسماك التكاملي مع الأزولا</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">تغذية أسماك البلطي والكارب وتدوير المياه العذبة بكفاءة عالية.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">6. أنظمة الري الذكي والطاقة الشمسية الموفرة</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">تشغيل محطات الضخ الكهروضوئية وتوزيع المياه دون فاقد.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">7. إدارة وتخصيب أحواض الأزولا العضوية</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">المحافظة على نقاوة السلالة والوقاية من الآفات الحشرية والطحالب.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">8. تجفيف وطحن وتخزين الأزولا عالي البروتين</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">تقنيات الحفظ طويل الأمد وتصنيع مكعبات الأعلاف المركزة.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">9. دراسة الجدوى الاقتصادية وإدارة التكاليف</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">حساب نقطة التعادل، ومعدل استرداد رأس المال، وحساب الوفر الصافي.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">10. تمكين المرأة الريفية وإدارة المشاريع الصغيرة</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">بناء المشروعات المنزلية المكتفية ذاتياً والمدرة للدخل المستدام.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">11. التسويق وسلاسل الإمداد للأعلاف الخضراء</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">ربط المزارعين بصغار المربين ومنافذ التوزيع الإقليمية.</p>
+          </div>
+          <div style="background: var(--app-bg); padding: 0.75rem 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <strong style="color: var(--app-primary-light); font-size: 0.88rem;">12. الشهادة المعتمدة لإدارة المزارع الميدانية</strong>
+            <p style="font-size: 0.76rem; color: var(--app-text-muted); margin-top: 0.2rem;">برنامج تدريبي متقدم بإشراف الخبراء الميدانيين لجمعية الخدمات ومزارع أسوان.</p>
+          </div>
+        </div>
+
+        <button class="btn-mobile btn-mobile-whatsapp" style="margin-top: 1rem;" onclick="window.open('https://wa.me/201011526504?text=' + encodeURIComponent('السلام عليكم، أود الاستفسار عن برامج أكاديمية أزولا مصر الـ 12 المعتمدة'), '_blank')">
+          <i class="fa-brands fa-whatsapp"></i> استفسر عن مواعيد التدريب القادمة
+        </button>
+      </div>
+    </section>
+
+    <!-- 6. VIEW: CONTACT & INFO -->
+    <section class="app-view" id="view-contact">
+      <div class="mobile-card">
+        <h2 class="mobile-title"><i class="fa-solid fa-phone text-gold"></i> قنوات التواصل الرسمية</h2>
+        <p class="mobile-subtitle">تواصل مباشر مع فريق إدارة المشروع الميداني والتنفيذي:</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <!-- Phone Calls Only -->
+          <div style="background: var(--app-bg); padding: 1rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <div style="font-size: 0.84rem; font-weight: 800; color: var(--app-text); margin-bottom: 0.6rem;">
+              <i class="fa-solid fa-phone text-gold"></i> الاتصال الهاتفي (تواصل تليفون فقط):
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+              <button class="btn-mobile btn-mobile-primary" onclick="callProjectPhone('01553335579')">
+                <i class="fa-solid fa-phone"></i> 01553335579
+              </button>
+              <button class="btn-mobile btn-mobile-primary" onclick="callProjectPhone('0452182834')">
+                <i class="fa-solid fa-phone"></i> 0452182834
+              </button>
+            </div>
+          </div>
+
+          <!-- WhatsApp Direct -->
+          <div style="background: var(--app-bg); padding: 1rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <div style="font-size: 0.84rem; font-weight: 800; color: var(--app-text); margin-bottom: 0.6rem;">
+              <i class="fa-brands fa-whatsapp text-emerald"></i> الواتساب المعتمد:
+            </div>
+            <button class="btn-mobile btn-mobile-whatsapp" onclick="window.open('https://wa.me/201011526504', '_blank')">
+              <i class="fa-brands fa-whatsapp"></i> محادثة فورية: 01011526504
+            </button>
+          </div>
+
+          <!-- Email Direct -->
+          <div style="background: var(--app-bg); padding: 1rem; border-radius: var(--radius-sm); border: 1.5px solid var(--app-border);">
+            <div style="font-size: 0.84rem; font-weight: 800; color: var(--app-text); margin-bottom: 0.4rem;">
+              <i class="fa-solid fa-envelope text-gold"></i> البريد الإلكتروني الرسمي:
+            </div>
+            <a href="mailto:protic1613@gmail.com" style="color: var(--app-primary-light); font-weight: 800; text-decoration: none; font-size: 1rem; display: inline-block; direction: ltr;">
+              protic1613@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <div style="background: #ECFDF5; border: 1.5px solid #10B981; border-radius: var(--radius-sm); padding: 1rem; font-size: 0.84rem; color: #064E3B; line-height: 1.6;">
+          <i class="fa-solid fa-certificate" style="color: #D97706;"></i> تنفيذ: <strong>جمعية الخدمات المتكاملة بكفر الدوار</strong> (إشهار 1997/752) ومزارع أسوان التكاملية، والشريك الرقمي <strong>NGO HUB</strong>.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 5. BOTTOM NAVIGATION BAR (UX STANDARD) -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="home" onclick="switchTab('home')">
+      <i class="fa-solid fa-house"></i>
+      <span>الرئيسية</span>
+    </button>
+
+    <button class="nav-item" data-tab="impact" onclick="switchTab('impact')">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>الأثر</span>
+    </button>
+
+    <!-- Center Elevated Calculators Button -->
+    <button class="nav-item nav-item-calc" data-tab="calculators" onclick="switchTab('calculators')">
+      <div class="calc-float-circle">
+        <i class="fa-solid fa-calculator"></i>
+      </div>
+      <span class="calc-float-label">الحاسبات</span>
+    </button>
+
+    <button class="nav-item" data-tab="forms" onclick="switchTab('forms')">
+      <i class="fa-solid fa-file-pen"></i>
+      <span>النماذج</span>
+    </button>
+
+    <button class="nav-item" onclick="openNavSheet()">
+      <i class="fa-solid fa-grid-horizontal"></i>
+      <i class="fa-solid fa-ellipsis"></i>
+      <span>المزيد</span>
+    </button>
+  </nav>
+
+  <!-- 6. ACTION SHEET MODAL (MORE MENU - SLIDING FROM BOTTOM) -->
+  <div class="action-sheet-overlay" id="action-sheet-overlay" onclick="closeNavSheet()"></div>
+  <aside class="action-sheet" id="action-sheet">
+    <div class="action-sheet-pill"></div>
+    <div class="action-sheet-header">
+      <div class="action-sheet-title">
+        <i class="fa-solid fa-layer-group text-emerald"></i> كافة أقسام منظومة أزولا مصر
+      </div>
+      <button class="action-sheet-close" onclick="closeNavSheet()">&times;</button>
+    </div>
+
+    <div class="action-sheet-grid">
+      <div class="action-sheet-item" onclick="switchTab('calculators')">
+        <i class="fa-solid fa-calculator text-gold"></i>
+        <span>الحاسبات الذكية</span>
+      </div>
+      <div class="action-sheet-item" onclick="switchTab('impact')">
+        <i class="fa-solid fa-chart-pie text-emerald"></i>
+        <span>لوحة الأثر والمؤشرات</span>
+      </div>
+      <div class="action-sheet-item" onclick="switchTab('academy')">
+        <i class="fa-solid fa-graduation-cap text-gold"></i>
+        <span>برامج الأكاديمية</span>
+      </div>
+      <div class="action-sheet-item" onclick="switchTab('forms')">
+        <i class="fa-solid fa-file-pen text-emerald"></i>
+        <span>التسجيل والاستمارات</span>
+      </div>
+      <div class="action-sheet-item" onclick="switchTab('contact')">
+        <i class="fa-solid fa-phone text-gold"></i>
+        <span>قنوات التواصل</span>
+      </div>
+      <div class="action-sheet-item" onclick="window.open('https://wa.me/201011526504', '_blank')">
+        <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+        <span>واتساب المعتمد</span>
+      </div>
+    </div>
+
+    <div style="text-align: center; font-size: 0.75rem; color: var(--app-text-muted); border-top: 1px solid var(--app-border); padding-top: 0.75rem;">
+      مشروع تكنولوجيا الأعلاف البديلة .. أزولا مصر &copy; 2026 | Powered by <strong>NGO HUB</strong>
+    </div>
+  </aside>
+
+  <!-- 7. FORM SUCCESS CONFIRMATION MODAL -->
+  <div class="action-sheet-overlay" id="form-success-modal" style="z-index: 3000; align-items: center; justify-content: center; display: flex;">
+    <div class="mobile-card" style="width: 90%; max-width: 400px; text-align: center; padding: 1.75rem 1.25rem; z-index: 3001; background: var(--app-surface); border-radius: var(--radius-lg); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 2px solid var(--app-primary-light);">
+      <div style="width: 58px; height: 58px; border-radius: 50%; background: #ECFDF5; color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 0.85rem auto; border: 2px solid #10B981;">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 style="font-size: 1.2rem; font-weight: 900; margin-bottom: 0.35rem; color: var(--app-text);">تم تسجيل طلبك بنجاح!</h3>
+      <p style="font-size: 0.84rem; color: var(--app-text-muted); margin-bottom: 0.9rem; line-height: 1.5;">تم إرسال وحفظ بياناتك بنجاح في Google Sheets والمنظومة الرقمية.</p>
+      
+      <div style="background: var(--app-bg); border: 1.5px dashed var(--app-primary-light); padding: 0.65rem; border-radius: var(--radius-sm); font-weight: 900; font-size: 0.95rem; color: var(--app-primary-light); margin-bottom: 1.2rem;" id="modal-ref-id">
+        رقم المرجع: AZL-000000
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+        <button class="btn-mobile btn-mobile-whatsapp" id="modal-wa-btn" style="padding: 0.8rem;">
+          <i class="fa-brands fa-whatsapp"></i> تأكيد الطلب عبر الواتساب (اختياري)
+        </button>
+        <button class="btn-mobile" onclick="closeSuccessModal()" style="background: var(--app-bg); border: 1px solid var(--app-border); color: var(--app-text); padding: 0.7rem;">
+          إغلاق ومتابعة التصفح
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile App Core Engine -->
+  <script src="./js/mobile-app.js"></script>
+</body>
+</html>

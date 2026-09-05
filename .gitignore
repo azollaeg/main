@@ -1,0 +1,5 @@
+# Ignore debug builds and temporary APK files
+*debug*.apk
+*-agent*.apk
+.tempmediaStorage/
+scratch/
