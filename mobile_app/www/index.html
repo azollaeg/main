@@ -23,6 +23,7 @@
 
   <!-- Mobile Touch Stylesheet -->
   <link rel="stylesheet" href="./css/mobile.css">
+  <link rel="stylesheet" href="./css/solar-calculator.css">
 </head>
 <body>
 
@@ -176,6 +177,9 @@
           <button class="calc-pill-btn" data-calc="carbon" onclick="switchCalcTab('carbon')">
             <i class="fa-solid fa-cloud-arrow-down"></i> خفض الكربون
           </button>
+          <button class="calc-pill-btn" data-calc="solar" onclick="switchCalcTab('solar')">
+            <i class="fa-solid fa-solar-panel text-gold"></i> <span data-i18n="navSolar">الطاقة الشمسية</span>
+          </button>
         </div>
 
         <!-- Panel 1: Feed Calculator -->
@@ -255,6 +259,225 @@
             <div class="result-kpi-label">الانبعاثات المكافئة المتجنبة:</div>
             <div class="result-kpi-val" id="res-carbon-co2" style="color: #34D399;">1.10 طن كربون</div>
             <div class="result-kpi-label">مكافئ امتصاص كربوني لـ: <strong id="res-carbon-trees" style="color: #A7F3D0;">50 شجرة</strong></div>
+          </div>
+        </div>
+
+        <!-- Panel 5: Solar Energy Calculator -->
+        <div class="calc-card-panel" id="calc-panel-solar" style="display: none;">
+          <div style="background: linear-gradient(135deg, #064E3B 0%, #047857 100%); color: #fff; padding: 1rem; border-radius: 14px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.15);">
+            <div>
+              <div style="font-size: 0.72rem; color: #FDE68A; font-weight: 800;"><i class="fa-solid fa-solar-panel"></i> <span data-i18n="solarHubBadge">المنظومة الوطنية 2026</span></div>
+              <div style="font-size: 0.95rem; font-weight: 900; color: #fff;" data-i18n="solarHubTitle">حاسبة الطاقة الشمسية الشاملة</div>
+            </div>
+            <div style="text-align: center; background: rgba(255,255,255,0.15); padding: 0.4rem 0.8rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+              <div style="font-size: 0.65rem; color: #A7F3D0;" data-i18n="solarTargetKw">القدرة المستهدفة</div>
+              <div id="solar-res-kw" style="font-size: 1.25rem; font-weight: 900; color: #FDE68A; direction: ltr;">1.0 kW</div>
+            </div>
+          </div>
+
+          <!-- Market Price Bar -->
+          <div class="solar-market-bar" style="padding: 0.85rem; margin-bottom: 1rem;">
+            <div style="font-size: 0.82rem; font-weight: 800; color: var(--app-primary-light); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-sliders text-gold"></i> <span data-i18n="solarMktTitle">متغيرات السوق والأسعار (2026)</span>
+            </div>
+            <div class="solar-market-inputs-grid" style="grid-template-columns: 1fr; gap: 0.6rem;">
+              <div class="solar-market-field">
+                <label for="solar-mkt-elec"><span data-i18n="solarMktElecLabel">سعر ك.و.س كهرباء:</span></label>
+                <div class="input-wrap">
+                  <input type="number" id="solar-mkt-elec" step="0.1" min="0.5" max="20" value="2.8">
+                  <span class="input-unit">ج.م / ك.و.س</span>
+                </div>
+              </div>
+              <div class="solar-market-field">
+                <label for="solar-mkt-kw-day"><span data-i18n="solarMktDayLabel">سعر كيلووات المحطة (نهاري):</span></label>
+                <div class="input-wrap">
+                  <input type="number" id="solar-mkt-kw-day" step="500" min="5000" max="150000" value="30000">
+                  <span class="input-unit">ج.م / kWp</span>
+                </div>
+              </div>
+              <div class="solar-market-field">
+                <label for="solar-mkt-kw-hyb"><span data-i18n="solarMktHybLabel">سعر كيلووات (ببطاريات):</span></label>
+                <div class="input-wrap">
+                  <input type="number" id="solar-mkt-kw-hyb" step="1000" min="10000" max="250000" value="58000">
+                  <span class="input-unit">ج.م / kWp</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Operating Mode Toggle -->
+          <div class="solar-mode-container" style="margin-bottom: 1rem;">
+            <div class="solar-mode-title" style="font-size: 0.82rem; margin-bottom: 0.5rem;">
+              <i class="fa-solid fa-bolt-lightning text-gold"></i> <span data-i18n="solarModeTitle">اختر نمط تشغيل الطاقة الشمسية:</span>
+            </div>
+            <div class="solar-mode-toggle-grid" style="grid-template-columns: 1fr; gap: 0.6rem;">
+              <div class="solar-mode-card active" data-mode="day" onclick="SolarCalc.setSystemMode('day')">
+                <div class="solar-mode-icon"><i class="fa-solid fa-sun"></i></div>
+                <div>
+                  <h4 data-i18n="solarModeDayTitle">☀️ نهاري فقط (On-Grid)</h4>
+                  <p data-i18n="solarModeDayDesc">تشغيل فوري للأجهزة وطلمبات الري بدون بطاريات واسترداد رأس مال سريع.</p>
+                </div>
+              </div>
+              <div class="solar-mode-card" data-mode="hybrid" onclick="SolarCalc.setSystemMode('hybrid')">
+                <div class="solar-mode-icon"><i class="fa-solid fa-moon"></i></div>
+                <div>
+                  <h4 data-i18n="solarModeHybTitle">🌙 نهاري + ليلي (بطاريات Hybrid)</h4>
+                  <p data-i18n="solarModeHybDesc">تشغيل 24 ساعة مع بطاريات تخزين، يضمن استقلالية كاملة عن انقطاع التيار.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sector Tabs (Homes, Farms, Factories) -->
+          <div class="solar-nav-tabs" style="grid-template-columns: 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+            <button type="button" class="solar-tab-btn active" data-tab="home" onclick="SolarCalc.switchTab('home')">
+              <i class="fa-solid fa-house-chimney"></i> <span data-i18n="solarTabHome">1. الطاقة الشمسية للمنازل</span>
+            </button>
+            <button type="button" class="solar-tab-btn" data-tab="farm" onclick="SolarCalc.switchTab('farm')">
+              <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="solarTabFarm">2. الطاقة الشمسية للمزارع والري</span>
+            </button>
+            <button type="button" class="solar-tab-btn" data-tab="factory" onclick="SolarCalc.switchTab('factory')">
+              <i class="fa-solid fa-industry"></i> <span data-i18n="solarTabFactory">3. الطاقة الشمسية للمصانع</span>
+            </button>
+          </div>
+
+          <!-- Sector Panels -->
+          <div class="solar-inputs-card" style="padding: 1rem; margin-bottom: 1rem;">
+            <!-- Home Panel -->
+            <div class="solar-tab-panel active" id="solar-panel-home">
+              <h3 class="solar-card-title" style="font-size: 0.95rem;">
+                <i class="fa-solid fa-list-check text-gold"></i> <span data-i18n="solarHomeCardTitle">الأجهزة المنزلية وتحديد العدد والتشغيل</span>
+              </h3>
+              <p class="solar-card-desc" style="font-size: 0.78rem;" data-i18n="solarHomeCardDesc">حدد الأجهزة واضبط العدد وساعات التشغيل:</p>
+              <div class="appliances-grid" id="solar-appliances-grid"></div>
+            </div>
+
+            <!-- Farm Panel -->
+            <div class="solar-tab-panel" id="solar-panel-farm">
+              <h3 class="solar-card-title" style="font-size: 0.95rem;">
+                <i class="fa-solid fa-tractor text-gold"></i> <span data-i18n="solarFarmCardTitle">مواصفات المزرعة ومنظومة الري</span>
+              </h3>
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-farm-type" data-i18n="solarFarmTypeLabel">نوع المزرعة / النشاط:</label>
+                <select id="solar-farm-type" class="solar-select">
+                  <option value="green" selected data-i18n="solarFarmTypeGreen">مزرعة نباتية ومحاصيل حقلية</option>
+                  <option value="animal" data-i18n="solarFarmTypeAnimal">مزرعة إنتاج حيواني ودواجن</option>
+                  <option value="fish" data-i18n="solarFarmTypeFish">مزرعة استزراع سمكي (بدالات)</option>
+                </select>
+              </div>
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-farm-irrig" data-i18n="solarFarmIrrigLabel">طريقة الري ومصدر المياه:</label>
+                <select id="solar-farm-irrig" class="solar-select">
+                  <option value="drip" selected data-i18n="solarIrrigDrip">ري بالتنقيط (ضغط منخفض)</option>
+                  <option value="sprinkler" data-i18n="solarIrrigSprinkler">ري بالرش / محوري (Pivot)</option>
+                  <option value="flood" data-i18n="solarIrrigFlood">ري بالغمر السطحي</option>
+                  <option value="well" data-i18n="solarIrrigWell">طلمبة غاطسة من بئر عميق (>50م)</option>
+                </select>
+              </div>
+              <div class="solar-input-group">
+                <label class="solar-label" data-i18n="solarFarmMethodLabel">طريقة تحديد قدرة المنظومة:</label>
+                <div class="solar-pills-row">
+                  <button type="button" class="solar-pill-choice active solar-farm-mode-btn" data-mode="hp" onclick="SolarCalc.setFarmInputMode('hp')" data-i18n="solarFarmModeHp">عبر قدرة طلمبة الري (حصان HP)</button>
+                  <button type="button" class="solar-pill-choice solar-farm-mode-btn" data-mode="kw" onclick="SolarCalc.setFarmInputMode('kw')" data-i18n="solarFarmModeKw">إدخال عدد الكيلووات (kW)</button>
+                </div>
+              </div>
+              <div id="solar-farm-hp-wrap" class="solar-input-group">
+                <label class="solar-label">
+                  <span data-i18n="solarFarmHpLabel">قدرة طلمبة الري (حصان):</span>
+                  <strong id="solar-farm-hp-val" style="color: #059669; font-size: 1.1rem;">10</strong> HP
+                </label>
+                <input type="range" id="solar-farm-hp" min="1" max="100" step="1" value="10" style="width: 100%; accent-color: #10B981;">
+              </div>
+              <div id="solar-farm-kw-wrap" class="solar-input-group" style="display: none;">
+                <label class="solar-label" for="solar-farm-kw" data-i18n="solarFactKwLabel">عدد الكيلووات المطلوبة (kW): *</label>
+                <input type="number" id="solar-farm-kw" class="solar-input" min="1" max="1000" step="1" value="15">
+              </div>
+            </div>
+
+            <!-- Factory Panel -->
+            <div class="solar-tab-panel" id="solar-panel-factory">
+              <h3 class="solar-card-title" style="font-size: 0.95rem;">
+                <i class="fa-solid fa-city text-gold"></i> <span data-i18n="solarFactCardTitle">الطاقة الشمسية للمصانع</span>
+              </h3>
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-fact-kw" data-i18n="solarFactKwLabel">عدد الكيلووات المطلوبة للمصنع (kW): *</label>
+                <input type="number" id="solar-fact-kw" class="solar-input" min="5" max="2000" step="5" value="50">
+              </div>
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-fact-bill" data-i18n="solarFactBillLabel">متوسط فاتورة الكهرباء الشهرية (ج.م):</label>
+                <input type="number" id="solar-fact-bill" class="solar-input" min="1000" step="1000" value="50000">
+              </div>
+            </div>
+          </div>
+
+          <!-- Output & Cumulative Savings Results -->
+          <div class="solar-results-card" style="padding: 1rem; margin-bottom: 1rem;">
+            <div class="solar-res-header" style="margin-bottom: 1rem;">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 900; color: #064E3B; margin: 0;" data-i18n="solarResTitle">مؤشرات المحطة والوفر المالي</h3>
+                <span style="font-size: 0.72rem; color: #64748B;" data-i18n="solarResSub">نتائج تقديرية فورية متفاعلة</span>
+              </div>
+              <span class="solar-res-badge">2026</span>
+            </div>
+
+            <div class="solar-kpi-main" style="padding: 1rem; margin-bottom: 1rem;">
+              <div class="solar-kpi-label" data-i18n="solarResCostLabel">التكلفة التقديرية لإنشاء المحطة:</div>
+              <div class="solar-kpi-value" id="solar-res-cost" style="font-size: 1.6rem;">0 ج.م</div>
+              <div class="solar-kpi-sub" data-i18n="solarResCostSub">تشمل الألواح والإنفرتر والهياكل والتركيب والتشغيل</div>
+            </div>
+
+            <div class="solar-timeline-title" style="font-size: 0.85rem; margin-bottom: 0.6rem;">
+              <i class="fa-solid fa-coins text-gold"></i> <span data-i18n="solarSavingsTitle">الوفر المالي التراكمي المتوقع:</span>
+            </div>
+            <div class="solar-timeline-grid" style="grid-template-columns: 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr1">خلال سنة واحدة</div>
+                <div class="solar-time-amount" id="solar-res-yr1">0 ج.م</div>
+              </div>
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr5">خلال 5 سنوات</div>
+                <div class="solar-time-amount" id="solar-res-yr5">0 ج.م</div>
+              </div>
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr10">خلال 10 سنوات</div>
+                <div class="solar-time-amount" id="solar-res-yr10">0 ج.م</div>
+              </div>
+            </div>
+
+            <!-- Sub KPIs -->
+            <div class="solar-sub-kpis" style="grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResRoiLabel">فترة الاسترداد:</div>
+                <div class="solar-mini-val text-gold" id="solar-res-roi">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResCo2Label">خفض كربون:</div>
+                <div class="solar-mini-val text-emerald" id="solar-res-co2">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResPanelsLabel">عدد الألواح:</div>
+                <div class="solar-mini-val" id="solar-res-panels">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResAreaLabel">المساحة:</div>
+                <div class="solar-mini-val" id="solar-res-area">--</div>
+              </div>
+            </div>
+
+            <!-- WhatsApp CTA Button -->
+            <a href="#" id="solar-btn-whatsapp" target="_blank" rel="noopener" class="solar-btn-whatsapp" style="padding: 0.85rem;">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i>
+              <span data-i18n="solarCtaWa">اطلب دراسة فنية وعرض سعر رسمي</span>
+            </a>
+          </div>
+
+          <!-- Disclaimer Box -->
+          <div class="solar-disclaimer-box" style="margin-top: 1rem; padding: 1rem;">
+            <div class="solar-disclaimer-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="solar-disclaimer-content">
+              <h4 data-i18n="solarDisclaimerTitle">تنويه وإخلاء مسؤولية فني وقانوني هام:</h4>
+              <p data-i18n="solarDisclaimerText">جميع الأرقام والتكاليف والوفورات المالية استرشادية وتقديرية مبنية على متوسطات السوق الحالية لعام 2026. قد تختلف الأرقام حسب الموقع ونوع الأجهزة والمعدات. يرجى التواصل لطلب معاينة فنية ودراسة جدوى مخصصة.</p>
+            </div>
           </div>
         </div>
 
@@ -457,6 +680,10 @@
         <i class="fa-solid fa-calculator text-gold"></i>
         <span>الحاسبات الذكية</span>
       </div>
+      <div class="action-sheet-item" onclick="switchTab('calculators'); switchCalcTab('solar');">
+        <i class="fa-solid fa-solar-panel text-gold"></i>
+        <span data-i18n="navSolar">الطاقة الشمسية</span>
+      </div>
       <div class="action-sheet-item" onclick="switchTab('impact')">
         <i class="fa-solid fa-chart-pie text-emerald"></i>
         <span>لوحة الأثر والمؤشرات</span>
@@ -510,6 +737,7 @@
 
   <!-- Mobile App Core Engine -->
   <script src="./js/translations.js"></script>
+  <script src="./js/solar-calculator.js"></script>
   <script src="./js/mobile-app.js"></script>
 </body>
 </html>

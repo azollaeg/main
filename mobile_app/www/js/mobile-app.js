@@ -62,6 +62,9 @@ function setMobileLanguage(langCode) {
   if (typeof runWaterCalc === 'function') runWaterCalc();
   if (typeof runBasinCalc === 'function') runBasinCalc();
   if (typeof runCarbonCalc === 'function') runCarbonCalc();
+  if (window.SolarCalc && typeof window.SolarCalc.onLanguageChange === 'function') {
+    window.SolarCalc.onLanguageChange();
+  }
 }
 window.setMobileLanguage = setMobileLanguage;
 
@@ -178,6 +181,9 @@ function initCalculators() {
   runWaterCalc();
   runBasinCalc();
   runCarbonCalc();
+  if (window.SolarCalc && typeof window.SolarCalc.init === 'function') {
+    window.SolarCalc.init();
+  }
 }
 
 function switchCalcTab(calcId) {
@@ -195,6 +201,9 @@ function switchCalcTab(calcId) {
   const target = document.getElementById(`calc-panel-${calcId}`);
   if (target) {
     target.style.display = 'block';
+  }
+  if (calcId === 'solar' && window.SolarCalc && typeof window.SolarCalc.init === 'function') {
+    window.SolarCalc.init();
   }
 }
 
