@@ -1,0 +1,907 @@
+/* ==========================================================================
+   AZOLLA EGYPT — COMPREHENSIVE SOLAR ENERGY CALCULATOR 2026
+   Styles for Home, Farm, and Industrial Solar Sizing & Savings Calculator
+   ========================================================================== */
+
+.solar-calc-section {
+  padding: 5rem 0;
+  background: linear-gradient(180deg, #F8FAFC 0%, #ECFDF5 50%, #F0FDF4 100%);
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+}
+
+[data-theme="dark"] .solar-calc-section {
+  background: linear-gradient(180deg, #06150F 0%, #0A2218 50%, #06150F 100%);
+}
+
+/* Header Suite Card */
+.solar-hub-header {
+  background: linear-gradient(135deg, #064E3B 0%, #047857 70%, #059669 100%);
+  color: #FFFFFF;
+  border-radius: 20px;
+  padding: 2.25rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(6, 78, 59, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.solar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245, 158, 11, 0.2);
+  color: #FDE68A;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 0.85rem;
+}
+
+.solar-main-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.solar-main-desc {
+  font-size: 0.95rem;
+  color: #E2ECE9;
+  max-width: 680px;
+  line-height: 1.7;
+}
+
+/* Market Price Ticker / Tweak Bar */
+.solar-market-bar {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .solar-market-bar {
+  background: #0B1E16;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.solar-market-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed #CBD5E1;
+}
+
+[data-theme="dark"] .solar-market-header {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.solar-market-notice {
+  font-size: 0.84rem;
+  color: #D97706;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .solar-market-notice {
+  color: #FBBF24;
+}
+
+.solar-market-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.solar-market-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.solar-market-field label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #334155;
+  display: flex;
+  justify-content: space-between;
+}
+
+[data-theme="dark"] .solar-market-field label {
+  color: #CBD5E1;
+}
+
+.solar-market-field .input-wrap {
+  display: flex;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .solar-market-field .input-wrap {
+  background: #071510;
+  border-color: #1E3A2E;
+}
+
+.solar-market-field .input-wrap:focus-within {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.solar-market-field input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #064E3B;
+  outline: none;
+  direction: ltr;
+  text-align: right;
+  font-family: inherit;
+}
+
+[data-theme="dark"] .solar-market-field input {
+  color: #34D399;
+}
+
+.solar-market-field .input-unit {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+
+/* Mode of Operation Switcher (Day Only vs Day+Night) */
+.solar-mode-container {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .solar-mode-container {
+  background: #0B1E16;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.solar-mode-title {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #0F172A;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .solar-mode-title {
+  color: #FFFFFF;
+}
+
+.solar-mode-toggle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.solar-mode-card {
+  border: 2px solid #CBD5E1;
+  border-radius: 14px;
+  padding: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #F8FAFC;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+[data-theme="dark"] .solar-mode-card {
+  background: #071510;
+  border-color: #1E3A2E;
+}
+
+.solar-mode-card.active {
+  border-color: #10B981;
+  background: #ECFDF5;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.12);
+}
+
+[data-theme="dark"] .solar-mode-card.active {
+  background: #092C20;
+  border-color: #10B981;
+}
+
+.solar-mode-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #E2E8F0;
+  color: #064E3B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.solar-mode-card.active .solar-mode-icon {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.solar-mode-card h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="dark"] .solar-mode-card h4 {
+  color: #F1F5F9;
+}
+
+.solar-mode-card p {
+  font-size: 0.8rem;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+[data-theme="dark"] .solar-mode-card p {
+  color: #94A3B8;
+}
+
+/* Main Category Tabs (Homes, Farms, Factories) */
+.solar-nav-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.solar-tab-btn {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.15rem 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .solar-tab-btn {
+  background: #0B1E16;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+}
+
+.solar-tab-btn i {
+  font-size: 1.25rem;
+  color: #059669;
+  transition: transform 0.2s ease;
+}
+
+.solar-tab-btn:hover {
+  border-color: #10B981;
+  color: #064E3B;
+  transform: translateY(-2px);
+}
+
+.solar-tab-btn.active {
+  background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+  border-color: #059669;
+  color: #FFFFFF;
+  box-shadow: 0 10px 25px rgba(6, 78, 59, 0.25);
+}
+
+.solar-tab-btn.active i {
+  color: #F59E0B;
+}
+
+/* Calculator Tab Panels */
+.solar-tab-panel {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.solar-tab-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Calculator Grid (2 Columns: Inputs on Right, Outputs on Left) */
+.solar-calc-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Left Card: Input Panel */
+.solar-inputs-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .solar-inputs-card {
+  background: #0B1E16;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.solar-card-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #064E3B;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+[data-theme="dark"] .solar-card-title {
+  color: #34D399;
+}
+
+.solar-card-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .solar-card-desc {
+  color: #94A3B8;
+}
+
+/* Appliances Interactive Grid for Homes */
+.appliances-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.85rem;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.appliances-grid::-webkit-scrollbar {
+  width: 6px;
+}
+.appliances-grid::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.appliance-item-card {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .appliance-item-card {
+  background: #071510;
+  border-color: #1E3A2E;
+}
+
+.appliance-item-card.has-items {
+  border-color: #10B981;
+  background: #F0FDF4;
+}
+
+[data-theme="dark"] .appliance-item-card.has-items {
+  background: #092C20;
+  border-color: #059669;
+}
+
+.appliance-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.appliance-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.appliance-emoji {
+  font-size: 1.4rem;
+}
+
+.appliance-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1E293B;
+}
+
+[data-theme="dark"] .appliance-title {
+  color: #F1F5F9;
+}
+
+.appliance-watt {
+  font-size: 0.74rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+/* Stepper (+ / -) */
+.stepper-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+[data-theme="dark"] .stepper-control {
+  background: #0B1E16;
+  border-color: #1E3A2E;
+}
+
+.stepper-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #F1F5F9;
+  border: none;
+  color: #0F172A;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+[data-theme="dark"] .stepper-btn {
+  background: #1E3A2E;
+  color: #FFFFFF;
+}
+
+.stepper-btn:hover {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.stepper-val {
+  min-width: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #064E3B;
+}
+
+[data-theme="dark"] .stepper-val {
+  color: #34D399;
+}
+
+.appliance-hours-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748B;
+  padding-top: 0.35rem;
+  border-top: 1px dashed #E2E8F0;
+}
+
+[data-theme="dark"] .appliance-hours-row {
+  border-top-color: #1E3A2E;
+  color: #94A3B8;
+}
+
+.appliance-hours-row input[type="range"] {
+  flex: 1;
+  height: 4px;
+  accent-color: #10B981;
+  cursor: pointer;
+}
+
+/* Farm & Factory Input Controls */
+.solar-input-group {
+  margin-bottom: 1.25rem;
+}
+
+.solar-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.45rem;
+}
+
+[data-theme="dark"] .solar-label {
+  color: #E2E8F0;
+}
+
+.solar-select, .solar-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0F172A;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+[data-theme="dark"] .solar-select, [data-theme="dark"] .solar-input {
+  background: #071510;
+  border-color: #1E3A2E;
+  color: #FFFFFF;
+}
+
+.solar-select:focus, .solar-input:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.solar-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.solar-pill-choice {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .solar-pill-choice {
+  background: #071510;
+  border-color: #1E3A2E;
+  color: #CBD5E1;
+}
+
+.solar-pill-choice:hover {
+  border-color: #10B981;
+}
+
+.solar-pill-choice.active {
+  background: #10B981;
+  color: #FFFFFF;
+  border-color: #10B981;
+}
+
+/* Right Card: Output Results Panel */
+.solar-results-card {
+  background: #FFFFFF;
+  border: 2px solid #10B981;
+  border-radius: 18px;
+  padding: 1.75rem;
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08);
+  position: sticky;
+  top: 90px;
+}
+
+[data-theme="dark"] .solar-results-card {
+  background: #0B1E16;
+  border-color: #059669;
+}
+
+.solar-res-header {
+  border-bottom: 2px solid #E2E8F0;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[data-theme="dark"] .solar-res-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.solar-res-badge {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+[data-theme="dark"] .solar-res-badge {
+  background: #092C20;
+  color: #34D399;
+  border-color: #059669;
+}
+
+/* Highlight Output Cards */
+.solar-kpi-main {
+  background: linear-gradient(135deg, #064E3B 0%, #047857 100%);
+  color: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.25rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 20px rgba(6, 78, 59, 0.2);
+}
+
+.solar-kpi-label {
+  font-size: 0.85rem;
+  color: #A7F3D0;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.solar-kpi-value {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #FDE68A;
+  line-height: 1.1;
+  font-family: inherit;
+  direction: ltr;
+}
+
+.solar-kpi-sub {
+  font-size: 0.78rem;
+  color: #E2ECE9;
+  margin-top: 0.35rem;
+}
+
+/* Savings Timeline (1 Yr, 5 Yrs, 10 Yrs) */
+.solar-timeline-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .solar-timeline-title {
+  color: #E2E8F0;
+}
+
+.solar-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.solar-time-card {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  border-bottom: 3.5px solid #059669;
+}
+
+[data-theme="dark"] .solar-time-card {
+  background: #071510;
+  border-color: #1E3A2E;
+}
+
+.solar-time-card:nth-child(2) {
+  border-bottom-color: #0284C7;
+}
+
+.solar-time-card:nth-child(3) {
+  border-bottom-color: #D97706;
+}
+
+.solar-time-period {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #64748B;
+  margin-bottom: 0.2rem;
+}
+
+[data-theme="dark"] .solar-time-period {
+  color: #94A3B8;
+}
+
+.solar-time-amount {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #064E3B;
+  direction: ltr;
+}
+
+[data-theme="dark"] .solar-time-amount {
+  color: #34D399;
+}
+
+/* Secondary KPIs Grid */
+.solar-sub-kpis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.solar-mini-kpi {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+}
+
+[data-theme="dark"] .solar-mini-kpi {
+  background: #071510;
+  border-color: #1E3A2E;
+}
+
+.solar-mini-label {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin-bottom: 0.2rem;
+}
+
+.solar-mini-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  direction: ltr;
+  text-align: right;
+}
+
+[data-theme="dark"] .solar-mini-val {
+  color: #F1F5F9;
+}
+
+/* Action Button */
+.solar-btn-whatsapp {
+  width: 100%;
+  background: #10B981;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 0.95rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  text-decoration: none;
+}
+
+.solar-btn-whatsapp:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  color: #FFFFFF;
+}
+
+/* Prominent Disclaimer Notice Box */
+.solar-disclaimer-box {
+  margin-top: 3rem;
+  background: #FFFBEB;
+  border: 2px solid #F59E0B;
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.08);
+}
+
+[data-theme="dark"] .solar-disclaimer-box {
+  background: #1C190D;
+  border-color: #D97706;
+}
+
+.solar-disclaimer-icon {
+  font-size: 1.85rem;
+  color: #D97706;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.solar-disclaimer-content h4 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #92400E;
+  margin-bottom: 0.4rem;
+}
+
+[data-theme="dark"] .solar-disclaimer-content h4 {
+  color: #FCD34D;
+}
+
+.solar-disclaimer-content p {
+  font-size: 0.88rem;
+  color: #78350F;
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .solar-disclaimer-content p {
+  color: #FDE68A;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 992px) {
+  .solar-calc-grid {
+    grid-template-columns: 1fr;
+  }
+  .solar-results-card {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .solar-main-title {
+    font-size: 1.6rem;
+  }
+  .solar-nav-tabs {
+    grid-template-columns: 1fr;
+  }
+  .solar-mode-toggle-grid {
+    grid-template-columns: 1fr;
+  }
+  .appliances-grid {
+    grid-template-columns: 1fr;
+  }
+  .solar-timeline-grid {
+    grid-template-columns: 1fr;
+  }
+}

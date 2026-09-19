@@ -29,6 +29,7 @@
 
   <!-- Master Stylesheet -->
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/solar-calculator.css">
 </head>
 <body>
 
@@ -96,6 +97,7 @@
           <li><a href="#about" class="nav-link" data-page="about"><i class="fa-solid fa-circle-info"></i> <span data-i18n="navAbout">عن المشروع</span></a></li>
           <li><a href="#science" class="nav-link" data-page="science"><i class="fa-solid fa-flask"></i> <span data-i18n="navScience">سرخس الأزولا</span></a></li>
           <li><a href="#services" class="nav-link nav-link-calc" data-page="services"><i class="fa-solid fa-calculator"></i> <span data-i18n="navServices">الخدمات والحاسبات</span></a></li>
+          <li><a href="#solar-calculator" class="nav-link nav-link-solar"><i class="fa-solid fa-solar-panel text-gold"></i> <span data-i18n="navSolar">حاسبة الطاقة الشمسية</span></a></li>
           <li><a href="#news" class="nav-link" data-page="news"><i class="fa-solid fa-newspaper"></i> <span data-i18n="navNews">أخبارنا والمدونة</span></a></li>
           <li><a href="#academy" class="nav-link" data-page="academy"><i class="fa-solid fa-graduation-cap"></i> <span data-i18n="navAcademy">الأكاديمية</span></a></li>
           
@@ -204,6 +206,7 @@
       <li><a href="#about" class="mobile-nav-link" data-page="about"><i class="fa-solid fa-circle-info text-emerald"></i> <span data-i18n="navAbout">عن المشروع</span></a></li>
       <li><a href="#science" class="mobile-nav-link" data-page="science"><i class="fa-solid fa-flask text-emerald"></i> <span data-i18n="navScience">الأزولا واستخداماته</span></a></li>
       <li><a href="#services" class="mobile-nav-link" data-page="services"><i class="fa-solid fa-calculator text-emerald"></i> <span data-i18n="navServices">الخدمات والحاسبات الذكية</span></a></li>
+      <li><a href="#solar-calculator" class="mobile-nav-link"><i class="fa-solid fa-solar-panel text-emerald"></i> <span data-i18n="navSolar">حاسبة الطاقة الشمسية</span></a></li>
       <li><a href="#news" class="mobile-nav-link" data-page="news"><i class="fa-solid fa-newspaper text-emerald"></i> <span data-i18n="navNews">أخبارنا والمدونة</span></a></li>
       <li><a href="#academy" class="mobile-nav-link" data-page="academy"><i class="fa-solid fa-graduation-cap text-emerald"></i> <span data-i18n="navAcademy">الأكاديمية</span></a></li>
       <li><a href="#impact" class="mobile-nav-link" data-page="impact"><i class="fa-solid fa-earth-africa text-emerald"></i> <span data-i18n="navImpact">الأثر والتمكين</span></a></li>
@@ -635,6 +638,280 @@
               <div style="font-size: 0.85rem; color: var(--color-text-muted);">إنتاج: 75 طن/سنة</div>
               <div style="font-weight: 700; color: var(--color-primary); margin-top: 0.75rem;">استرداد: 14 – 18 شهراً</div>
             </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- COMPREHENSIVE SOLAR ENERGY CALCULATOR (Homes • Farms • Factories)   -->
+    <!-- ===================================================================== -->
+    <section class="section solar-calc-section" id="solar-calculator">
+      <div class="container">
+        
+        <!-- Header Banner -->
+        <div class="solar-hub-header">
+          <div>
+            <div class="solar-badge">
+              <i class="fa-solid fa-solar-panel"></i> <span data-i18n="solarHubBadge">المنظومة الوطنية للطاقة المتجددة 2026</span>
+            </div>
+            <h2 class="solar-main-title" data-i18n="solarHubTitle">حاسبة الطاقة الشمسية الشاملة (منازل • مزارع • مصانع)</h2>
+            <p class="solar-main-desc" data-i18n="solarHubDesc">أداة هندسية ومالية ذكية لتقدير قدرة محطات الطاقة الشمسية، التكلفة الاستثمارية، والوفر المالي التراكمي لـ 1 و 5 و 10 سنوات، تدعم تقنيات الري النظيف وخفض الانبعاثات بالتعاون مع SGP/GEF/UNDP.</p>
+          </div>
+
+          <div style="background: rgba(255, 255, 255, 0.12); padding: 0.85rem 1.25rem; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; min-width: 170px;">
+            <div style="font-size: 0.8rem; color: #A7F3D0; font-weight: 700;">القدرة المستهدفة</div>
+            <div id="solar-res-kw" style="font-size: 1.8rem; font-weight: 900; color: #FDE68A; direction: ltr;">1.0 kW</div>
+            <div style="font-size: 0.72rem; color: #E2ECE9;">تقدير فوري ذكي</div>
+          </div>
+        </div>
+
+        <!-- Dynamic Market Rates Bar (Editable) -->
+        <div class="solar-market-bar">
+          <div class="solar-market-header">
+            <div style="font-weight: 900; font-size: 0.95rem; color: var(--color-primary, #064E3B); display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-sliders text-gold"></i> <span data-i18n="solarMktTitle">متغيرات السوق والأسعار التقديرية اليوم (2026)</span>
+            </div>
+            <div class="solar-market-notice">
+              <i class="fa-solid fa-circle-info"></i> <span data-i18n="solarMktNotice">تنبيه: يمكنك مراجعة وتعديل الأسعار أدناه لتطابق أسعار السوق وفاتورتك الفعلية:</span>
+            </div>
+          </div>
+
+          <div class="solar-market-inputs-grid">
+            <div class="solar-market-field">
+              <label for="solar-mkt-elec">
+                <span data-i18n="solarMktElecLabel">سعر ك.و.س كهرباء اليوم:</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="solar-mkt-elec" step="0.1" min="0.5" max="20" value="2.8">
+                <span class="input-unit">ج.م / ك.و.س</span>
+              </div>
+            </div>
+
+            <div class="solar-market-field">
+              <label for="solar-mkt-kw-day">
+                <span data-i18n="solarMktDayLabel">سعر كيلووات المحطة (نهاري):</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="solar-mkt-kw-day" step="500" min="5000" max="150000" value="30000">
+                <span class="input-unit">ج.م / kWp</span>
+              </div>
+            </div>
+
+            <div class="solar-market-field">
+              <label for="solar-mkt-kw-hyb">
+                <span data-i18n="solarMktHybLabel">سعر كيلووات المحطة (ببطاريات):</span>
+              </label>
+              <div class="input-wrap">
+                <input type="number" id="solar-mkt-kw-hyb" step="1000" min="10000" max="250000" value="58000">
+                <span class="input-unit">ج.م / kWp</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operating Mode Toggle (Day Only vs Day+Night Hybrid) -->
+        <div class="solar-mode-container">
+          <div class="solar-mode-title">
+            <i class="fa-solid fa-bolt-lightning text-gold"></i> <span data-i18n="solarModeTitle">اختر نمط تشغيل الطاقة الشمسية المطلوب:</span>
+          </div>
+          <div class="solar-mode-toggle-grid">
+            <div class="solar-mode-card active" data-mode="day" onclick="SolarCalc.setSystemMode('day')">
+              <div class="solar-mode-icon">
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <div>
+                <h4 data-i18n="solarModeDayTitle">☀️ نهاري فقط (اقتصادي ومباشر On-Grid)</h4>
+                <p data-i18n="solarModeDayDesc">تشغيل فوري للأجهزة وطلمبات الري أثناء سطوع الشمس بدون بطاريات. تكلفة استثمارية أقل واسترداد رأس مال سريع.</p>
+              </div>
+            </div>
+
+            <div class="solar-mode-card" data-mode="hybrid" onclick="SolarCalc.setSystemMode('hybrid')">
+              <div class="solar-mode-icon">
+                <i class="fa-solid fa-moon"></i>
+              </div>
+              <div>
+                <h4 data-i18n="solarModeHybTitle">🌙 نهاري + ليلي (ببطاريات تخزين Hybrid)</h4>
+                <p data-i18n="solarModeHybDesc">تشغيل مدار 24 ساعة مع منظومة بطاريات شمسية للتخزين الليلي، يضمن استقلالية كاملة عن انقطاع التيار.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sector Tabs (Homes, Farms, Factories) -->
+        <div class="solar-nav-tabs">
+          <button type="button" class="solar-tab-btn active" data-tab="home" onclick="SolarCalc.switchTab('home')">
+            <i class="fa-solid fa-house-chimney"></i> <span data-i18n="solarTabHome">1. الطاقة الشمسية للمنازل</span>
+          </button>
+          <button type="button" class="solar-tab-btn" data-tab="farm" onclick="SolarCalc.switchTab('farm')">
+            <i class="fa-solid fa-wheat-awn"></i> <span data-i18n="solarTabFarm">2. الطاقة الشمسية للمزارع والري</span>
+          </button>
+          <button type="button" class="solar-tab-btn" data-tab="factory" onclick="SolarCalc.switchTab('factory')">
+            <i class="fa-solid fa-industry"></i> <span data-i18n="solarTabFactory">3. الطاقة الشمسية للمصانع</span>
+          </button>
+        </div>
+
+        <!-- Active Calculator Layout (Inputs & Outputs) -->
+        <div class="solar-calc-grid">
+          
+          <!-- LEFT / INPUTS COLUMN -->
+          <div class="solar-inputs-card">
+            
+            <!-- PANEL 1: HOMES -->
+            <div class="solar-tab-panel active" id="solar-panel-home">
+              <h3 class="solar-card-title">
+                <i class="fa-solid fa-list-check text-gold"></i> <span data-i18n="solarHomeCardTitle">قائمة الأجهزة المنزلية وتحديد العدد والتشغيل</span>
+              </h3>
+              <p class="solar-card-desc" data-i18n="solarHomeCardDesc">حدد الأجهزة الموجودة في منزلك واضبط العدد وساعات التشغيل اليومية لتقدير إجمالي الحمل وحجم المحطة المطلوب:</p>
+              
+              <!-- Appliances dynamic grid (populated by JS) -->
+              <div class="appliances-grid" id="solar-appliances-grid"></div>
+            </div>
+
+            <!-- PANEL 2: FARMS -->
+            <div class="solar-tab-panel" id="solar-panel-farm">
+              <h3 class="solar-card-title">
+                <i class="fa-solid fa-tractor text-gold"></i> <span data-i18n="solarFarmCardTitle">مواصفات المزرعة ومنظومة ضخ المياه</span>
+              </h3>
+              <p class="solar-card-desc" data-i18n="solarFarmCardDesc">اختر نوع النشاط الزراعي وطريقة الري أو أدخل عدد الكيلووات المطلوبة مباشرة:</p>
+
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-farm-type" data-i18n="solarFarmTypeLabel">نوع المزرعة / النشاط:</label>
+                <select id="solar-farm-type" class="solar-select">
+                  <option value="green" data-i18n="solarFarmTypeGreen" selected>مزرعة نباتية ومحاصيل حقلية</option>
+                  <option value="animal" data-i18n="solarFarmTypeAnimal">مزرعة إنتاج حيواني ودواجن</option>
+                  <option value="fish" data-i18n="solarFarmTypeFish">مزرعة استزراع سمكي (بدالات وهوايات)</option>
+                </select>
+              </div>
+
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-farm-irrig" data-i18n="solarFarmIrrigLabel">طريقة الري ومصدر المياه:</label>
+                <select id="solar-farm-irrig" class="solar-select">
+                  <option value="drip" data-i18n="solarIrrigDrip" selected>ري بالتنقيط (ضغط منخفض - موفر للطاقة)</option>
+                  <option value="sprinkler" data-i18n="solarIrrigSprinkler">ري بالرش / محوري (Pivot)</option>
+                  <option value="flood" data-i18n="solarIrrigFlood">ري بالغمر السطحي (قنوات مائية)</option>
+                  <option value="well" data-i18n="solarIrrigWell">طلمبة غاطسة من بئر عميق (أكثر من 50 متر)</option>
+                </select>
+              </div>
+
+              <div class="solar-input-group">
+                <label class="solar-label" data-i18n="solarFarmMethodLabel">طريقة تحديد قدرة المنظومة:</label>
+                <div class="solar-pills-row">
+                  <button type="button" class="solar-pill-choice active solar-farm-mode-btn" data-mode="hp" onclick="SolarCalc.setFarmInputMode('hp')" data-i18n="solarFarmModeHp">عبر قدرة طلمبة الري (بالحصان HP)</button>
+                  <button type="button" class="solar-pill-choice solar-farm-mode-btn" data-mode="kw" onclick="SolarCalc.setFarmInputMode('kw')" data-i18n="solarFarmModeKw">إدخال عدد الكيلووات مباشرة (kW)</button>
+                </div>
+              </div>
+
+              <div id="solar-farm-hp-wrap" class="solar-input-group">
+                <label class="solar-label">
+                  <span data-i18n="solarFarmHpLabel">قدرة طلمبة الري (حصان):</span>
+                  <strong id="solar-farm-hp-val" style="color: #059669; font-size: 1.1rem;">10</strong> HP
+                </label>
+                <input type="range" id="solar-farm-hp" min="1" max="100" step="1" value="10" style="width: 100%; accent-color: #10B981;">
+              </div>
+
+              <div id="solar-farm-kw-wrap" class="solar-input-group" style="display: none;">
+                <label class="solar-label" for="solar-farm-kw" data-i18n="solarFactKwLabel">عدد الكيلووات المطلوبة (kW): *</label>
+                <input type="number" id="solar-farm-kw" class="solar-input" min="1" max="1000" step="1" value="15" placeholder="مثال: 15">
+              </div>
+            </div>
+
+            <!-- PANEL 3: FACTORIES -->
+            <div class="solar-tab-panel" id="solar-panel-factory">
+              <h3 class="solar-card-title">
+                <i class="fa-solid fa-city text-gold"></i> <span data-i18n="solarFactCardTitle">حساب الطاقة الشمسية للمصانع والمنشآت</span>
+              </h3>
+              <p class="solar-card-desc" data-i18n="solarFactCardDesc">اكتفِ بوضع عدد الكيلووات المطلوبة أو الحمل الأقصى للمصنع لحساب التكلفة والوفر المالي فوراً:</p>
+
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-fact-kw" data-i18n="solarFactKwLabel">عدد الكيلووات المطلوبة للمصنع (kW): *</label>
+                <input type="number" id="solar-fact-kw" class="solar-input" min="5" max="2000" step="5" value="50" placeholder="مثال: 50">
+              </div>
+
+              <div class="solar-input-group">
+                <label class="solar-label" for="solar-fact-bill" data-i18n="solarFactBillLabel">متوسط فاتورة الكهرباء الشهرية للمصنع (ج.م) - اختياري:</label>
+                <input type="number" id="solar-fact-bill" class="solar-input" min="1000" step="1000" value="50000" placeholder="مثال: 50000">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT / OUTPUTS COLUMN -->
+          <div class="solar-results-card">
+            <div class="solar-res-header">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 900; color: #064E3B; margin: 0;" data-i18n="solarResTitle">مؤشرات المحطة والوفر المالي</h3>
+                <span style="font-size: 0.78rem; color: #64748B;" data-i18n="solarResSub">نتائج تقديرية فورية متفاعلة</span>
+              </div>
+              <span class="solar-res-badge">2026 Updated</span>
+            </div>
+
+            <!-- Main Capex Highlight -->
+            <div class="solar-kpi-main">
+              <div class="solar-kpi-label" data-i18n="solarResCostLabel">التكلفة التقديرية لإنشاء المحطة:</div>
+              <div class="solar-kpi-value" id="solar-res-cost">0 ج.م</div>
+              <div class="solar-kpi-sub" data-i18n="solarResCostSub">تشمل الألواح والإنفرتر والهياكل والتركيب والتشغيل</div>
+            </div>
+
+            <!-- Cumulative Savings Timeline (1, 5, 10 Years) -->
+            <div class="solar-timeline-title">
+              <i class="fa-solid fa-coins text-gold"></i> <span data-i18n="solarSavingsTitle">الوفر المالي التراكمي المتوقع:</span>
+            </div>
+            <div class="solar-timeline-grid">
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr1">خلال سنة واحدة</div>
+                <div class="solar-time-amount" id="solar-res-yr1">0 ج.م</div>
+              </div>
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr5">خلال 5 سنوات</div>
+                <div class="solar-time-amount" id="solar-res-yr5">0 ج.م</div>
+              </div>
+              <div class="solar-time-card">
+                <div class="solar-time-period" data-i18n="solarYr10">خلال 10 سنوات</div>
+                <div class="solar-time-amount" id="solar-res-yr10">0 ج.م</div>
+              </div>
+            </div>
+
+            <!-- Technical & Environmental Sub-KPIs -->
+            <div class="solar-sub-kpis">
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResRoiLabel">فترة استرداد رأس المال:</div>
+                <div class="solar-mini-val text-gold" id="solar-res-roi">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResCo2Label">خفض الكربون سنوياً:</div>
+                <div class="solar-mini-val text-emerald" id="solar-res-co2">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResPanelsLabel">عدد الألواح التقريبي:</div>
+                <div class="solar-mini-val" id="solar-res-panels">--</div>
+              </div>
+              <div class="solar-mini-kpi">
+                <div class="solar-mini-label" data-i18n="solarResAreaLabel">المساحة المطلوبة:</div>
+                <div class="solar-mini-val" id="solar-res-area">--</div>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#" id="solar-btn-whatsapp" target="_blank" rel="noopener" class="solar-btn-whatsapp">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i>
+              <span data-i18n="solarCtaWa">اطلب دراسة فنية وعرض سعر رسمي</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Prominent Technical & Legal Disclaimer -->
+        <div class="solar-disclaimer-box">
+          <div class="solar-disclaimer-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div class="solar-disclaimer-content">
+            <h4 data-i18n="solarDisclaimerTitle">تنويه وإخلاء مسؤولية فني وقانوني هام:</h4>
+            <p data-i18n="solarDisclaimerText">
+              جميع الأرقام والتكاليف والوفورات المالية الناتجة عن هذه الحاسبة هي أرقام استرشادية وتقديرية مبنية على متوسطات السوق الحالية لعام 2026. قد تختلف هذه الأرقام على أرض الواقع الفعلي وفقاً لعدة متغيرات، منها: الموقع الجغرافي للمشروع، زاوية ميل وإشعاع الشمس، عمق المياه الجوفية ونوع التربة، نوع وماركة الألواح والإنفرتر ومحولات الطاقة، كفاءة وتذبذب أسعار الصرف ومكونات الاستيراد، والتعريفة الرسمية المعتمدة لشركات توزيع الكهرباء. يرجى التواصل لطلب معاينة هندسية ميدانية ودراسة جدوى فنية متخصصة قبل التعاقد.
+            </p>
           </div>
         </div>
 
@@ -1919,5 +2196,6 @@
   <script src="./assets/js/data.js"></script>
   <script src="./assets/js/translations.js"></script>
   <script src="./assets/js/app.js"></script>
+  <script src="./assets/js/solar-calculator.js"></script>
 </body>
 </html>
